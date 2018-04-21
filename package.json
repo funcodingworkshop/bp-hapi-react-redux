@@ -1,0 +1,38 @@
+{
+  "name": "bp-hapi-react-redux",
+  "version": "1.0.0",
+  "description": "Hapi React Redux Boilerplate",
+  "main": "src/server.js",
+  "scripts": {
+    "lint": "eslint . --ext .js",
+    "lint-fix": "eslint . --ext .js --fix",
+    "build-babel": "rimraf .build-babel/ && babel ./src --out-dir .build-babel/src/ --copy-files",
+    "start-babel": "NODE_ENV=localhost APP_MOCKS=1 node ./.build-babel/src/server",
+    "start": "NODE_ENV=localhost APP_MOCKS=1 nodemon --exec babel-node src/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klishevich/bp-hapi-react-redux.git"
+  },
+  "author": "Michael Klishevich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/klishevich/bp-hapi-react-redux/issues"
+  },
+  "homepage": "https://github.com/klishevich/bp-hapi-react-redux#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "hapi": "^17.3.1",
+    "jsonwebtoken": "^8.2.1",
+    "nock": "^9.2.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "nodemon": "^1.17.3",
+    "rimraf": "^2.6.2"
+  }
+}
