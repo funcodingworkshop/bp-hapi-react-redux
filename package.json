@@ -24,10 +24,12 @@
     "axios": "^0.18.0",
     "hapi": "^17.3.1",
     "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.1.0",
     "nock": "^9.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
