@@ -7,5 +7,5 @@ jobs:
       - checkout
       - run: echo "hello world"
       - run:
-        name: install modules
-        command: npm i
+          name: install modules
+          command: npm i
