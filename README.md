@@ -34,3 +34,7 @@ Following examples of implementation will be included
 1. Main menu, Header, Footer
 1. CRUD with REST API and MongoDB
 1. List page, Create/Edit page
+
+## Deployment
+
+CircleCI
