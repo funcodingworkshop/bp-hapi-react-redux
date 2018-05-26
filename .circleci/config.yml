@@ -5,7 +5,9 @@ jobs:
       - image: circleci/node:8.11.2-stretch-browsers
     steps:
       - checkout
-      - run: echo "hello world"
       - run:
           name: install modules
           command: npm i
+      - run:
+          name: eslint
+          command: npm run lint
