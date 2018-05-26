@@ -1,15 +1,18 @@
 const appId = 'ona-ao-ui';
-export default function getConfig(
-  APP_MOCKS = 1,
-  SERVICE_HOST = 'localhost',
-  HOST = 'localhost',
-  BALANCER_HOST = 'localhost',
-  NODE_ENV = 'localhost',
-) {
+const APP_MOCKS = process.env.APP_MOCKS || '1';
+const SERVICE_HOST = process.env.SERVICE_HOST || 'localhost';
+const NODE_ENV = process.env.NODE_ENV || 'localhost';
+const { PROD_BUILD } = process.env;
+
+console.log('APP_MOCKS', APP_MOCKS); // eslint-disable-line
+console.log('SERVICE_HOST', SERVICE_HOST); // eslint-disable-line
+console.log('NODE_ENV', NODE_ENV); // eslint-disable-line
+console.log('PROD_BUILD', PROD_BUILD); // eslint-disable-line
+
+export default function getConfig() {
   const useMocks = APP_MOCKS === '1';
   const env = NODE_ENV;
-  const serviceHost = SERVICE_HOST || HOST || 'localhost';
-  const balancerHost = BALANCER_HOST || serviceHost;
+  const serviceHost = SERVICE_HOST || 'localhost';
 
   return {
     useMocks,
@@ -20,7 +23,6 @@ export default function getConfig(
 
     server: {
       serviceHost,
-      balancerHost,
       port: 8080,
       proxyClientIpHeader: 'wl-proxy-client-ip',
       customerIdHeader: 'customerid',
@@ -62,6 +64,26 @@ export default function getConfig(
       validateJwt: {
         method: 'POST',
         path: '/validate-jwt'
+      },
+      courses: {
+        method: 'GET',
+        path: '/courses'
+      },
+      coursePost: {
+        method: 'POST',
+        path: '/courses'
+      },
+      course: {
+        method: 'GET',
+        path: '/courses/{courseId}'
+      },
+      coursePatch: {
+        method: 'PATCH',
+        path: '/courses/{courseId}'
+      },
+      courseDelete: {
+        method: 'DELETE',
+        path: '/courses/{courseId}'
       }
     }
   };
