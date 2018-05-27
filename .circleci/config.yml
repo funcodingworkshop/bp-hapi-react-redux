@@ -15,8 +15,20 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: eslint
+          name: npm run test
+          command: npm run test
+      - run:
+          name: npm run lint
           command: npm run lint
+      - run:
+          name: npm run build
+          command: npm run build
+      - run:
+          name: npm prune -production
+          command: npm prune -production
+      - run:
+          name: npm run docker-build
+          command: npm run docker-build
       - run:
           name: Creating Dummy Artifacts
           command: |
