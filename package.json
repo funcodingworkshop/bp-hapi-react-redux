@@ -4,11 +4,13 @@
   "description": "Hapi React Redux Boilerplate",
   "main": "src/server.js",
   "scripts": {
+    "test": "eslint . --ext .js",
     "lint": "eslint . --ext .js",
     "lint-fix": "eslint . --ext .js --fix",
-    "build-babel": "rimraf .build-babel/ && babel ./src --out-dir .build-babel/src/ --copy-files",
-    "start-babel": "NODE_ENV=localhost APP_MOCKS=1 node ./.build-babel/src/server",
-    "start": "NODE_ENV=localhost APP_MOCKS=1 nodemon --exec babel-node src/server"
+    "build": "rimraf .build/ && babel ./src --out-dir .build/src/ --copy-files",
+    "start-build": "NODE_ENV=localhost APP_MOCKS=1 node ./.build/src/server",
+    "start": "NODE_ENV=localhost APP_MOCKS=1 nodemon --exec babel-node src/server",
+    "docker-build": "./docker-build.sh $npm_package_name $npm_package_version"
   },
   "repository": {
     "type": "git",

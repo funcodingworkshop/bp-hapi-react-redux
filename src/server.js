@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 import getPlugins from './plugins';
 import getConfig from './config/config';
 
-mongoose.connect('mongodb://localhost/test');
+const config = getConfig();
+mongoose.connect(`mongodb://${config.server.mongoDbHost}/test`);
 const db = mongoose.connection;
 
 const init = async () => {
-  const config = getConfig();
   const server = Hapi.server({
     port: config.server.port,
-    host: '0.0.0.0'
+    host: config.server.serviceHost
   });
 
   if (config.useMocks) {

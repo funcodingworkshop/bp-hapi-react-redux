@@ -1,19 +1,16 @@
 const appId = 'ona-ao-ui';
-const APP_MOCKS = process.env.APP_MOCKS || '1';
-const SERVICE_HOST = process.env.SERVICE_HOST || 'localhost';
-const NODE_ENV = process.env.NODE_ENV || 'localhost';
+const useMocks = process.env.APP_MOCKS === '1';
+const serviceHost = process.env.SERVICE_HOST || '0.0.0.0';
+const mongoDbHost = process.env.MONGODB_HOST || '0.0.0.0';
+const env = process.env.NODE_ENV || 'localhost';
 const { PROD_BUILD } = process.env;
-
-console.log('APP_MOCKS', APP_MOCKS); // eslint-disable-line
-console.log('SERVICE_HOST', SERVICE_HOST); // eslint-disable-line
-console.log('NODE_ENV', NODE_ENV); // eslint-disable-line
+console.log('useMocks', useMocks); // eslint-disable-line
+console.log('serviceHost', serviceHost); // eslint-disable-line
+console.log('mongoDbHost', mongoDbHost); // eslint-disable-line
+console.log('env', env); // eslint-disable-line
 console.log('PROD_BUILD', PROD_BUILD); // eslint-disable-line
 
 export default function getConfig() {
-  const useMocks = APP_MOCKS === '1';
-  const env = NODE_ENV;
-  const serviceHost = SERVICE_HOST || 'localhost';
-
   return {
     useMocks,
     env,
@@ -23,6 +20,7 @@ export default function getConfig() {
 
     server: {
       serviceHost,
+      mongoDbHost,
       port: 8080,
       proxyClientIpHeader: 'wl-proxy-client-ip',
       customerIdHeader: 'customerid',
