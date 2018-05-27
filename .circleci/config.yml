@@ -26,17 +26,11 @@ jobs:
       - run:
           name: npm prune -production
           command: npm prune -production
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: login Docker Hub
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
           name: npm run docker-build
           command: npm run docker-build
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            echo "my artifact file" > /tmp/artifact-1;
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
-      - store_artifacts:
-          path: /tmp/artifact-1
-          destination: artifact-file
-      - store_artifacts:
-          path: /tmp/artifacts
