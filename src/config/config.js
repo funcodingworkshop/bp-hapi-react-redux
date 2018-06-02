@@ -2,8 +2,8 @@ const appId = 'ona-ao-ui';
 const useMocks = process.env.APP_MOCKS === '1';
 const serviceHost = process.env.SERVICE_HOST || '0.0.0.0';
 const mongoDbHost = process.env.MONGODB_HOST || '0.0.0.0';
-const mongoDbUser = process.env.MONGO_INITDB_ROOT_USERNAME || 'user';
-const mongoDbPass = process.env.MONGO_INITDB_ROOT_PASSWORD || 'pass';
+const mongoDbUser = process.env.MONGODB_USER;
+const mongoDbPass = process.env.MONGODB_PASS;
 const env = process.env.NODE_ENV || 'localhost';
 const { PROD_BUILD } = process.env;
 console.log('useMocks', useMocks); // eslint-disable-line
@@ -27,6 +27,7 @@ export default function getConfig() {
       mongoDbHost,
       mongoDbUser,
       mongoDbPass,
+      mongoDbName: 'testDb',
       port: 8080,
       proxyClientIpHeader: 'wl-proxy-client-ip',
       customerIdHeader: 'customerid',
