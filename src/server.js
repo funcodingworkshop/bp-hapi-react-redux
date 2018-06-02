@@ -4,7 +4,12 @@ import getPlugins from './plugins';
 import getConfig from './config/config';
 
 const config = getConfig();
-const { mongoDbHost, mongoDbUser, mongoDbPass, mongoDbName } = config.server;
+const {
+  mongoDbHost,
+  mongoDbUser,
+  mongoDbPass,
+  mongoDbName
+} = config.server;
 if (mongoDbUser && mongoDbPass) {
   mongoose.connect(`mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`);
 } else {
