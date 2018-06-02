@@ -4,6 +4,7 @@ const serviceHost = process.env.SERVICE_HOST || '0.0.0.0';
 const mongoDbHost = process.env.MONGODB_HOST || '0.0.0.0';
 const mongoDbUser = process.env.MONGODB_USER;
 const mongoDbPass = process.env.MONGODB_PASS;
+const mongoDbName = process.env.MONGODB_NAME || 'testDb';
 const env = process.env.NODE_ENV || 'localhost';
 const { PROD_BUILD } = process.env;
 console.log('useMocks', useMocks); // eslint-disable-line
@@ -11,6 +12,7 @@ console.log('serviceHost', serviceHost); // eslint-disable-line
 console.log('mongoDbHost', mongoDbHost); // eslint-disable-line
 console.log('mongoDbUser', mongoDbUser); // eslint-disable-line
 console.log('mongoDbPass', mongoDbPass); // eslint-disable-line
+console.log('mongoDbName', mongoDbName); // eslint-disable-line
 console.log('env', env); // eslint-disable-line
 console.log('PROD_BUILD', PROD_BUILD); // eslint-disable-line
 
@@ -27,7 +29,7 @@ export default function getConfig() {
       mongoDbHost,
       mongoDbUser,
       mongoDbPass,
-      mongoDbName: 'testDb',
+      mongoDbName,
       port: 8080,
       proxyClientIpHeader: 'wl-proxy-client-ip',
       customerIdHeader: 'customerid',
