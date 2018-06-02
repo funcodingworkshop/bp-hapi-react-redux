@@ -4,7 +4,10 @@ import getPlugins from './plugins';
 import getConfig from './config/config';
 
 const config = getConfig();
-mongoose.connect(`mongodb://${config.server.mongoDbHost}/test`);
+const { mongoDbHost, mongoDbUser, mongoDbPass } = config.server;
+// mongoose.connect(`mongodb://${mongoDbHost}/test`);
+mongoose.connect(`mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/test`);
+
 const db = mongoose.connection;
 
 const init = async () => {
