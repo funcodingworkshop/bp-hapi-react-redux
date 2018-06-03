@@ -39,9 +39,8 @@ jobs:
       enabled: true
     steps:
       - run:
-        name: Deploy Over SSH
-        command: |
-          ssh $SSH_USER@$SSH_HOST "cd /home/mike/temp && touch test2.txt"
+          name: Deploy Over SSH
+          command: ssh $SSH_USER@$SSH_HOST "cd /home/mike/temp && touch test2.txt"
 
 workflows:
   version: 2
