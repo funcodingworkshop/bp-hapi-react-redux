@@ -39,6 +39,10 @@ jobs:
       enabled: true
     steps:
       - run:
+          name: Git Pull bp-devops
+          command: |
+            ssh $SSH_USER@$SSH_HOST "cd ~/bp-devops && git pull"
+      - run:
           name: Docker Hub Login
           command: |
             ssh $SSH_USER@$SSH_HOST "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
