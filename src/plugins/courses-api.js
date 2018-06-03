@@ -10,7 +10,9 @@ const registerCourses = async (server, options) => {
 
   const handler = async () => {
     try {
-      return await Course.find();
+      const res = await Course.find();
+      console.log('courses index success'); // eslint-disable-line no-console
+      return res;
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
       return HTTP_ERROR_400;
@@ -29,6 +31,7 @@ const registerCoursePost = async (server, options) => {
     try {
       const course = new Course(request.payload);
       const res = await course.save();
+      console.log('create course\n', res); // eslint-disable-line no-console
       return h.response(res).code(201);
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
@@ -49,6 +52,7 @@ const registerCourse = async (server, options) => {
     try {
       const courses = await Course.find({ _id: courseId });
       if (courses.length === 1) {
+        console.log('read course\n', courses); // eslint-disable-line no-console
         return h.response(courses[0]).code(200);
       }
       return h.response(createError('Document not found')).code(400);
