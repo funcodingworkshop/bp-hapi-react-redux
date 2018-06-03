@@ -72,6 +72,10 @@ export default function getConfig() {
         method: 'POST',
         path: '/validate-jwt'
       },
+      indexPage: {
+        method: 'GET',
+        path: '/'
+      },
       courses: {
         method: 'GET',
         path: '/courses'
