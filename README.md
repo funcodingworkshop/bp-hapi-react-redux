@@ -9,7 +9,7 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. Babel config for Backend (**DONE**)
 1. Hapi Server (**DONE**)
 1. MongoDB (**DONE**)
-1. [Joi](https://github.com/hapijs/joi) schema vlidation
+1. [Joi](https://github.com/hapijs/joi) schema validation
 1. Testing with [hapijs/lab](https://github.com/hapijs/lab)
 1. API documentation with [hapi-swagger](https://github.com/glennjones/hapi-swagger)
 
