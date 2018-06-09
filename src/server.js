@@ -1,5 +1,7 @@
 import Hapi from 'hapi';
 import mongoose from 'mongoose';
+import Vision from 'vision';
+import Handlebars from 'handlebars';
 import getPlugins from './plugins';
 import getConfig from './config/config';
 
@@ -29,6 +31,14 @@ const init = async () => {
   }
 
   const plugins = getPlugins(config);
+  // Vision is used for adding templating engine
+  await server.register(Vision);
+  server.views({
+    engines: { html: Handlebars },
+    relativeTo: __dirname,
+    path: 'plugins/pages'
+  });
+
   await server.register(plugins);
   await server.start();
   console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line

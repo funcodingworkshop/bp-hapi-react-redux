@@ -1,7 +1,7 @@
 import sendCode from './plugins/send-phone-plugin';
 import verifyCode from './plugins/send-sms-plugin';
 import validateJwt from './plugins/validate-jwt-plugin';
-import indexPage from './plugins/index-page';
+import indexPage from './plugins/pages/index';
 import {
   coursesPlugin,
   coursePostPlugin,
