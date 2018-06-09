@@ -2,6 +2,8 @@ import Hapi from 'hapi';
 import mongoose from 'mongoose';
 import Vision from 'vision';
 import Handlebars from 'handlebars';
+import Inert from 'inert';
+import StaticAssets from './plugins/pages/static-assets';
 import getPlugins from './plugins';
 import getConfig from './config/config';
 
@@ -30,7 +32,6 @@ const init = async () => {
         require('./mock/mock'); // eslint-disable-line
   }
 
-  const plugins = getPlugins(config);
   // Vision is used for adding templating engine
   await server.register(Vision);
   server.views({
@@ -39,6 +40,11 @@ const init = async () => {
     path: 'plugins/pages'
   });
 
+  // Plugin for serving static content
+  await server.register(Inert);
+  await server.register(StaticAssets);
+
+  const plugins = getPlugins(config);
   await server.register(plugins);
   await server.start();
   console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
