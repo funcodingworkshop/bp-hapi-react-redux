@@ -1,7 +1,7 @@
 import sendCode from './plugins/send-phone-plugin';
 import verifyCode from './plugins/send-sms-plugin';
 import validateJwt from './plugins/validate-jwt-plugin';
-import indexPage from './plugins/pages/index';
+
 import {
   coursesPlugin,
   coursePostPlugin,
@@ -31,10 +31,6 @@ const getPlugins = (config) => {
     {
       plugin: validateJwt,
       options: { apiConfig: config.services.validateJwt, jwtConfig: config.jwt }
-    },
-    {
-      plugin: indexPage,
-      options: { apiConfig: config.services.indexPage }
     },
     {
       plugin: coursesPlugin,

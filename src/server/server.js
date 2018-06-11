@@ -1,12 +1,14 @@
 import Hapi from 'hapi';
 import mongoose from 'mongoose';
-import Vision from 'vision';
+import visionPlugin from 'vision';
 import Handlebars from 'handlebars';
-import Inert from 'inert';
-import staticAssets from './plugins/pages/static-assets';
+import inertPlugin from 'inert';
+import h2o2Plugin from 'h2o2';
+import indexPagePlugin from './plugins/pages/index';
+import staticAssetsPlugin from './plugins/pages/static-assets';
+import proxyAssetsPlugin from './plugins/pages/proxy-assets';
 import getPlugins from './plugins';
 import getConfig from './config/config';
-import sendCode from "./plugins/send-phone-plugin";
 
 const config = getConfig();
 const {
@@ -34,19 +36,35 @@ const init = async () => {
   }
 
   // Vision is used for adding templating engine
-  await server.register(Vision);
+  await server.register(visionPlugin);
   server.views({
     engines: { html: Handlebars },
     relativeTo: __dirname,
     path: 'plugins/pages'
   });
-
-  // Plugin for serving static content
-  await server.register(Inert);
+  // Serving html file - src/server/plugins/pages/index.html
   await server.register({
-    plugin: staticAssets,
-    options: { appModeDev: config.appModeDev }
+    plugin: indexPagePlugin,
+    options: { apiConfig: config.services.indexPage }
   });
+
+  // Proxy Plugin
+  await server.register({ plugin: h2o2Plugin });
+
+  if (config.appModeDev) {
+    // Plugin for proxy webpack dev server
+    await server.register({
+      plugin: proxyAssetsPlugin,
+      options: { host: config.proxyAssets.host, port: config.proxyAssets.port }
+    });
+  } else {
+    // Plugin for serving static content
+    await server.register(inertPlugin);
+    await server.register({
+      plugin: staticAssetsPlugin,
+      options: { appModeDev: config.appModeDev }
+    });
+  }
 
   const plugins = getPlugins(config);
   await server.register(plugins);

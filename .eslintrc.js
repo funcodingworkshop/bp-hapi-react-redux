@@ -1,6 +1,16 @@
 module.exports = {
-    "extends": "airbnb-base",
-    rules: {
-        "comma-dangle": ["error", "never"]
-    }
+  env: {
+    browser: true,
+    node: true
+  },
+  parser: "babel-eslint",
+  extends: "airbnb-base",
+  plugins: [
+    "react"
+  ],
+  rules: {
+    "comma-dangle": ["error", "never"],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  }
 };

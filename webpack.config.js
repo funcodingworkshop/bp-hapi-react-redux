@@ -14,5 +14,23 @@ module.exports = {
         to: 'assets'
       }
     ], { debug: 'info' })
-  ]
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            presets: ['env', 'react']
+          }
+        }
+      }
+    ]
+  },
+  devServer: {
+    port: 9090
+  }
 };

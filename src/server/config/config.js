@@ -26,6 +26,11 @@ export default function getConfig() {
     basePath: '',
     devtools: true,
 
+    proxyAssets: {
+      host: 'localhost',
+      port: 9090
+    },
+
     server: {
       serviceHost,
       mongoDbHost,

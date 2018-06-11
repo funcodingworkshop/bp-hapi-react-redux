@@ -1,11 +1,9 @@
 import pathFunc from 'path';
 
-const register = async (server, options) => {
-  const { appModeDev } = options;
+const register = async (server) => {
   const method = 'GET';
-  const pathInBrowser = '/assets/{param*}';
-  const pathSystem = appModeDev ? pathFunc.join(process.cwd(), 'src', 'client', 'assets')
-    : pathFunc.join(process.cwd(), '.build', 'client', 'assets');
+  const pathInBrowser = '/{param*}';
+  const pathSystem = pathFunc.join(process.cwd(), '.build', 'client');
 
   const handler = {
     directory: {
@@ -13,7 +11,11 @@ const register = async (server, options) => {
     }
   };
 
-  server.route({ method, path: pathInBrowser, handler });
+  server.route({
+    method,
+    path: pathInBrowser,
+    handler
+  });
 };
 
 const pluginExport = {

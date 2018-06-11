@@ -4,7 +4,7 @@ const register = async (server, options) => {
   } = options;
 
   const handler = async (request, h) => (h.view('index', {
-    title: 'Hapi React Redux Boilerplate',
+    title: 'Hapi React Redux Boilerplate!!!!???',
     subtitle: 'Howdy, my friend!'
   }));
 
