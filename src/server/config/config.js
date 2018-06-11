@@ -1,5 +1,6 @@
 const appId = 'ona-ao-ui';
 const useMocks = process.env.APP_MOCKS === '1';
+const appModeDev = process.env.APP_MODE_DEV === '1';
 const serviceHost = process.env.SERVICE_HOST || '0.0.0.0';
 const mongoDbHost = process.env.MONGODB_HOST || '0.0.0.0';
 const mongoDbUser = process.env.MONGODB_USER;
@@ -19,6 +20,7 @@ console.log('PROD_BUILD', PROD_BUILD); // eslint-disable-line
 export default function getConfig() {
   return {
     useMocks,
+    appModeDev,
     env,
     appId,
     basePath: '',

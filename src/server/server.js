@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 import Vision from 'vision';
 import Handlebars from 'handlebars';
 import Inert from 'inert';
-import StaticAssets from './plugins/pages/static-assets';
+import staticAssets from './plugins/pages/static-assets';
 import getPlugins from './plugins';
 import getConfig from './config/config';
+import sendCode from "./plugins/send-phone-plugin";
 
 const config = getConfig();
 const {
@@ -42,7 +43,10 @@ const init = async () => {
 
   // Plugin for serving static content
   await server.register(Inert);
-  await server.register(StaticAssets);
+  await server.register({
+    plugin: staticAssets,
+    options: { appModeDev: config.appModeDev }
+  });
 
   const plugins = getPlugins(config);
   await server.register(plugins);
