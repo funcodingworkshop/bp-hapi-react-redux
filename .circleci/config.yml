@@ -41,15 +41,15 @@ jobs:
       enabled: true
     steps:
       - run:
-          name: fobos server: git pull bp-devops
+          name: "fobos server: git pull bp-devops"
           command: |
             ssh $SSH_USER@$SSH_HOST "cd ~/bp-devops && git pull"
       - run:
-          name: fobos server: login DockerHub
+          name: "fobos server: login DockerHub"
           command: |
             ssh $SSH_USER@$SSH_HOST "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
       - run:
-          name: fobos server: redeploy stack
+          name: "fobos server: redeploy stack"
           command: |
             ssh $SSH_USER@$SSH_HOST "docker stack deploy -c ~/bp-devops/docker-compose.yml mystack --with-registry-auth"
 
