@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test_and_lint:
     docker:
       - image: circleci/node:8.11.2-stretch-browsers
     steps:
@@ -20,6 +20,8 @@ jobs:
       - run:
           name: npm run lint
           command: npm run lint
+  build:
+    steps:
       - run:
           name: npm run build
           command: npm run build
@@ -29,25 +31,25 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: login Docker Hub
+          name: login DockerHub
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
-          name: npm run docker-build
+          name: build docker container and push to DockerHub
           command: npm run docker-build
   deploy:
     machine:
       enabled: true
     steps:
       - run:
-          name: Git Pull bp-devops
+          name: fobos server: git pull bp-devops
           command: |
             ssh $SSH_USER@$SSH_HOST "cd ~/bp-devops && git pull"
       - run:
-          name: Docker Hub Login
+          name: fobos server: login DockerHub
           command: |
             ssh $SSH_USER@$SSH_HOST "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
       - run:
-          name: Redeploy Stack
+          name: fobos server: redeploy stack
           command: |
             ssh $SSH_USER@$SSH_HOST "docker stack deploy -c ~/bp-devops/docker-compose.yml mystack --with-registry-auth"
 
@@ -55,7 +57,13 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - test_and_lint
+      - build:
+          requires:
+            - test_and_lint
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - build
