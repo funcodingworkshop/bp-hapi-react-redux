@@ -21,6 +21,8 @@ jobs:
           name: npm run lint
           command: npm run lint
   build:
+    docker:
+      - image: circleci/node:8.11.2-stretch-browsers
     steps:
       - run:
           name: npm run build
