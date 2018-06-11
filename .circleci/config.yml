@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test_and_lint:
+  test:
     docker:
       - image: circleci/node:8.11.2-stretch-browsers
     steps:
@@ -55,12 +55,12 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy:
+  test-build-and-deploy:
     jobs:
-      - test_and_lint
+      - test
       - build:
           requires:
-            - test_and_lint
+            - test
           filters:
             branches:
               only: master
