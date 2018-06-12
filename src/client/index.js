@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import configureStore from './configure-store';
+import Root from './root';
 
-const Index = () => <div>Hello React 1777!</div>;
+// TODO HOT_LOADER
+const configureStoreLocal = configureStore();
+// TODO pass state for SSR
+const store = configureStoreLocal();
 
-ReactDOM.render(<Index />, document.getElementById('index'));
+ReactDOM.render(<Root store={ store } />, document.getElementById('react-app'));
