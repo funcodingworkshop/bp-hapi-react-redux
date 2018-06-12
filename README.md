@@ -18,6 +18,7 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. Webpack + Babel config for Frontend (**DONE**)
 1. React (**DONE**)
 1. Redux (**DONE**)
+1. Loaders for images, css, postCSS (**DONE**)
 1. React Router
 1. Server Side Rendering (SSR)
 1. [Redux Form](https://redux-form.com/7.3.0/)

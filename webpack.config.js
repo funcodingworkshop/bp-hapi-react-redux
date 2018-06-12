@@ -2,7 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: './src/client/index.jsx',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, '.build/client')
@@ -18,7 +18,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
+        resolve: {
+          extensions: ['.js', '.jsx']
+        },
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -28,6 +31,23 @@ module.exports = {
             plugins: ['transform-object-rest-spread', 'transform-class-properties']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader', // creates style nodes from JS strings
+          { loader: 'css-loader', options: { importLoaders: 1 } }, // translates CSS into CommonJS
+          'postcss-loader' // post CSS transform
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
       }
     ]
   },

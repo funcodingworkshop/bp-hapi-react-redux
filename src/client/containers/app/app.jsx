@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { sayBye, sayHi } from '../actions';
+import { sayBye, sayHi } from '../../actions';
+import './app.css';
+import reactImg from './react.png';
+import someOtherImg from '../../assets/img/pic.jpg';
 
 function mapStateToProps(state) {
   return {
@@ -32,12 +35,16 @@ class App extends React.Component {
     console.log('this.props', this.props);
     const { say, handleSayBye, handleSayHi } = this.props;
     return (
-      <div>
+      <div className='app'>
         <h2>App Container</h2>
         <div>this.props.say</div>
-        <div>{say}</div>
         <div><button onClick={ handleSayBye }>sayBye</button></div>
         <div><button onClick={ handleSayHi }>sayHi</button></div>
+        <div className='app__say'><b>{say}</b></div>
+        <h3>img tag</h3>
+        <img src={ reactImg } width='200px' height='200px' alt='react image' className='react-img' />
+        <h3>img tag other folder</h3>
+        <img src={ someOtherImg } width='200px' height='200px' alt='other image' className='other-img' />
       </div>
     );
   }
