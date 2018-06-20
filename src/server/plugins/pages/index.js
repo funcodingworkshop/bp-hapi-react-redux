@@ -3,7 +3,10 @@ const register = async (server, options) => {
     apiConfig: { method, path }
   } = options;
 
-  const handler = async () => ({ result: 'Howdy, my friend!' });
+  const handler = async (request, h) => (h.view('index', {
+    title: 'Hapi React Redux Boilerplate!!!!???',
+    subtitle: 'Howdy, my friend!'
+  }));
 
   server.route({ method, path, handler });
 };
