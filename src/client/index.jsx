@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from './configure-store';
+import { createStore, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+
+import createHistory from 'history/createBrowserHistory';
+
+import reducers from './reducers';
 import Root from './root';
 
-// TODO HOT_LOADER
-const configureStoreLocal = configureStore();
-// TODO pass state for SSR
-const store = configureStoreLocal();
+const history = createHistory();
+const middleware = routerMiddleware(history);
 
-ReactDOM.render(<Root store={ store } />, document.getElementById('react-app'));
+const store = createStore(reducers, applyMiddleware(middleware));
+
+ReactDOM.render(<Root store={ store } history={ history } />, document.getElementById('react-app'));

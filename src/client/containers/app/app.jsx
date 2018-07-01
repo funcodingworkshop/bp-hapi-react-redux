@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { sayBye, sayHi } from '../../actions';
 import './app.css';
 import reactImg from './react.png';
@@ -37,6 +38,13 @@ class App extends React.Component {
     return (
       <div className='app'>
         <h2>App Container</h2>
+        <div>
+          <br/>
+          <Link to='/about'>About</Link>
+          <br/>
+          <Link to='/topics'>Topics</Link>
+          <br/>
+        </div>
         <div>this.props.say</div>
         <div><button onClick={ handleSayBye }>sayBye</button></div>
         <div><button onClick={ handleSayHi }>sayHi</button></div>

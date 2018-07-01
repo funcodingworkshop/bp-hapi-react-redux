@@ -81,7 +81,7 @@ export default function getConfig() {
       },
       indexPage: {
         method: 'GET',
-        path: '/'
+        path: ''
       },
       courses: {
         method: 'GET',

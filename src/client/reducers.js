@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+
 import { types } from './actions';
 
 const appReducerInitState = {};
@@ -16,7 +18,8 @@ function appReducer(state = appReducerInitState, action) {
 }
 
 const reducers = combineReducers({
-  app: appReducer
+  app: appReducer,
+  router: routerReducer
 });
 
 export default reducers;

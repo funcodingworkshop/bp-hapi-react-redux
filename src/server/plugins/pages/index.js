@@ -1,6 +1,6 @@
 const register = async (server, options) => {
   const {
-    apiConfig: { method, path }
+    apiConfig: { method }
   } = options;
 
   const handler = async (request, h) => (h.view('index', {
@@ -8,7 +8,9 @@ const register = async (server, options) => {
     subtitle: 'Howdy, my friend!'
   }));
 
-  server.route({ method, path, handler });
+  server.route({ method, path: '/', handler });
+  server.route({ method, path: '/about', handler });
+  server.route({ method, path: '/topics', handler });
 };
 
 const pluginExport = {
