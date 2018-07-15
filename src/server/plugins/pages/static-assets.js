@@ -2,7 +2,7 @@ import pathFunc from 'path';
 
 const register = async (server) => {
   const method = 'GET';
-  const pathInBrowser = '/{param*}';
+  const pathInBrowser = '/assets/{param*}';
   const pathSystem = pathFunc.join(process.cwd(), '.build', 'client');
 
   const handler = {

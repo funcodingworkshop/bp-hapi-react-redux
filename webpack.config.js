@@ -1,20 +1,12 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/client/index.jsx',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '.build/client')
+    path: path.resolve(__dirname, '.build/client'),
+    publicPath: 'assets/'
   },
-  plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: 'src/client/assets',
-        to: 'assets'
-      }
-    ], { debug: 'info' })
-  ],
   module: {
     rules: [
       {

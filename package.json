@@ -13,7 +13,7 @@
     "start-build": "NODE_ENV=localhost APP_MOCKS=1 node ./.build/server/server",
     "start-server": "NODE_ENV=localhost APP_MOCKS=1 APP_MODE_DEV=1 nodemon --exec babel-node src/server/server --ignore src/client",
     "start-client": "webpack-dev-server --mode development",
-    "start": "node start",
+    "start": "node start.js",
     "docker-build": "./docker-build.sh $npm_package_name $npm_package_version"
   },
   "repository": {
@@ -56,7 +56,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",

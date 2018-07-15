@@ -10,7 +10,7 @@ const register = async (server, options) => {
   };
 
   server.route({
-    path: '/{param*}',
+    path: '/assets/{param*}',
     method: 'GET',
     handler
   });

@@ -1,6 +1,6 @@
-import sendCode from './plugins/send-phone-plugin';
-import verifyCode from './plugins/send-sms-plugin';
-import validateJwt from './plugins/validate-jwt-plugin';
+import sendCode from './plugins/api/send-phone-api';
+import verifyCode from './plugins/api/send-sms-api';
+import validateJwt from './plugins/api/validate-jwt-api';
 
 import {
   coursesPlugin,
@@ -8,7 +8,7 @@ import {
   coursePlugin,
   coursePatchPlugin,
   courseDeletePlugin
-} from './plugins/courses-api';
+} from './plugins/api/courses-api';
 
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars

@@ -9,8 +9,7 @@ const register = async (server, options) => {
   }));
 
   server.route({ method, path: '/', handler });
-  server.route({ method, path: '/about', handler });
-  server.route({ method, path: '/topics', handler });
+  server.route({ method, path: '/{param*}', handler });
 };
 
 const pluginExport = {

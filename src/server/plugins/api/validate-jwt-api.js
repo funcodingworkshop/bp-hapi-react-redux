@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { HTTP_ERROR_400 } from '../constants';
+import { HTTP_ERROR_400 } from '../../constants';
 
 const register = async (server, options) => {
   const {

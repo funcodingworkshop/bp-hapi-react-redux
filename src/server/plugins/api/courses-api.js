@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { HTTP_ERROR_400, createError } from '../constants';
+import { HTTP_ERROR_400, createError } from '../../constants';
 
 const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
 const Course = mongoose.model('Course', courseSchema);

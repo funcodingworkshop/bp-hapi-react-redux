@@ -65,43 +65,43 @@ export default function getConfig() {
     },
 
     services: {
-      sendCode: {
-        method: 'POST',
-        path: '/send-code',
-        url: `http://${serviceHost}/ona-pipe-api/getPhoneConfirm`
-      },
-      verifyCode: {
-        method: 'POST',
-        path: '/verify-code',
-        url: `http://${serviceHost}/ona-pipe-api/checkPhoneConfirm`
-      },
-      validateJwt: {
-        method: 'POST',
-        path: '/validate-jwt'
-      },
       indexPage: {
         method: 'GET',
         path: ''
       },
+      sendCode: {
+        method: 'POST',
+        path: '/api/send-code',
+        url: `http://${serviceHost}/ona-pipe-api/getPhoneConfirm`
+      },
+      verifyCode: {
+        method: 'POST',
+        path: '/api/verify-code',
+        url: `http://${serviceHost}/ona-pipe-api/checkPhoneConfirm`
+      },
+      validateJwt: {
+        method: 'POST',
+        path: '/api/validate-jwt'
+      },
       courses: {
         method: 'GET',
-        path: '/courses'
+        path: '/api/courses'
       },
       coursePost: {
         method: 'POST',
-        path: '/courses'
+        path: '/api/courses'
       },
       course: {
         method: 'GET',
-        path: '/courses/{courseId}'
+        path: '/api/courses/{courseId}'
       },
       coursePatch: {
         method: 'PATCH',
-        path: '/courses/{courseId}'
+        path: '/api/courses/{courseId}'
       },
       courseDelete: {
         method: 'DELETE',
-        path: '/courses/{courseId}'
+        path: '/api/courses/{courseId}'
       }
     }
   };

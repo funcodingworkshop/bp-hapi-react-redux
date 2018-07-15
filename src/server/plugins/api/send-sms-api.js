@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import axios from '../config/axios-instance-config';
-import { HTTP_ERROR_400, HTTP_ERROR_500 } from '../constants';
+import axios from '../../config/axios-instance-config';
+import { HTTP_ERROR_400, HTTP_ERROR_500 } from '../../constants';
 
 const register = async (server, options) => {
   const { apiConfig: { method, path, url }, jwtConfig: { secret, expiresIn } } = options;
