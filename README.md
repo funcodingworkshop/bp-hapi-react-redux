@@ -19,11 +19,11 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. React (**DONE**)
 1. Redux (**DONE**)
 1. Loaders for images, css, postCSS (**DONE**)
-1. React Router
-1. Server Side Rendering (SSR)
-1. [Redux Form](https://redux-form.com/7.3.0/)
-1. Async data loading and validation
+1. React Router (**DONE**)
 1. [Material UI](https://www.material-ui.com/) components
+1. Server Side Rendering (SSR)
+1. Formik or Redux Form - for form creation
+1. Async data loading and validation
 1. [CSS Modules](https://github.com/css-modules/css-modules)
 1. Testing with [Jest](https://facebook.github.io/jest/docs/en/tutorial-react.html)
 
