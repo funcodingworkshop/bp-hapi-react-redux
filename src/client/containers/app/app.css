@@ -4,4 +4,8 @@ body {
 
 .app {
   padding: 0px;
+
+  &__children {
+    padding: 20px;
+  }
 }

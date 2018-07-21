@@ -21,7 +21,7 @@ const styles = {
   }
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 
@@ -52,7 +52,7 @@ class App extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleClickMenuHome = (event) => {
+  handleClickMenuHome = () => {
     this.handleClose();
     this.props.doRoute('/');
   };
@@ -112,7 +112,7 @@ class App extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <div>
+        <div className="app__children">
           { this.props.children }
         </div>
       </div>
