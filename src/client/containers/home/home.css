@@ -1,0 +1,11 @@
+.home {
+  padding: 0px;
+
+  &__say {
+    height: 400px;
+    padding: 40px;
+    background-image: url(./bg.jpg);
+    background-repeat: no-repeat;
+    color: red;
+  }
+}

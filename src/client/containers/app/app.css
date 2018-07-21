@@ -1,11 +1,11 @@
-.app {
-  padding: 20px;
+body {
+  margin: 0px;
+}
 
-  &__say {
-    height: 400px;
-    padding: 40px;
-    background-image: url(./bg.jpg);
-    background-repeat: no-repeat;
-    color: red;
+.app {
+  padding: 0px;
+
+  &__children {
+    padding: 20px;
   }
 }

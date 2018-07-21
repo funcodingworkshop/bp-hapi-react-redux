@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { types } from './actions';
+import { types } from './actions/actions';
 
 const appReducerInitState = {};
 
