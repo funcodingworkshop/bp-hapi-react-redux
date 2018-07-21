@@ -16,4 +16,6 @@ tar -cf build.tar .build node_modules
 
 docker build -f ./Dockerfile -t $image .
 
+docker push $image
+
 rm build.tar
