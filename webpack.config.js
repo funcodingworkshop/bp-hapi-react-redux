@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/client/index.jsx',
@@ -7,6 +8,14 @@ module.exports = {
     path: path.resolve(__dirname, '.build/client'),
     publicPath: 'assets/'
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'src/client/public',
+        to: 'public'
+      }
+    ], { debug: 'info' })
+  ],
   module: {
     rules: [
       {
