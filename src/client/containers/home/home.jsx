@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { sayBye, sayHi } from '../../actions/actions';
-import { doRouteAC } from '../../actions/router-actions';
+import { sayBye, sayHi } from '../../redux/actions/app-actions';
+import { doRouteAC } from '../../redux/actions/router-actions';
+import { selectSay } from '../../redux/selectors/app-selectors';
 
 import './home.css';
 import reactImg from './react.png';
@@ -13,7 +14,7 @@ import someOtherImg from './pic.jpg';
 
 function mapStateToProps(state) {
   return {
-    say: state.app.say
+    say: selectSay(state)
   };
 }
 

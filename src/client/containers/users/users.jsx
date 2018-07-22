@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { doRouteAC } from '../../actions/router-actions';
+import { doRouteAC } from '../../redux/actions/router-actions';
+import { selectSay } from '../../redux/selectors/app-selectors';
 
 function mapStateToProps(state) {
   return {
-    say: state.app.say
+    say: selectSay(state)
   };
 }
 

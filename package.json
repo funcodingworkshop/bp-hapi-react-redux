@@ -1,6 +1,6 @@
 {
   "name": "bp-hapi-react-redux",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Hapi React Redux Boilerplate",
   "main": "src/server.js",
   "scripts": {
