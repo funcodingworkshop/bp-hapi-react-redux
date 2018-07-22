@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import axios from '../../config/axios-instance-config';
+import axios from '../../config/axios-instance-node';
 import { HTTP_ERROR_400, HTTP_ERROR_500 } from '../../constants';
 
 const register = async (server, options) => {

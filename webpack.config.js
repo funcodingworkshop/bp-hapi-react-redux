@@ -29,7 +29,10 @@ module.exports = {
           options: {
             babelrc: false,
             presets: ['env', 'react'],
-            plugins: ['transform-object-rest-spread', 'transform-class-properties']
+            plugins: [
+              'transform-object-rest-spread',
+              'transform-class-properties'
+            ]
           }
         }
       },

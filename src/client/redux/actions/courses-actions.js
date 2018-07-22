@@ -1,5 +1,5 @@
 // ACTION TYPES
-export const TYPES = {
+export const COURSES_TYPES = {
   // FETCH LIST
   FETCH_COURSES_SAGA: 'FETCH_COURSES_SAGA',
   FETCH_COURSES_START: 'FETCH_COURSES_START',
@@ -35,13 +35,13 @@ export const TYPES = {
 // Postfix AC stands for Action Creator
 export function fetchCoursesSagaAC() {
   return {
-    type: TYPES.FETCH_COURSES_SAGA
+    type: COURSES_TYPES.FETCH_COURSES_SAGA
   };
 }
 
 export function fetchCoursesSuccessAC(courses) {
   return {
-    type: TYPES.FETCH_COURSES_SUCCESS,
+    type: COURSES_TYPES.FETCH_COURSES_SUCCESS,
     payload: {
       courses
     }

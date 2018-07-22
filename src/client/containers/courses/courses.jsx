@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { selectSay } from '../../redux/selectors/app-selectors';
+import { fetchCoursesSagaAC } from '../../redux/actions/courses-actions';
 
 function mapStateToProps(state) {
   return {
@@ -13,18 +14,24 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    doRoute: doRouteAC
+    doRoute: doRouteAC,
+    fetchCourses: fetchCoursesSagaAC
   }, dispatch);
 }
 
 class Courses extends React.Component {
   static propTypes = {
-    say: PropTypes.string
+    say: PropTypes.string,
+    fetchCourses: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     say: 'Nothing Yet :('
   };
+
+  componentDidMount() {
+    this.props.fetchCourses();
+  }
 
   render() {
     const { say } = this.props;
