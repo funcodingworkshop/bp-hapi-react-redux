@@ -1,16 +1,27 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
-
 import createHistory from 'history/createBrowserHistory';
-
-import reducers from './reducers';
+import reducers from './redux/reducers';
+import rootSaga from './redux/sagas';
 import Root from './root';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(reducers, applyMiddleware(middleware));
+// eslint-disable-next-line
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  reducers,
+  composeEnhancers(applyMiddleware(
+    middleware,
+    sagaMiddleware
+  ))
+);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(<Root store={ store } history={ history } />, document.getElementById('react-app'));

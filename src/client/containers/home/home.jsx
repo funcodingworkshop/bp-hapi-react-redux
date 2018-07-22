@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { sayBye, sayHi } from '../../actions/actions';
-import { doRouteAC } from '../../actions/router-actions';
+import { sayByeAC, sayHiAC, testButtonAC } from '../../redux/actions/app-actions';
+import { doRouteAC } from '../../redux/actions/router-actions';
+import { selectSay } from '../../redux/selectors/app-selectors';
 
 import './home.css';
 import reactImg from './react.png';
@@ -13,14 +14,15 @@ import someOtherImg from './pic.jpg';
 
 function mapStateToProps(state) {
   return {
-    say: state.app.say
+    say: selectSay(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    handleSayBye: sayBye,
-    handleSayHi: sayHi,
+    handleSayBye: sayByeAC,
+    handleSayHi: sayHiAC,
+    handleTestButton: testButtonAC,
     doRoute: doRouteAC
   }, dispatch);
 }
@@ -29,7 +31,8 @@ class Home extends React.Component {
   static propTypes = {
     say: PropTypes.string,
     handleSayBye: PropTypes.func.isRequired,
-    handleSayHi: PropTypes.func.isRequired
+    handleSayHi: PropTypes.func.isRequired,
+    handleTestButton: PropTypes.func
   };
 
   static defaultProps = {
@@ -38,7 +41,7 @@ class Home extends React.Component {
 
   render() {
     const {
-      say, handleSayBye, handleSayHi
+      say, handleSayBye, handleSayHi, handleTestButton
     } = this.props;
     return (
       <div className='home'>
@@ -54,13 +57,19 @@ class Home extends React.Component {
         <br/>
         <div>
           <Button variant="contained" color="primary" onClick={ handleSayBye }>
-            sayBye
+            Say Bye
           </Button>
         </div>
         <br/>
         <div>
           <Button variant="contained" color="primary" onClick={ handleSayHi }>
-            sayHi
+            Say Hi
+          </Button>
+        </div>
+        <br/>
+        <div>
+          <Button variant="contained" color="primary" onClick={ handleTestButton }>
+            Test Button
           </Button>
         </div>
         <br/>
