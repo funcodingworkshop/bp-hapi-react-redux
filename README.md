@@ -41,3 +41,19 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. CircleCI (**DONE**)
 1. Servers (**DONE**)
 1. Docker Swarm (**DONE**)
+
+#Способы запуска проекта
+1. npm start
+2. npm run build
+   npm run start-build
+3. npm run docker-build
+   docker run -e MONGODB_HOST=host.docker.internal -p 8080:8080 -d 972e05ca5a29
+4. npm run docker-build
+   - клонируем проект https://github.com/codingbootcampru/bp-devops
+   - Stop local mongoDB (на макбуке brew services stop mongodb)
+   - создать папку на диске, например: /Users/{$user}/data
+   - указать в файле docker-compose.yml по пути services -> mongo -> volumes свой путь на папку из пункта выше, например: " volumes: - "/Users/{$user}/data/mongo:/data/db" "
+   - docker swarm init
+   - docker stack deploy -c docker-compose.yml mystack
+   - docker node ls
+   - docker service ls   
