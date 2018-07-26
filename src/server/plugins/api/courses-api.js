@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
 
-const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
+const courseSchema = mongoose.Schema({ name: String, code: String, comment: String, dateAdded: Date });
 const Course = mongoose.model('Course', courseSchema);
+
 
 // courses index
 const registerCourses = async (server, options) => {

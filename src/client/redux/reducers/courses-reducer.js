@@ -12,6 +12,9 @@ export default function coursesReducer(state = initialState, { type, payload }) 
         list: payload.courses
       };
     }
+    case COURSES_TYPES.CREATE_COURSE_SUCCESS: {
+      return state;
+    }
     default:
       return state;
   }
