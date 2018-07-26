@@ -1,5 +1,10 @@
 import { put, takeEvery, select, call } from 'redux-saga/effects';
-import { COURSES_TYPES, fetchCoursesSuccessAC } from '../actions/courses-actions';
+import { 
+    COURSES_TYPES, 
+    fetchCoursesSuccessAC, 
+    createCourseSuccessAC
+} from '../actions/courses-actions';
+
 import { selectCourses } from '../selectors/courses-selectors';
 import axios from '../../axios-instance-browser';
 

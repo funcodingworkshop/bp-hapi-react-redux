@@ -47,3 +47,16 @@ export function fetchCoursesSuccessAC(courses) {
     }
   };
 }
+
+export function createCourseAC(){
+  return {
+    type: COURSES_TYPES.CREATE_COURSE_SAGA
+  }
+}
+
+export function createCourseSuccessAC(course) {
+  return {
+    type: COURSES_TYPES.CREATE_COURSE_SUCCESS,
+    payload: course
+  }
+}
