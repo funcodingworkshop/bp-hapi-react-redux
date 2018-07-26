@@ -42,7 +42,7 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. Servers (**DONE**)
 1. Docker Swarm (**DONE**)
 
-#Способы запуска проекта
+### Способы запуска проекта
 1. npm start
 2. npm run build
    npm run start-build
