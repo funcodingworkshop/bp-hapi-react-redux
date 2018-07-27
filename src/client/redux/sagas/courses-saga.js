@@ -39,7 +39,7 @@ function* addCourse(action){
   const method = 'POST';
   const url = '/api/courses';
   try {
-    const res = yield call(axios, { method, url }, course_data );
+    const res = yield call(axios, { method, url, course_data } );
     yield put(createCourseSuccessAC(course_data));
   } catch (error) {
     console.log(error, 'error on add course post request');
