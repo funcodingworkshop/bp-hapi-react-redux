@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
 
-const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
+const courseSchema = mongoose.Schema({ name: String, code: String, comment: String, dateAdded: Date });
 const Course = mongoose.model('Course', courseSchema);
+
 
 // courses index
 const registerCourses = async (server, options) => {
@@ -26,13 +27,14 @@ export const coursesPlugin = { name: 'coursesPlugin', register: registerCourses 
 // create course
 const registerCoursePost = async (server, options) => {
   const { apiConfig: { method, path } } = options;
-
+  console.log(options);
   const handler = async (request, h) => {
     try {
       const course = new Course(request.payload);
-      const res = await course.save();
-      console.log('create course\n', res); // eslint-disable-line no-console
-      return h.response(res).code(201);
+      console.log(request.data);
+      //const res = await course.save();
+      //console.log('create course\n', res); // eslint-disable-line no-console
+      return h.response('res').code(201);
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
       return HTTP_ERROR_400;

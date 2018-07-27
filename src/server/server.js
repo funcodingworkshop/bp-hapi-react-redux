@@ -70,7 +70,7 @@ const init = async () => {
   await server.register(plugins);
   await server.start();
   console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
-  console.log(`Config: ${JSON.stringify(config)}`); // eslint-disable-line
+ // console.log(`Config: ${JSON.stringify(config)}`); // eslint-disable-line
 };
 
 process.on('unhandledRejection', (err) => {

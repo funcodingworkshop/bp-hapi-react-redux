@@ -31,3 +31,22 @@ function* fetchCourses() {
 export function* watchFetchCourses() {
   yield takeEvery(COURSES_TYPES.FETCH_COURSES_SAGA, fetchCourses);
 }
+
+
+function* addCourse(action){
+  const course_data = action.payload;
+  console.log(course_data);
+  const method = 'POST';
+  const url = '/api/courses';
+  try {
+    const res = yield call(axios, { method, url }, course_data );
+    yield put(createCourseSuccessAC(course_data));
+  } catch (error) {
+    console.log(error, 'error on add course post request');
+  }
+
+}
+
+export function* watchAddCourse() {
+  yield takeEvery(COURSES_TYPES.CREATE_COURSE_SAGA, addCourse);
+}

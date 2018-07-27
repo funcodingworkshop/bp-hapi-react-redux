@@ -48,9 +48,10 @@ export function fetchCoursesSuccessAC(courses) {
   };
 }
 
-export function createCourseAC(){
+export function createCourseAC(data){
   return {
-    type: COURSES_TYPES.CREATE_COURSE_SAGA
+    type: COURSES_TYPES.CREATE_COURSE_SAGA,
+    payload: data
   }
 }
 
