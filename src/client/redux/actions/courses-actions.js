@@ -48,11 +48,15 @@ export function fetchCoursesSuccessAC(courses) {
   };
 }
 
-export function createCourseAC(data){
+export function createCourseAC(data) {
   return {
     type: COURSES_TYPES.CREATE_COURSE_SAGA,
-    payload: data
-  }
+    payload: {
+      name: data.name,
+      code: data.code,
+      comment: data.comment
+    }
+  };
 }
 
 export function createCourseSuccessAC(course) {

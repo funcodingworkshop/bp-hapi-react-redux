@@ -1,7 +1,7 @@
 import { put, takeEvery, select, call } from 'redux-saga/effects';
-import { 
-    COURSES_TYPES, 
-    fetchCoursesSuccessAC, 
+import {
+    COURSES_TYPES,
+    fetchCoursesSuccessAC,
     createCourseSuccessAC
 } from '../actions/courses-actions';
 
@@ -33,18 +33,18 @@ export function* watchFetchCourses() {
 }
 
 
-function* addCourse(action){
-  const course_data = action.payload;
-  console.log(course_data);
+function* addCourse(action) {
+  const courseData = action.payload;
+  console.log(111, courseData);
   const method = 'POST';
   const url = '/api/courses';
   try {
-    const res = yield call(axios, { method, url }, course_data );
-    yield put(createCourseSuccessAC(course_data));
+    const res = yield call(axios, { method, url, data: courseData });
+    console.log(112, res.data);
+    yield put(createCourseSuccessAC(res.data));
   } catch (error) {
     console.log(error, 'error on add course post request');
   }
-
 }
 
 export function* watchAddCourse() {

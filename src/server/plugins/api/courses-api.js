@@ -30,11 +30,11 @@ const registerCoursePost = async (server, options) => {
   console.log(options);
   const handler = async (request, h) => {
     try {
+      console.log(222, request.payload);
       const course = new Course(request.payload);
-      console.log(request.data);
-      //const res = await course.save();
-      //console.log('create course\n', res); // eslint-disable-line no-console
-      return h.response('res').code(201);
+      const res = await course.save();
+      console.log('create course\n', res); // eslint-disable-line no-console
+      return h.response(res).code(201);
     } catch (e) {
       console.error('!!! error', e); // eslint-disable-line no-console
       return HTTP_ERROR_400;
