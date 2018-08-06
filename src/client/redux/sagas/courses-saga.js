@@ -2,7 +2,8 @@ import { put, takeEvery, select, call } from 'redux-saga/effects';
 import {
     COURSES_TYPES,
     fetchCoursesSuccessAC,
-    createCourseSuccessAC
+    createCourseSuccessAC,
+    deleteCourseSuccessAC
 } from '../actions/courses-actions';
 
 import { selectCourses } from '../selectors/courses-selectors';
@@ -35,12 +36,10 @@ export function* watchFetchCourses() {
 
 function* addCourse(action) {
   const courseData = action.payload;
-  console.log(111, courseData);
   const method = 'POST';
   const url = '/api/courses';
   try {
     const res = yield call(axios, { method, url, data: courseData });
-    console.log(112, res.data);
     yield put(createCourseSuccessAC(res.data));
   } catch (error) {
     console.log(error, 'error on add course post request');
@@ -49,4 +48,34 @@ function* addCourse(action) {
 
 export function* watchAddCourse() {
   yield takeEvery(COURSES_TYPES.CREATE_COURSE_SAGA, addCourse);
+}
+
+
+
+function* deleteCourse(action) {
+  const id = action.payload;
+  const method = "DELETE";
+  const url = "/api/courses/" + id;
+  try {
+    const res = yield call(axios, {method, url});
+    yield put(deleteCourseSuccessAC(id));
+  } catch (error) {
+    console.log(error, 'error on delete course request');
+  }
+}
+
+export function* watchDeleteCourse(){
+  yield takeEvery(COURSES_TYPES.DELETE_COURSE_SAGA, deleteCourse);
+}
+
+
+
+function* updateCourse(action) {
+   const id = action.payload._id;
+   const method = "PATCH";
+   const url = "/api/courses/" + id + "/edit";
+}
+
+export function* watchUpdateCourse(){
+  yield takeEvery(COURSES_TYPES.UPDATE_COURSE_SAGA, updateCourse);
 }

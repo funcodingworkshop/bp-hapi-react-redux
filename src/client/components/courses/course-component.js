@@ -5,14 +5,21 @@ import Grid from '@material-ui/core/Grid';
 
 
 class CourseComponent extends Component {
+
+	normalizeDate = (lnxDate) => {
+		return lnxDate.replace(/T/,' ').substr(0, lnxDate.length-5);
+	}
+
 	render(){
 		return (
 			<Grid container spacing={8}>
-				<Grid item xs={2}><Link to={`/courses/${this.props._id}`}>{this.props._id}</Link></Grid>
+				<Grid item xs={1}></Grid>
+				<Grid item xs={2}><Link to={`/courses/${this.props._id}`}>{this.props.view_id}</Link></Grid>
 				<Grid item xs={2}>{this.props.name}</Grid>
 				<Grid item xs={2}>{this.props.code}</Grid>
-				<Grid item xs={2}>{this.props.dateAdded}</Grid>
+				<Grid item xs={2}>{this.normalizeDate(this.props.createdAt)}</Grid>
 				<Grid item xs={2}>{this.props.comment}</Grid>
+				<Grid item xs={1}></Grid>
 			</Grid>
 		)
 	}

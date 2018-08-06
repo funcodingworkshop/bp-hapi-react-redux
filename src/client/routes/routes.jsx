@@ -5,6 +5,7 @@ import Home from '../containers/home/home';
 import Courses from '../containers/courses/courses';
 import Students from '../containers/students/students';
 import Users from '../containers/users/users';
+import CourseSimple from '../components/courses/course-simple-component';
 
 const WrappedComponent = (Component, props) => (
   <App>
@@ -19,7 +20,7 @@ export default (
       render={ props => WrappedComponent(Home, props) }
     />
     <Route
-      path="/courses"
+      exact path="/courses"
       render={ props => WrappedComponent(Courses, props) }
     />
     <Route
@@ -31,8 +32,12 @@ export default (
       render={ props => WrappedComponent(Users, props) }
     />
     <Route 
-      path="/courses/?id"
-      render={ () => <h1>hellow</h1> }
+      exact path="/courses/:id"
+      render={ props => WrappedComponent(CourseSimple, props) }
+    />
+    <Route 
+      path="/courses/:id/edit"
+      render={ () => <div>hello</div>}
     />
   </div>
 );

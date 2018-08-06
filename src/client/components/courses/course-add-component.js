@@ -31,13 +31,11 @@ class CourseAddComponent extends Component {
 
 	addCourse = () => {
 		const current_date = Date();
-		
+		console.log(current_date);
 		const data = {
-			_id: 'test', //replace it
 			name: this.state.course_name,
 			code: this.state.course_code,
-			comment: this.state.course_comment,
-			dateAdded: current_date
+			comment: this.state.course_comment
 		};
 
 		this.props.createCourseAC(data);

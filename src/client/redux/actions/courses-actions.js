@@ -65,3 +65,31 @@ export function createCourseSuccessAC(course) {
     payload: course
   }
 }
+
+export function deleteCourseAC(id) {
+  return {
+    type: COURSES_TYPES.DELETE_COURSE_SAGA,
+    payload: id
+  }
+}
+
+export function deleteCourseSuccessAC(id) {
+  return {
+    type: COURSES_TYPES.DELETE_COURSE_SUCCESS,
+    payload: id
+  }
+}
+
+export function updateCourseAC(course) {
+  return {
+    type: COURSES_TYPES.UPDATE_COURSE_SAGA,
+    payload: course
+  }
+}
+
+export function updateCourseSuccessAC(course) {
+  return {
+    type: COURSES_TYPES.UPDATE_COURSE_SUCCESS,
+    payload: course
+  }
+}
