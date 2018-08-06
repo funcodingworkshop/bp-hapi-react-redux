@@ -27,11 +27,11 @@ export const coursesPlugin = { name: 'coursesPlugin', register: registerCourses 
 // create course
 const registerCoursePost = async (server, options) => {
   const { apiConfig: { method, path } } = options;
-  console.log(options);
+ 
   const handler = async (request, h) => {
     try {
       const course = new Course(request.payload);
-      console.log(request.data);
+      console.log(course);
       //const res = await course.save();
       //console.log('create course\n', res); // eslint-disable-line no-console
       return h.response('res').code(201);

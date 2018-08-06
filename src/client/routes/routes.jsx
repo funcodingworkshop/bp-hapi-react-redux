@@ -30,5 +30,9 @@ export default (
       path="/users"
       render={ props => WrappedComponent(Users, props) }
     />
+    <Route 
+      path="/courses/?id"
+      render={ () => <h1>hellow</h1> }
+    />
   </div>
 );
