@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { createCourseAC } from '../../redux/actions/courses-actions';
 import { selectCourses } from '../../redux/selectors/courses-selectors';
 
+import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+
+import '../../css/global.css';
+import '../../css/courses/course-add-component.css';
 
 class CourseAddComponent extends Component {
 
@@ -17,43 +22,97 @@ class CourseAddComponent extends Component {
 		 	course_name: '',
 		 	course_code: '',
 		 	course_comment: '',
-		 	message: ''
+		 	message: '',
+		 	message_type: 'success'
+		}
+	}
+
+	componentDidMount(){
+		const id = this.props.match.params.id;
+		if (id !== undefined) {
+			//console.log(this.props.courses_list);
+			const course = this.props.courses_list.filter((course) => course._id === id)[0];
+			document.querySelectorAll('input')[0].value = course.name;
+			document.querySelectorAll('input')[1].value = course.code;
+			//document.querySelectorAll('input')[2].value = course.comment;
 		}
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		return (this.state.message !== nextState.message );
+		//return (this.state.message !== nextState.message || this.state.message_error !== nextState.message_error );
+		return true;
 	}
 
 	setCourseName = (e) => { this.setState({ course_name: e.target.value }) }
 	setCourseCode = (e) => { this.setState({ course_code: e.target.value }) }
 	setCourseComment = (e) => { this.setState({ course_comment: e.target.value }) }
 
+	dataValidation = (data) => {
+		let check = false;
+		if (this.state.course_code === "") check = "Необходимо добавить код курса!";
+		if (this.state.course_name === "") check = "Необходимо ввести название курса!";
+		return check;
+	}
+
 	addCourse = () => {
 		const current_date = Date();
-		console.log(current_date);
+		
 		const data = {
 			name: this.state.course_name,
 			code: this.state.course_code,
 			comment: this.state.course_comment
 		};
 
-		this.props.createCourseAC(data);
+		if (!this.dataValidation()) {
+			this.props.createCourseAC(data);
+			this.setState({ message: 'Курс успешно добавлен' });
+			this.setState({ message_type: 'success '});
+		} else {
+			this.setState({ message: this.dataValidation() });
+			this.setState({ message_type: 'error '});
+		}
 
-		this.setState({ message: 'Course successfully added' })
+		setTimeout(() => this.setState({ message: ""}), 3000);	
+
 	}
 
 	render(){
+		console.log(this.state.course_name);
 		return (
-			<div>
-				<Input type="text" placeholder="Название курса" defaultValue={this.state.course_name} onChange={this.setCourseName}/>
-				<Input type="text" placeholder="Уникальный код курса" defaultValue={this.state.course_code} onChange={this.setCourseCode} />
-				<TextField multiline placeholder="Описание курса" defaultValue={this.state.course_comment} onChange={this.setCourseComment} />
-				<Button variant="contained" color="primary" onClick={this.addCourse}>Сохранить</Button>
+			<Grid container>
+
 				{ this.state.message !== '' ?
-					<div>{this.state.message}</div>
+					<Grid item xs={12}>
+						<div className={`course-message course-message_${this.state.message_type}`}>
+							{this.state.message}
+						</div>
+					</Grid>
 				: null }
-			</div>
+
+				<Grid item xs={12}><h1 className="course-header">Создание курса</h1></Grid>
+				<Grid item xs={12} md={6}>
+					<Link to="/courses" className="no-text-decoration"><Button variant="outlined" color="primary">Список курсов</Button></Link>
+				</Grid>
+
+				<Grid item xs={12} className="course-input__container">
+					<Input type="text" className="course-input" placeholder="Название курса" defaultValue={this.state.course_name} onChange={this.setCourseName} required/>
+				</Grid>
+
+				<Grid item xs={12} className="course-input__container">
+					<Input type="text" className="course-input" placeholder="Уникальный код курса" defaultValue={this.state.course_code} onChange={this.setCourseCode} required/>
+				</Grid>
+
+				<Grid item xs={12} className="course-input__container">
+					<TextField multiline className="course-input" placeholder="Описание курса" defaultValue={this.state.course_comment} onChange={this.setCourseComment} />
+				</Grid>
+
+				<Grid item xs={12}>
+					<div className="custom-btn_center">
+						<Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить</Button>
+					</div>
+				</Grid>
+
+			</Grid>
 		)
 	}
 }

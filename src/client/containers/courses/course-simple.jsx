@@ -39,7 +39,7 @@ class CourseSimpleComponent extends Component {
 		return (
 			<div>
 				<Link to="/courses"><Button variant="contained" color="default">Список курсов</Button></Link>
-				<Button variant="contained" color="primary">Редактировать курс</Button>
+				<Link to={`/courses/${this.props.match.params.id}/edit`}><Button variant="contained" color="primary">Редактировать курс</Button></Link>
 				<Button variant="contained" color="secondary" onClick={this.delete}>Удалить курс</Button>
 
 				{this.state.course !== null && this.state.course !== undefined ? 
