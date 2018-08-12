@@ -3,7 +3,8 @@ import {
     COURSES_TYPES,
     fetchCoursesSuccessAC,
     createCourseSuccessAC,
-    deleteCourseSuccessAC
+    deleteCourseSuccessAC,
+    updateCourseSuccessAC
 } from '../actions/courses-actions';
 
 import { selectCourses } from '../selectors/courses-selectors';
@@ -71,11 +72,18 @@ export function* watchDeleteCourse(){
 
 
 function* updateCourse(action) {
-   const id = action.payload._id;
+   const id = action.payload.id;
+   const data = action.payload.course;
    const method = "PATCH";
    const url = "/api/courses/" + id + "/edit";
+   try {
+      const res = yield call(axios, {method, url, data: action.payload });
+      yield put(updateCourseSuccessAC(res.data));
+   } catch (error) {
+      console.log(error, 'error on update course request');
+   }
 }
 
-export function* watchUpdateCourse(){
+export function* watchUpdateCourse(action){
   yield takeEvery(COURSES_TYPES.UPDATE_COURSE_SAGA, updateCourse);
 }

@@ -7,7 +7,10 @@ import Grid from '@material-ui/core/Grid';
 class CourseComponent extends Component {
 
 	normalizeDate = (lnxDate) => {
-		return lnxDate.replace(/T/,' ').substr(0, lnxDate.length-5);
+		if (lnxDate !== undefined) {
+			return lnxDate.replace(/T/,' ').substr(0, lnxDate.length-5);
+		} else 
+			return lnxDate;
 	}
 
 	render(){

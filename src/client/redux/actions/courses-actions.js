@@ -80,10 +80,10 @@ export function deleteCourseSuccessAC(id) {
   }
 }
 
-export function updateCourseAC(course) {
+export function updateCourseAC(id, course) {
   return {
     type: COURSES_TYPES.UPDATE_COURSE_SAGA,
-    payload: course
+    payload: { id: id, course: course }
   }
 }
 

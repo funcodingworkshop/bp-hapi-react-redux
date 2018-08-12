@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { createCourseAC } from '../../redux/actions/courses-actions';
+import { createCourseAC, updateCourseAC } from '../../redux/actions/courses-actions';
 import { selectCourses } from '../../redux/selectors/courses-selectors';
 
 import Grid from '@material-ui/core/Grid';
@@ -23,7 +23,8 @@ class CourseAddComponent extends Component {
 		 	course_code: '',
 		 	course_comment: '',
 		 	message: '',
-		 	message_type: 'success'
+		 	message_type: 'success',
+
 		}
 	}
 
@@ -55,8 +56,10 @@ class CourseAddComponent extends Component {
 	}
 
 	addCourse = () => {
-		const current_date = Date();
-		
+
+		const regExpRule = /edit$/;
+		const check = regExpRule.test(this.props.match.path)
+
 		const data = {
 			name: this.state.course_name,
 			code: this.state.course_code,
@@ -64,7 +67,10 @@ class CourseAddComponent extends Component {
 		};
 
 		if (!this.dataValidation()) {
-			this.props.createCourseAC(data);
+
+			if (!check) this.props.createCourseAC(data);
+			else this.props.updateCourseAC(this.props.match.params.id, data);
+
 			this.setState({ message: 'Курс успешно добавлен' });
 			this.setState({ message_type: 'success '});
 		} else {
@@ -76,8 +82,10 @@ class CourseAddComponent extends Component {
 
 	}
 
+
 	render(){
-		console.log(this.state.course_name);
+		const regExpRule = /edit$/;
+		
 		return (
 			<Grid container>
 
@@ -108,7 +116,11 @@ class CourseAddComponent extends Component {
 
 				<Grid item xs={12}>
 					<div className="custom-btn_center">
+					{!regExpRule.test(this.props.match.path) ?
 						<Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить</Button>
+						:
+						<Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить изменения</Button>
+					}
 					</div>
 				</Grid>
 
@@ -125,7 +137,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		createCourseAC: createCourseAC
+		createCourseAC: createCourseAC,
+		updateCourseAC: updateCourseAC
 	}, dispatch)
 }
 

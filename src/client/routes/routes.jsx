@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import App from '../containers/app/app';
 import Home from '../containers/home/home';
 import Students from '../containers/students/students';
@@ -25,10 +25,7 @@ export default (
       exact path="/courses"
       render={ props => WrappedComponent(Courses, props) }
     />
-    <Route 
-      exact path="/courses/add"
-      render={ props => WrappedComponent(CoursesAdd, props) }
-    />
+   
     <Route
       path="/students"
       render={ props => WrappedComponent(Students, props) }
@@ -38,12 +35,18 @@ export default (
       render={ props => WrappedComponent(Users, props) }
     />
     <Route 
-      exact path="/courses/:id"
-      render={ props => WrappedComponent(CourseSimple, props) }
-    />
-    <Route 
       path="/courses/:id/edit"
       render={ props => WrappedComponent(CoursesAdd, props)}
     />
+    <Switch>
+       <Route 
+        exact path="/courses/add"
+        render={ props => WrappedComponent(CoursesAdd, props) }
+      />
+      <Route 
+        exact path="/courses/:id"
+        render={ props => WrappedComponent(CourseSimple, props) }
+      />
+    </Switch>
   </div>
 );

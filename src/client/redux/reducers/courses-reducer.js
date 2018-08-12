@@ -19,6 +19,7 @@ export default function coursesReducer(state = initialState, { type, payload }) 
       }
     }
     case COURSES_TYPES.UPDATE_COURSE_SUCCESS: {
+      console.log(payload);
       return {
         ...state
       }
