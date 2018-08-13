@@ -10,3 +10,6 @@ a {
 .no-text-decoration {
 	text-decoration: none;
 }
+
+.left {	float: left; }
+.right { float: right; }

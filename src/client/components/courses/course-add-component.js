@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 import { createCourseAC, updateCourseAC } from '../../redux/actions/courses-actions';
 import { selectCourses } from '../../redux/selectors/courses-selectors';
@@ -24,18 +25,20 @@ class CourseAddComponent extends Component {
 		 	course_comment: '',
 		 	message: '',
 		 	message_type: 'success',
-
+		 	redirect: false
 		}
 	}
 
 	componentDidMount(){
 		const id = this.props.match.params.id;
 		if (id !== undefined) {
-			//console.log(this.props.courses_list);
 			const course = this.props.courses_list.filter((course) => course._id === id)[0];
 			document.querySelectorAll('input')[0].value = course.name;
 			document.querySelectorAll('input')[1].value = course.code;
-			//document.querySelectorAll('input')[2].value = course.comment;
+			document.querySelectorAll('textarea')[2].value = course.comment;
+			this.setState({ course_name: course.name });
+			this.setState({ course_code: course.code });
+			this.setState({ course_comment: course.comment });
 		}
 	}
 
@@ -68,17 +71,23 @@ class CourseAddComponent extends Component {
 
 		if (!this.dataValidation()) {
 
-			if (!check) this.props.createCourseAC(data);
-			else this.props.updateCourseAC(this.props.match.params.id, data);
+			if (!check) {
+				this.props.createCourseAC(data);
+				this.setState({ message: 'Курс успешно добавлен' });
+				//setTimeout(() => this.setState({ message: ""}), 3000);
+				setTimeout(() => this.setState({ redirect: true }), 2000);		
+			} else {
+				this.props.updateCourseAC(this.props.match.params.id, data);
+				this.setState({ message: 'Курс успешно обновлён' });
+				setTimeout(() => this.setState({ redirect: true }), 2000);	
+			}
 
-			this.setState({ message: 'Курс успешно добавлен' });
 			this.setState({ message_type: 'success '});
 		} else {
 			this.setState({ message: this.dataValidation() });
 			this.setState({ message_type: 'error '});
 		}
 
-		setTimeout(() => this.setState({ message: ""}), 3000);	
 
 	}
 
@@ -124,6 +133,9 @@ class CourseAddComponent extends Component {
 					</div>
 				</Grid>
 
+				{this.state.redirect ? 
+					<Redirect to="/courses" />
+				: null }
 			</Grid>
 		)
 	}

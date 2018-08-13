@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { deleteCourseAC } from '../../redux/actions/courses-actions';
 import { selectCourses } from '../../redux/selectors/courses-selectors';
 
+import '../../css/courses/course-simple.css';
+
+library.add(faTrashAlt, faPencilAlt)
+
 
 class CourseSimpleComponent extends Component {
+
+	static propTypes = {
+		courses_list: PropTypes.array.isRequired,
+		match: PropTypes.object.isRequired,
+		deleteCourseAC: PropTypes.func.isRequired
+	}
 
 	constructor(props){
 		super(props);
@@ -31,34 +45,57 @@ class CourseSimpleComponent extends Component {
 	}
 
 	delete = () => {
-		this.props.deleteCourseAC(this.state.course._id);
-		this.setState({ redirect: true })
+		const confirmation = window.confirm('Вы уверены, что хотите удалить курс?');
+		if (confirmation) {
+			this.props.deleteCourseAC(this.state.course._id);
+			this.setState({ redirect: true })
+		}
 	}
 
 	render() {
 		return (
 			<div>
-				<Link to="/courses"><Button variant="contained" color="default">Список курсов</Button></Link>
-				<Link to={`/courses/${this.props.match.params.id}/edit`}><Button variant="contained" color="primary">Редактировать курс</Button></Link>
-				<Button variant="contained" color="secondary" onClick={this.delete}>Удалить курс</Button>
+
+				<Link to="/courses"><Button className="course__btn-set_main" variant="outlined" color="primary"><span>Список курсов</span></Button></Link>
+				
+				<div className="right">
+
+					<Link to={`/courses/${this.props.match.params.id}/edit`} className="course__btn-set" data-toogle="tooltip" title="Редактировать">
+						<Button variant="contained" color="primary">
+							<FontAwesomeIcon icon="pencil-alt" />
+						</Button>
+					</Link>
+					
+					<Button className="course__btn-set" variant="contained" color="secondary" onClick={this.delete} data-toogle="tooltip" title="Удалить">
+						<FontAwesomeIcon icon="trash-alt" />
+					</Button>
+
+				</div>
 
 				{this.state.course !== null && this.state.course !== undefined ? 
-					<Grid container spacing={8}>
-						<Grid container>
-							<Grid item xs={6}>Название курса</Grid>
-							<Grid item xs={6}>{this.state.course.name}</Grid>
+
+					<Grid container className="course">
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<div className="course__card course__card_left">
+								<div className="card__header">Название курса</div>
+								<div>{this.state.course.name}</div>
+							</div>
 						</Grid>
-						<Grid container>
-							<Grid item xs={6}>Описание курса</Grid>
-							<Grid item xs={6}>{this.state.course.comment}</Grid>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<div className="course__card course__card_right">
+								<div className="card__header">Описание курса</div>
+								<div>{this.state.course.comment}</div>
+							</div>
 						</Grid>
 					</Grid>
+
 					: <div>Loading...</div>
 				}
 
 				{this.state.redirect ? 
 					<Redirect to="/courses" />
 				: null }
+
 			</div>
 		)
 	}
