@@ -1,10 +1,11 @@
 import { put, takeEvery, select, call } from 'redux-saga/effects';
 import {
-    COURSES_TYPES,
-    fetchCoursesSuccessAC,
-    createCourseSuccessAC,
-    deleteCourseSuccessAC,
-    updateCourseSuccessAC
+  COURSES_TYPES,
+  fetchCoursesSuccessAC,
+  fetchCourseSuccessAC,
+  createCourseSuccessAC,
+  deleteCourseSuccessAC,
+  updateCourseSuccessAC
 } from '../actions/courses-actions';
 
 import { selectCourses } from '../selectors/courses-selectors';
@@ -34,6 +35,24 @@ export function* watchFetchCourses() {
   yield takeEvery(COURSES_TYPES.FETCH_COURSES_SAGA, fetchCourses);
 }
 
+function* fetchCourse(action) {
+  const list = yield select(selectCourses);
+  if (list.length === 0) {
+    const method = 'GET';
+    const url = `/api/courses/${action.payload.id}`;
+    try {
+      const res = yield call(axios, { method, url });
+      const courseData = res.data;
+      yield put(fetchCourseSuccessAC(courseData));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export function* watchFetchCourse() {
+  yield takeEvery(COURSES_TYPES.FETCH_COURSE_SAGA, fetchCourse);
+}
 
 function* addCourse(action) {
   const courseData = action.payload;
@@ -52,38 +71,35 @@ export function* watchAddCourse() {
 }
 
 
-
 function* deleteCourse(action) {
   const id = action.payload;
-  const method = "DELETE";
-  const url = "/api/courses/" + id;
+  const method = 'DELETE';
+  const url = `/api/courses/${id}`;
   try {
-    const res = yield call(axios, {method, url});
+    yield call(axios, { method, url });
     yield put(deleteCourseSuccessAC(id));
   } catch (error) {
     console.log(error, 'error on delete course request');
   }
 }
 
-export function* watchDeleteCourse(){
+export function* watchDeleteCourse() {
   yield takeEvery(COURSES_TYPES.DELETE_COURSE_SAGA, deleteCourse);
 }
 
 
-
 function* updateCourse(action) {
-   const id = action.payload.id;
-   const data = action.payload.course;
-   const method = "PATCH";
-   const url = "/api/courses/" + id + "/edit";
-   try {
-      const res = yield call(axios, {method, url, data: action.payload });
-      yield put(updateCourseSuccessAC(res.data));
-   } catch (error) {
-      console.log(error, 'error on update course request');
-   }
+  const id = action.payload.id;
+  const method = 'PATCH';
+  const url = `/api/courses/${id}/edit`;
+  try {
+    const res = yield call(axios, { method, url, data: action.payload });
+    yield put(updateCourseSuccessAC(res.data));
+  } catch (error) {
+    console.log(error, 'error on update course request');
+  }
 }
 
-export function* watchUpdateCourse(action){
+export function* watchUpdateCourse() {
   yield takeEvery(COURSES_TYPES.UPDATE_COURSE_SAGA, updateCourse);
 }

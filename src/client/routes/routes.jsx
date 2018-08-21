@@ -6,8 +6,8 @@ import Students from '../containers/students/students';
 import Users from '../containers/users/users';
 
 import Courses from '../containers/courses/courses';
-import CourseSimple from '../containers/courses/course-simple';
-import CoursesAdd from '../components/courses/course-add-component';
+import CourseSimple from '../containers/courses/course';
+import CoursesAdd from '../containers/courses/course-add';
 
 const WrappedComponent = (Component, props) => (
   <App>
@@ -25,7 +25,6 @@ export default (
       exact path="/courses"
       render={ props => WrappedComponent(Courses, props) }
     />
-   
     <Route
       path="/students"
       render={ props => WrappedComponent(Students, props) }
@@ -34,16 +33,16 @@ export default (
       path="/users"
       render={ props => WrappedComponent(Users, props) }
     />
-    <Route 
+    <Route
       path="/courses/:id/edit"
       render={ props => WrappedComponent(CoursesAdd, props)}
     />
     <Switch>
-       <Route 
+       <Route
         exact path="/courses/add"
         render={ props => WrappedComponent(CoursesAdd, props) }
       />
-      <Route 
+      <Route
         exact path="/courses/:id"
         render={ props => WrappedComponent(CourseSimple, props) }
       />

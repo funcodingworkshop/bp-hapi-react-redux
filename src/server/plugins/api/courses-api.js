@@ -28,11 +28,10 @@ export const coursesPlugin = { name: 'coursesPlugin', register: registerCourses 
 // create course
 const registerCoursePost = async (server, options) => {
   const { apiConfig: { method, path } } = options;
- 
+
   const handler = async (request, h) => {
     try {
       const course = new Course(request.payload);
-      console.log(course);
       const res = await course.save();
       console.log('create course\n', res); // eslint-disable-line no-console
       return h.response(res).code(201);
@@ -75,7 +74,6 @@ const registerCoursePatch = async (server, options) => {
 
   const handler = async (request, h) => {
     const { params: { courseId } = {}, payload } = request;
-    console.log(request.payload);
     try {
       const courses = await Course.find({ _id: request.payload.id });
       if (courses.length === 1) {
