@@ -65,7 +65,6 @@ class CourseSimpleComponent extends Component {
   }
 
   render() {
-
     return (
       <div>
 
@@ -92,12 +91,19 @@ class CourseSimpleComponent extends Component {
                  <div>{this.state.course.name}</div>
                </div>
              </Grid>
+
              <Grid item xs={12} sm={6} md={4} lg={3}>
                <div className="course__card course__card_right">
                  <div className="card__header">Описание курса</div>
                  <div>{this.state.course.comment}</div>
                </div>
              </Grid>
+
+             <Link to={`/courses/${this.props.match.params.id}/lessons/new`}>
+               <Button variant="contained" color="primary">
+                 Добавить урок
+               </Button>
+             </Link>
            </Grid>
 
         : <div>Loading...</div>
