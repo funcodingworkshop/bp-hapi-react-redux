@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 
-
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -21,11 +20,12 @@ library.add(faTrashAlt, faPencilAlt);
 
 class CourseSimpleComponent extends Component {
   static propTypes = {
+    // TODO all names camelCase coursesList
     courses_list: PropTypes.array.isRequired,
     match: PropTypes.object.isRequired,
     deleteCourse: PropTypes.func.isRequired,
     fetchCourse: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -38,6 +38,7 @@ class CourseSimpleComponent extends Component {
   componentDidMount() {
     let course = null;
 
+    // TODO move all this logic to Saga
     if (this.props.courses_list.length === 0) {
       this.props.fetchCourse(this.props.match.params.id);
     } else {
@@ -52,19 +53,24 @@ class CourseSimpleComponent extends Component {
     }
   }
 
+  // TODO we do not need this method
   shouldComponentUpdate(nextState) {
     return (this.state.course !== nextState.course || this.state.redirect !== nextState.redirect);
   }
 
+  // TODO better name is handleDelete
   delete = () => {
+    // do material ui has modal component?
     const confirmation = window.confirm('Вы уверены, что хотите удалить курс?');
     if (confirmation) {
+      // TODO add separate id field
       this.props.deleteCourse(this.state.course._id);
       this.setState({ redirect: true });
     }
   }
 
   render() {
+    // TODO use destructoring for props
     return (
       <div>
 
@@ -117,6 +123,7 @@ class CourseSimpleComponent extends Component {
   }
 }
 
+// TODO use decorators and move to top
 function mapStateToProps(state) {
   return {
     courses_list: selectCourses(state)

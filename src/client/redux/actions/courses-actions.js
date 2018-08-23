@@ -66,6 +66,7 @@ export function fetchCourseSuccessAC(course) {
   };
 }
 
+// TODO add word SAGA if it launches saga - createCourseSagaAC
 export function createCourseAC(data) {
   return {
     type: COURSES_TYPES.CREATE_COURSE_SAGA,

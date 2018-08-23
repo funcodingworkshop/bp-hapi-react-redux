@@ -61,6 +61,8 @@ function* addCourse(action) {
   try {
     const res = yield call(axios, { method, url, data: courseData });
     yield put(createCourseSuccessAC(res.data));
+    // TODO to update list after addCourse / deleteCourse just call fetchCoursesSagaAC
+    // yield* fetchCourses();
   } catch (error) {
     console.log(error, 'error on add course post request');
   }

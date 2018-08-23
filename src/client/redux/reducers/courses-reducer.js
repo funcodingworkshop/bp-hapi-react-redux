@@ -1,7 +1,11 @@
 import { COURSES_TYPES } from '../actions/courses-actions';
 
+// TODO discuss state
+// TODO add current
+// TODO make it simpler
 const initialState = {
-  list: []
+  list: [],
+  current: {}
 };
 
 export default function coursesReducer(state = initialState, { type, payload }) {
@@ -15,7 +19,7 @@ export default function coursesReducer(state = initialState, { type, payload }) 
     case COURSES_TYPES.FETCH_COURSE_SUCCESS: {
       return {
         ...state,
-        list: [payload.course]
+        list: [payload.course]// TODO save to current
       };
     }
     case COURSES_TYPES.CREATE_COURSE_SUCCESS: {

@@ -18,6 +18,7 @@ import '../../css/courses/course-add-component.css';
 class CourseAddComponent extends Component {
   constructor() {
     super();
+    // TODO if not using props, just add class variable state
     this.state = {
       course_name: '',
       course_code: '',
@@ -29,9 +30,12 @@ class CourseAddComponent extends Component {
   }
 
   componentDidMount() {
+    // TODO use destructoring
     const id = this.props.match.params.id;
     if (id !== undefined) {
+      // TODO move to saga
       const course = this.props.courses_list.filter(item => item._id === id)[0];
+      // TODO why do you need querySelectors? Why not mapStateToProps?
       document.querySelectorAll('input')[0].value = course.name;
       document.querySelectorAll('input')[1].value = course.code;
       document.querySelectorAll('textarea')[2].value = course.comment;
@@ -41,21 +45,28 @@ class CourseAddComponent extends Component {
     }
   }
 
-  setCourseName = (e) => { this.setState({ course_name: e.target.value }); }
+  // TODO formating
+  // TODO order of methods in class, SET eslint for methods ordering
+  setCourseName = (e) => {
+    this.setState({ course_name: e.target.value });
+  };
+
   setCourseCode = (e) => { this.setState({ course_code: e.target.value }); }
   setCourseComment = (e) => { this.setState({ course_comment: e.target.value }); }
 
+  // TODO maybe to use formik?
   dataValidation = () => {
     let check = false;
     if (this.state.course_code === '') check = 'Необходимо добавить код курса!';
     if (this.state.course_name === '') check = 'Необходимо ввести название курса!';
     return check;
-  }
+  };
 
   addCourse = () => {
     const regExpRule = /edit$/;
     const check = regExpRule.test(this.props.match.path);
 
+    // TODO add object in local state course={ name, code, comment }
     const data = {
       name: this.state.course_name,
       code: this.state.course_code,
@@ -96,40 +107,37 @@ class CourseAddComponent extends Component {
           </Grid>
         : null }
 
-      <Grid item xs={12}><h1 className="course-header">Создание курса</h1></Grid>
-      <Grid item xs={12} md={6}>
-        <Link to="/courses" className="no-text-decoration"><Button variant="outlined" color="primary">Список курсов</Button></Link>
+        <Grid item xs={12}><h1 className="course-header">Создание курса</h1></Grid>
+        <Grid item xs={12} md={6}>
+          <Link to="/courses" className="no-text-decoration"><Button variant="outlined" color="primary">Список курсов</Button></Link>
+        </Grid>
+        <Grid item xs={12} className="course-input__container">
+          <Input type="text" className="course-input" placeholder="Название курса" defaultValue={this.state.course_name} onChange={this.setCourseName} required/>
+        </Grid>
+        <Grid item xs={12} className="course-input__container">
+          <Input type="text" className="course-input" placeholder="Уникальный код курса" defaultValue={this.state.course_code} onChange={this.setCourseCode} required/>
+        </Grid>
+        <Grid item xs={12} className="course-input__container">
+          <TextField multiline className="course-input" placeholder="Описание курса" defaultValue={this.state.course_comment} onChange={this.setCourseComment} />
+        </Grid>
+        <Grid item xs={12}>
+          <div className="custom-btn_center">
+            {!regExpRule.test(this.props.match.path) ?
+              <Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить</Button>
+            :
+              <Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить изменения</Button>
+            }
+          </div>
+        </Grid>
+        {this.state.redirect ?
+          <Redirect to="/courses" />
+        : null }
       </Grid>
-
-      <Grid item xs={12} className="course-input__container">
-        <Input type="text" className="course-input" placeholder="Название курса" defaultValue={this.state.course_name} onChange={this.setCourseName} required/>
-      </Grid>
-
-      <Grid item xs={12} className="course-input__container">
-        <Input type="text" className="course-input" placeholder="Уникальный код курса" defaultValue={this.state.course_code} onChange={this.setCourseCode} required/>
-      </Grid>
-
-      <Grid item xs={12} className="course-input__container">
-        <TextField multiline className="course-input" placeholder="Описание курса" defaultValue={this.state.course_comment} onChange={this.setCourseComment} />
-      </Grid>
-
-      <Grid item xs={12}>
-        <div className="custom-btn_center">
-          {!regExpRule.test(this.props.match.path) ?
-            <Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить</Button>
-          :
-            <Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить изменения</Button>
-          }
-        </div>
-      </Grid>
-
-      {this.state.redirect ?
-        <Redirect to="/courses" />
-      : null }
-    </Grid>);
+    );
   }
 }
 
+// TODO add course to state
 function mapStateToProps(state) {
   return {
     courses_list: selectCourses(state)
