@@ -19,7 +19,7 @@ export default function coursesReducer(state = initialState, { type, payload }) 
     case COURSES_TYPES.FETCH_COURSE_SUCCESS: {
       return {
         ...state,
-        list: [payload.course]// TODO save to current
+        current: payload.course// TODO save to current
       };
     }
     case COURSES_TYPES.CREATE_COURSE_SUCCESS: {

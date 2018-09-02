@@ -1,14 +1,14 @@
-.courses-panel__list {
+.courses__panel-list {
 	margin: 15px 0;
 }
 
-.panel-list__header {
+.courses__panel-list__header {
 	font-size: 16px;
 	padding: 5px 0;
 	font-weight: bold;
 }
 
-.course-line {
+.courses-line {
 	width: 100%;
 	font-size: 16px;
 	padding: 5px 0;

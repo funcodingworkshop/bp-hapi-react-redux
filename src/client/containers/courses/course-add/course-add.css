@@ -1,0 +1,29 @@
+
+.course-add__header {
+  text-align: center;
+}
+
+.course-add__input {
+  width: 100%;
+}
+
+.course-add__input__container {
+  padding: 10px 0;
+}
+
+.course-add__message {
+  text-align: center;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 5px 0;
+}
+
+.course-add__message_success {
+  background-color: #66CC33;
+}
+
+.course-add__message_error {
+  background-color: #FF6666;
+  color: #fff;
+}
+

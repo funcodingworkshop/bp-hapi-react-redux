@@ -5,9 +5,9 @@ import Home from '../containers/home/home';
 import Students from '../containers/students/students';
 import Users from '../containers/users/users';
 
-import Courses from '../containers/courses/courses';
-import CourseSimple from '../containers/courses/course';
-import CourseAdd from '../containers/courses/course-add';
+import Courses from '../containers/courses/courses/courses';
+import CourseSimple from '../containers/courses/course/course';
+import CourseAdd from '../containers/courses/course-add/course-add';
 
 import CreateLesson from '../containers/lessons/lesson-add';
 

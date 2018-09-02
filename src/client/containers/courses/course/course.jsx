@@ -11,17 +11,30 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { fetchCourseSagaAC, deleteCourseAC } from '../../redux/actions/courses-actions';
-import { selectCourses } from '../../redux/selectors/courses-selectors';
+import { fetchCourseSagaAC, deleteCourseAC } from '../../../redux/actions/courses-actions';
+import { selectCourses } from '../../../redux/selectors/courses-selectors';
 
-import '../../css/courses/course-simple.css';
+import './course.css';
 
 library.add(faTrashAlt, faPencilAlt);
 
+// TODO use decorators
+function mapStateToProps(state) {
+  return {
+    coursesList: selectCourses(state)
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    deleteCourse: deleteCourseAC,
+    fetchCourse: fetchCourseSagaAC
+  }, dispatch);
+}
+
 class CourseSimpleComponent extends Component {
   static propTypes = {
-    // TODO all names camelCase coursesList
-    courses_list: PropTypes.array.isRequired,
+    coursesList: PropTypes.array.isRequired,
     match: PropTypes.object.isRequired,
     deleteCourse: PropTypes.func.isRequired,
     fetchCourse: PropTypes.func.isRequired
@@ -39,51 +52,41 @@ class CourseSimpleComponent extends Component {
     let course = null;
 
     // TODO move all this logic to Saga
-    if (this.props.courses_list.length === 0) {
+    if (this.props.coursesList.length === 0) {
       this.props.fetchCourse(this.props.match.params.id);
     } else {
-      course = this.props.courses_list.filter((item) => item._id === this.props.match.params.id)[0];
+      course = this.props.coursesList.filter((item) => item._id === this.props.match.params.id)[0];
       this.setState({ course });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.courses_list !== nextProps.courses_list && nextProps.courses_list.length === 1) {
-      this.setState({ course: nextProps.courses_list[0] });
-    }
+    if (nextProps.courses_list !== undefined) 
+      if (this.props.coursesList !== nextProps.courses_list && nextProps.courses_list.length === 1) {
+        this.setState({ course: nextProps.courses_list[0] });
+      }
   }
 
-  // TODO we do not need this method
-  shouldComponentUpdate(nextState) {
-    return (this.state.course !== nextState.course || this.state.redirect !== nextState.redirect);
-  }
-
-  // TODO better name is handleDelete
-  delete = () => {
-    // do material ui has modal component?
-    const confirmation = window.confirm('Вы уверены, что хотите удалить курс?');
-    if (confirmation) {
-      // TODO add separate id field
-      this.props.deleteCourse(this.state.course._id);
-      this.setState({ redirect: true });
-    }
+  handleDelete = () => {
+    this.props.deleteCourse(this.state.course._id);
+    this.setState({ redirect: true });
   }
 
   render() {
-    // TODO use destructoring for props
+    const link = this.props.match.params.id;
     return (
       <div>
 
         <Link to="/courses"><Button className="course__btn-set_main" variant="outlined" color="primary"><span>Список курсов</span></Button></Link>
           <div className="right">
 
-            <Link to={`/courses/${this.props.match.params.id}/edit`} className="course__btn-set" data-toogle="tooltip" title="Редактировать">
+            <Link to={`/courses/${link}/edit`} className="course__btn-set" data-toogle="tooltip" title="Редактировать">
               <Button variant="contained" color="primary">
                 <FontAwesomeIcon icon="pencil-alt" />
               </Button>
             </Link>
 
-            <Button className="course__btn-set" variant="contained" color="secondary" onClick={this.delete} data-toogle="tooltip" title="Удалить">
+            <Button className="course__btn-set" variant="contained" color="secondary" onClick={this.handleDelete} data-toogle="tooltip" title="Удалить">
               <FontAwesomeIcon icon="trash-alt" />
             </Button>
           </div>
@@ -105,7 +108,7 @@ class CourseSimpleComponent extends Component {
                </div>
              </Grid>
 
-             <Link to={`/courses/${this.props.match.params.id}/lessons/new`}>
+             <Link to={`/courses/${link}/lessons/new`}>
                <Button variant="contained" color="primary">
                  Добавить урок
                </Button>
@@ -121,20 +124,6 @@ class CourseSimpleComponent extends Component {
 
       </div>);
   }
-}
-
-// TODO use decorators and move to top
-function mapStateToProps(state) {
-  return {
-    courses_list: selectCourses(state)
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    deleteCourse: deleteCourseAC,
-    fetchCourse: fetchCourseSagaAC
-  }, dispatch);
 }
 
 
