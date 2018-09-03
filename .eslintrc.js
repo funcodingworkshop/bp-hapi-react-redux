@@ -2,7 +2,8 @@ module.exports = {
   extends: "airbnb-base",
   env: {
     browser: true,
-    node: true
+    node: true,
+    "jest/globals": true
   },
   parser: "babel-eslint",
   parserOptions: {
@@ -12,13 +13,15 @@ module.exports = {
     }
   },
   plugins: [
-    "react"
+    "react",
+    "jest"
   ],
   rules: {
     "comma-dangle": ["error", "never"],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "jest/no-identical-title": "error",
   },
   settings: {
     "import/resolver": {
