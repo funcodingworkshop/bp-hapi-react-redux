@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
 
 const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
+courseSchema.set('timestamps', true);
 const Course = mongoose.model('Course', courseSchema);
+
 
 // courses index
 const registerCourses = async (server, options) => {
@@ -73,10 +75,10 @@ const registerCoursePatch = async (server, options) => {
   const handler = async (request, h) => {
     const { params: { courseId } = {}, payload } = request;
     try {
-      const courses = await Course.find({ _id: courseId });
+      const courses = await Course.find({ _id: request.payload.id });
       if (courses.length === 1) {
-        await courses[0].update({ ...payload, $inc: { __v: 1 } });
-        const res = await Course.find({ _id: courseId });
+        await courses[0].update({ ...request.payload.course, $inc: { __v: 1 } });
+        const res = await Course.find({ _id: request.payload.id });
         return h.response(res).code(200);
       }
       return h.response(createError('Document not found')).code(400);

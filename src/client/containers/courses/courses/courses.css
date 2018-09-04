@@ -1,0 +1,22 @@
+.courses__panel-list {
+	margin: 15px 0;
+}
+
+.courses__panel-list__header {
+	font-size: 16px;
+	padding: 5px 0;
+	font-weight: bold;
+}
+
+.courses-line {
+	width: 100%;
+	font-size: 16px;
+	padding: 5px 0;
+	&:nth-child(2n) {
+		background-color: #E6E6FA;
+	}
+}
+
+.header__link {
+	color: blue;
+}
