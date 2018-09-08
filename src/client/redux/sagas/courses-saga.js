@@ -36,15 +36,15 @@ export function* watchFetchCourses() {
 }
 
 function* fetchCourse(action) {
-    const method = 'GET';
-    const url = `/api/courses/${action.payload.id}`;
-    try {
-      const res = yield call(axios, { method, url });
-      const courseData = res.data;
-      yield put(fetchCourseSuccessAC(courseData));
-    } catch (error) {
-      console.log(error);
-    }
+  const method = 'GET';
+  const url = `/api/courses/${action.payload.id}`;
+  try {
+    const res = yield call(axios, { method, url });
+    const courseData = res.data;
+    yield put(fetchCourseSuccessAC(courseData));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* watchFetchCourse() {
@@ -88,7 +88,7 @@ export function* watchDeleteCourse() {
 
 
 function* updateCourse(action) {
-  const id = action.payload.id;
+  const { id } = action.payload;
   const method = 'PATCH';
   const url = `/api/courses/${id}/edit`;
   try {

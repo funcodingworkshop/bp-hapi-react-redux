@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import Type from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -32,9 +32,69 @@ function mapDispatchToProps(dispatch) {
 
 class CourseAddComponent extends Component {
   static propTypes = {
-    currentCourse: PropTypes.object.isRequired,
-    createCourseAC: PropTypes.func.isRequired,
-    updateCourseAC: PropTypes.func.isRequired
+    currentCourse: Type.shape({
+      name: Type.string,
+      code: Type.string,
+      comment: Type.string
+    }),
+    createCourseAC: Type.func.isRequired,
+    updateCourseAC: Type.func.isRequired,
+    match: Type.shape({
+      params: Type.shape({
+        id: Type.string
+      }),
+      path: Type.string
+    }),
+    fetchCourseSagaAC: Type.func
+  }
+
+  // TODO order of methods in class, SET eslint for methods ordering
+  setCourseName = (e) => {
+    this.setState({ courseName: e.target.value });
+  };
+
+  setCourseCode = (e) => {
+    this.setState({ courseCode: e.target.value });
+  };
+
+  setCourseComment = (e) => {
+    this.setState({ courseComment: e.target.value });
+  };
+
+  dataValidation = () => {
+    let check = false;
+    if (this.state.courseCode === '') check = 'Необходимо добавить код курса!';
+    if (this.state.courseName === '') check = 'Необходимо ввести название курса!';
+    return check;
+  };
+
+  addCourse = () => {
+    const regExpRule = /edit$/;
+    const check = regExpRule.test(this.props.match.path);
+
+    const data = {
+      name: this.state.courseName,
+      code: this.state.courseCode,
+      comment: this.state.courseComment
+    };
+
+    if (!this.dataValidation()) {
+      if (!check) {
+        this.props.createCourseAC(data);
+        this.setState({ message: 'Курс успешно добавлен' });
+        // setTimeout(() => this.setState({ message: ""}), 3000);
+        setTimeout(() => this.setState({ redirect: true }), 2000);
+      } else {
+        this.props.updateCourseAC(this.props.match.params.id, data);
+        this.setState({ message: 'Курс успешно обновлён' });
+        setTimeout(() => this.setState({ redirect: true }), 2000);
+      }
+
+      this.setState({ message_type: 'success ' });
+    } else {
+      this.setState({ message: this.dataValidation() });
+      this.setState({ message_type: 'error ' });
+    }
   }
 
   constructor() {
@@ -64,53 +124,6 @@ class CourseAddComponent extends Component {
       this.setState({ courseComment: nextProps.currentCourse.comment });
     }
   }
-  // TODO formating
-  // TODO order of methods in class, SET eslint for methods ordering
-  setCourseName = (e) => {
-    this.setState({ courseName: e.target.value });
-  };
-
-  setCourseCode = (e) => { this.setState({ courseCode: e.target.value }); }
-  setCourseComment = (e) => { this.setState({ courseComment: e.target.value }); }
-
-  // TODO maybe to use formik?
-  dataValidation = () => {
-    let check = false;
-    if (this.state.courseCode === '') check = 'Необходимо добавить код курса!';
-    if (this.state.courseName === '') check = 'Необходимо ввести название курса!';
-    return check;
-  };
-
-  addCourse = () => {
-    const regExpRule = /edit$/;
-    const check = regExpRule.test(this.props.match.path);
-
-    // TODO add object in local state course={ name, code, comment }
-    const data = {
-      name: this.state.courseName,
-      code: this.state.courseCode,
-      comment: this.state.courseComment
-    };
-
-    if (!this.dataValidation()) {
-      if (!check) {
-        this.props.createCourseAC(data);
-        this.setState({ message: 'Курс успешно добавлен' });
-        // setTimeout(() => this.setState({ message: ""}), 3000);
-        setTimeout(() => this.setState({ redirect: true }), 2000);
-      } else {
-        this.props.updateCourseAC(this.props.match.params.id, data);
-        this.setState({ message: 'Курс успешно обновлён' });
-        setTimeout(() => this.setState({ redirect: true }), 2000);
-      }
-
-      this.setState({ message_type: 'success ' });
-    } else {
-      this.setState({ message: this.dataValidation() });
-      this.setState({ message_type: 'error ' });
-    }
-  }
-
 
   render() {
     const regExpRule = /edit$/;
@@ -155,9 +168,7 @@ class CourseAddComponent extends Component {
   }
 }
 
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(CourseAddComponent);
-

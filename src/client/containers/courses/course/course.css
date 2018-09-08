@@ -1,41 +1,46 @@
 .course {
   margin: 20px 0;
-}
 
-.course__card {
-  border: 2px solid #DCDCDC;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.course__card_left {
-  margin-right: 10px;
-}
-
-.course__card_right {
-  margin-left: 10px;
-}
-
-.card__header {
-  width: 100%;
-  background-color: #DCDCDC;
-  border-radius: 7px 7px 0px 0;
-  padding: 3px 0;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.course__btn-set {
-  margin: 0 2px;
-}
-
-@media screen and (max-width: 600px) {
-  .course__card_left, .course__card_right {
-    margin: 5px 0;
+  &__card {
+    border: 2px solid #DCDCDC;
+    border-radius: 10px;
+    text-align: center;
   }
 
-  .course__btn-set_main span { display: none; }
-  .course__btn-set_main:after {
-    content: 'Назад';
+  &__card_left {
+    margin-right: 10px;
+  }
+
+  &__card_right {
+    margin-left: 10px;
+  }
+
+  &__header {
+    width: 100%;
+    background-color: #DCDCDC;
+    border-radius: 7px 7px 0px 0;
+    padding: 3px 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__btn-set {
+    margin: 0 2px;
+  }
+
+  @media screen and (max-width: 600px) {
+    &__card {
+      margin: 5px 0;
+    }
+
+    &__btn-set_main {
+      span {
+        display: none;
+      }
+
+      &:after {
+        content: 'Назад';
+      }
+    }
   }
 }

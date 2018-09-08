@@ -22,6 +22,8 @@ module.exports = {
     "react/jsx-uses-vars": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "jest/no-identical-title": "error",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "react/prop-types": [2]
   },
   settings: {
     "import/resolver": {

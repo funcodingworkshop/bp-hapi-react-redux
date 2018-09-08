@@ -34,7 +34,8 @@ function mapDispatchToProps(dispatch) {
 class App extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    doRoute: PropTypes.func
   };
 
   static defaultProps = {

@@ -73,12 +73,12 @@ const registerCoursePatch = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
   const handler = async (request, h) => {
-    const { params: { courseId } = {}, payload } = request;
+    const { params: { courseId } = {}, payload: { course } } = request;
     try {
-      const courses = await Course.find({ _id: request.payload.id });
+      const courses = await Course.find({ _id: courseId });
       if (courses.length === 1) {
-        await courses[0].update({ ...request.payload.course, $inc: { __v: 1 } });
-        const res = await Course.find({ _id: request.payload.id });
+        await courses[0].update({ ...course, $inc: { __v: 1 } });
+        const res = await Course.find({ _id: courseId });
         return h.response(res).code(200);
       }
       return h.response(createError('Document not found')).code(400);

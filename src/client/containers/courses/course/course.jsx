@@ -40,6 +40,11 @@ class CourseSimpleComponent extends Component {
     fetchCourse: PropTypes.func.isRequired
   };
 
+  handleDelete = () => {
+    this.props.deleteCourse(this.props.currentCourse._id);
+    this.setState({ redirect: true });
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -50,11 +55,6 @@ class CourseSimpleComponent extends Component {
 
   componentDidMount() {
     this.props.fetchCourse(this.props.match.params.id);
-  }
-
-  handleDelete = () => {
-    this.props.deleteCourse(this.props.currentCourse._id);
-    this.setState({ redirect: true });
   }
 
   render() {
@@ -116,4 +116,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(CourseSimpleComponent);
-

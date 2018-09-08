@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Type from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
 
 class CreateLesson extends Component {
+  static propTypes = {
+    match: Type.shape({
+      params: Type.shape({
+        id: Type.string
+      }),
+      path: Type.string
+    })
+  }
+
   constructor() {
     super();
     this.state = {
@@ -92,4 +101,3 @@ class CreateLesson extends Component {
 }
 
 export default CreateLesson;
-

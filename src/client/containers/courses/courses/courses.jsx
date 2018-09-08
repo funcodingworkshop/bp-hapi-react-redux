@@ -35,7 +35,6 @@ class Courses extends React.Component {
     coursesList: PropTypes.array.isRequired
   };
 
-
   componentDidMount() {
     this.props.fetchCourses();
   }
@@ -64,7 +63,7 @@ class Courses extends React.Component {
               <div className="courses-line" key={`line${index}`}>
                 <CoursesComponent
                   key={`course${index}`}
-                  view_id={index + 1}
+                  viewId={index + 1}
                   course={course}
                 />
               </div>)
