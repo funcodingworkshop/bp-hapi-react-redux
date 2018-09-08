@@ -36,8 +36,6 @@ export function* watchFetchCourses() {
 }
 
 function* fetchCourse(action) {
-  const list = yield select(selectCourses);
-  if (list.length === 0) {
     const method = 'GET';
     const url = `/api/courses/${action.payload.id}`;
     try {
@@ -47,7 +45,6 @@ function* fetchCourse(action) {
     } catch (error) {
       console.log(error);
     }
-  }
 }
 
 export function* watchFetchCourse() {

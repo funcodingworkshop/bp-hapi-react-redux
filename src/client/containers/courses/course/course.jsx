@@ -50,7 +50,6 @@ class CourseSimpleComponent extends Component {
 
   componentDidMount() {
     this.props.fetchCourse(this.props.match.params.id);
-    console.log(this.props.match.params.id);
   }
 
   handleDelete = () => {

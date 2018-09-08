@@ -155,6 +155,7 @@ class CourseAddComponent extends Component {
   }
 }
 
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
