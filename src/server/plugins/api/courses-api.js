@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
 
 const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
+courseSchema.set('timestamps', true);
 const Course = mongoose.model('Course', courseSchema);
+
 
 // courses index
 const registerCourses = async (server, options) => {
@@ -71,11 +73,11 @@ const registerCoursePatch = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
   const handler = async (request, h) => {
-    const { params: { courseId } = {}, payload } = request;
+    const { params: { courseId } = {}, payload: { course } } = request;
     try {
       const courses = await Course.find({ _id: courseId });
       if (courses.length === 1) {
-        await courses[0].update({ ...payload, $inc: { __v: 1 } });
+        await courses[0].update({ ...course, $inc: { __v: 1 } });
         const res = await Course.find({ _id: courseId });
         return h.response(res).code(200);
       }

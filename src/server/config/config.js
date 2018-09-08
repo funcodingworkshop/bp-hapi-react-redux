@@ -97,7 +97,7 @@ export default function getConfig() {
       },
       coursePatch: {
         method: 'PATCH',
-        path: '/api/courses/{courseId}'
+        path: '/api/courses/{courseId}/edit'
       },
       courseDelete: {
         method: 'DELETE',

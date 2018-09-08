@@ -1,6 +1,6 @@
 // ACTION TYPES
 export const COURSES_TYPES = {
-  // FETCH LIST
+  // FETCH COURSES LIST
   FETCH_COURSES_SAGA: 'FETCH_COURSES_SAGA',
   FETCH_COURSES_START: 'FETCH_COURSES_START',
   FETCH_COURSES_SUCCESS: 'FETCH_COURSES_SUCCESS',
@@ -45,5 +45,70 @@ export function fetchCoursesSuccessAC(courses) {
     payload: {
       courses
     }
+  };
+}
+
+export function fetchCourseSagaAC(id) {
+  return {
+    type: COURSES_TYPES.FETCH_COURSE_SAGA,
+    payload: {
+      id
+    }
+  };
+}
+
+export function fetchCourseSuccessAC(course) {
+  return {
+    type: COURSES_TYPES.FETCH_COURSE_SUCCESS,
+    payload: {
+      course
+    }
+  };
+}
+
+// TODO add word SAGA if it launches saga - createCourseSagaAC
+export function createCourseAC(data) {
+  return {
+    type: COURSES_TYPES.CREATE_COURSE_SAGA,
+    payload: {
+      name: data.name,
+      code: data.code,
+      comment: data.comment
+    }
+  };
+}
+
+export function createCourseSuccessAC(course) {
+  return {
+    type: COURSES_TYPES.CREATE_COURSE_SUCCESS,
+    payload: course
+  };
+}
+
+export function deleteCourseAC(id) {
+  return {
+    type: COURSES_TYPES.DELETE_COURSE_SAGA,
+    payload: id
+  };
+}
+
+export function deleteCourseSuccessAC(id) {
+  return {
+    type: COURSES_TYPES.DELETE_COURSE_SUCCESS,
+    payload: id
+  };
+}
+
+export function updateCourseAC(id, course) {
+  return {
+    type: COURSES_TYPES.UPDATE_COURSE_SAGA,
+    payload: { id, course }
+  };
+}
+
+export function updateCourseSuccessAC(course) {
+  return {
+    type: COURSES_TYPES.UPDATE_COURSE_SUCCESS,
+    payload: course
   };
 }
