@@ -27,6 +27,7 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. Async data loading and validation
 1. [CSS Modules](https://github.com/css-modules/css-modules)
 1. Testing with [Jest](https://facebook.github.io/jest/docs/en/tutorial-react.html) (**DONE**)
+1. Hot Reload
 
 ### Functionality
 
