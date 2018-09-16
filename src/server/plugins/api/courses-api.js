@@ -77,7 +77,7 @@ const registerCoursePatch = async (server, options) => {
     try {
       const courses = await Course.find({ _id: courseId });
       if (courses.length === 1) {
-        await courses[0].update({ ...course, $inc: { __v: 1 } });
+        await courses[0].updateOne({ ...course, $inc: { __v: 1 } });
         const res = await Course.find({ _id: courseId });
         return h.response(res).code(200);
       }
@@ -101,7 +101,7 @@ const registerCourseDelete = async (server, options) => {
     try {
       const courses = await Course.find({ _id: courseId });
       if (courses.length > 0) {
-        await Course.find({ _id: courseId }).remove();
+        await Course.find({ _id: courseId }).deleteOne();
         return h.response().code(204);
       }
       return h.response(createError('Document not found')).code(400);

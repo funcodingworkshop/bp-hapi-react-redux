@@ -1,7 +1,3 @@
-import sendCode from './plugins/api/send-phone-api';
-import verifyCode from './plugins/api/send-sms-api';
-import validateJwt from './plugins/api/validate-jwt-api';
-
 import {
   coursesPlugin,
   coursePostPlugin,
@@ -20,18 +16,6 @@ const getPlugins = (config) => {
   };
 
   return [
-    {
-      plugin: sendCode,
-      options: { apiConfig: config.services.sendCode }
-    },
-    {
-      plugin: verifyCode,
-      options: { apiConfig: config.services.verifyCode, jwtConfig: config.jwt }
-    },
-    {
-      plugin: validateJwt,
-      options: { apiConfig: config.services.validateJwt, jwtConfig: config.jwt }
-    },
     {
       plugin: coursesPlugin,
       options: { apiConfig: config.services.courses }
