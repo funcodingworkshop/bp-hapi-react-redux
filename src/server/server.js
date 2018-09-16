@@ -8,7 +8,7 @@ import indexPagePlugin from './plugins/pages/index';
 import staticAssetsPlugin from './plugins/pages/static-assets';
 import proxyAssetsPlugin from './plugins/pages/proxy-assets';
 import getPlugins from './plugins';
-import getConfig from './config/config';
+import getConfig from './config/default';
 
 const config = getConfig();
 const {
@@ -18,9 +18,15 @@ const {
   mongoDbName
 } = config.server;
 if (mongoDbUser && mongoDbPass) {
-  mongoose.connect(`mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`);
+  mongoose.connect(
+    `mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`,
+    { useNewUrlParser: true }
+  );
 } else {
-  mongoose.connect(`mongodb://${mongoDbHost}/${mongoDbName}`);
+  mongoose.connect(
+    `mongodb://${mongoDbHost}/${mongoDbName}`,
+    { useNewUrlParser: true }
+  );
 }
 
 const db = mongoose.connection;

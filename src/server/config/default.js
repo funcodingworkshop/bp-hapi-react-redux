@@ -69,20 +69,6 @@ export default function getConfig() {
         method: 'GET',
         path: ''
       },
-      sendCode: {
-        method: 'POST',
-        path: '/api/send-code',
-        url: `http://${serviceHost}/ona-pipe-api/getPhoneConfirm`
-      },
-      verifyCode: {
-        method: 'POST',
-        path: '/api/verify-code',
-        url: `http://${serviceHost}/ona-pipe-api/checkPhoneConfirm`
-      },
-      validateJwt: {
-        method: 'POST',
-        path: '/api/validate-jwt'
-      },
       courses: {
         method: 'GET',
         path: '/api/courses'
