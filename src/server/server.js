@@ -9,6 +9,7 @@ import staticAssetsPlugin from './plugins/pages/static-assets';
 import proxyAssetsPlugin from './plugins/pages/proxy-assets';
 import getPlugins from './plugins';
 import getConfig from './config/default';
+import { jwtAuthScheme } from './auth/jwt-auth-scheme';
 
 const config = getConfig();
 const {
@@ -38,7 +39,7 @@ const init = async () => {
   });
 
   if (config.useMocks) {
-        require('./mock/mock'); // eslint-disable-line
+    require('./mock/mock'); // eslint-disable-line
   }
 
   // Vision is used for adding templating engine
@@ -71,6 +72,11 @@ const init = async () => {
       options: { appModeDev: config.appModeDev }
     });
   }
+
+  // Auth
+  server.auth.scheme('jwt-auth-scheme', jwtAuthScheme);
+  server.auth.strategy('jwt-auth', 'jwt-auth-scheme', { opt1: 'some options 1 ...' });
+  server.auth.default('jwt-auth');
 
   const plugins = getPlugins(config);
   await server.register(plugins);
