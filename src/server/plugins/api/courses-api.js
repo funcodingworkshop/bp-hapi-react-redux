@@ -10,8 +10,9 @@ const Course = mongoose.model('Course', courseSchema);
 const registerCourses = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
-  const handler = async () => {
+  const handler = async (request) => {
     try {
+      console.log('courses index', request.auth);
       const res = await Course.find();
       console.log('courses index success'); // eslint-disable-line no-console
       return res;
