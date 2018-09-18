@@ -74,6 +74,7 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const { anchorEl } = this.state;
     const { classes } = this.props;
     return (

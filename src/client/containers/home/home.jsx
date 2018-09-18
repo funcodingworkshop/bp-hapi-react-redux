@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import { sayByeAC, sayHiAC, testButtonAC } from '../../redux/actions/app-actions';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { selectSay } from '../../redux/selectors/app-selectors';
+import PAGES from '../../routes/pages';
 
 import './home.css';
 import reactImg from './react.png';
@@ -47,13 +48,14 @@ class Home extends React.Component {
       <div className='home'>
         <h2>Home Page</h2>
         <div>
+          <Link to={ PAGES.signUp.path }>Sign Up</Link>
           <br/>
-          <Link to='/courses'>Courses</Link>
+          <Link to={ PAGES.signIn.path }>Sign In</Link>
           <br/>
-          <Link to='/students'>Students</Link>
+          <Link to={ PAGES.courses.path }>Courses</Link>
           <br/>
+          <Link to={ PAGES.students.path }>Students</Link>
         </div>
-        <div>this.props.say</div>
         <br/>
         <div>
           <Button variant="contained" color="primary" onClick={ handleSayBye }>
