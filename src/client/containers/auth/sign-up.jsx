@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Type from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { signUpSagaAC } from '../../redux/actions/app-actions';
 
 const styles = theme => ({
   container: {
@@ -32,15 +35,17 @@ const styles = theme => ({
 //   return {
 //   };
 // }
-//
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//   }, dispatch);
-// }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    signUp: signUpSagaAC
+  }, dispatch);
+}
 
 class SignUp extends PureComponent {
   static propTypes = {
-    classes: Type.shape({})
+    classes: Type.shape({}),
+    signUp: Type.func.isRequired
   };
 
   // static defaultProps = {
@@ -56,6 +61,11 @@ class SignUp extends PureComponent {
     this.setState({
       [name]: event.target.value
     });
+  };
+
+  handleSubmit = () => {
+    console.log(3337);
+    this.props.signUp(this.state);
   };
 
   render() {
@@ -87,7 +97,7 @@ class SignUp extends PureComponent {
               className={ classes.button }
               variant="contained"
               color="primary"
-              onClick={ () => {} }
+              onClick={ this.handleSubmit }
             >
               Sign Up
             </Button>
@@ -98,9 +108,9 @@ class SignUp extends PureComponent {
   }
 }
 
-// const VisibleSignUp = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Home);
+const VisibleSignUp = connect(
+  null,
+  mapDispatchToProps
+)(SignUp);
 
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(VisibleSignUp);

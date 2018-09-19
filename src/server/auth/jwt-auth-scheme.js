@@ -22,7 +22,6 @@ export function jwtAuthScheme(server, options) {
     console.log(options);
     // return h.authenticated({ credentials: { user: 'good' } });
     return Boom.unauthorized('invalid query');
-    // return h.redirect(PAGES.signIn.path);
   };
   // if authenticate return h.continue response is skipped
   const response = (request, h) => {
