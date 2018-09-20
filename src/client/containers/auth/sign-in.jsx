@@ -1,49 +1,84 @@
 import React, { PureComponent } from 'react';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Type from 'prop-types';
-// import { Link } from 'react-router-dom';
-// import Button from '@material-ui/core/Button';
-// import { doRouteAC } from '../../redux/actions/router-actions';
-import { createBemClassFactory } from '../../utils/bem';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { signInSagaAC } from '../../redux/actions/app-actions';
+import styles from './styles';
 
-import './sign-in.css';
-
-const cn = createBemClassFactory('sign-in');
-
-// function mapStateToProps(state) {
-//   return {
-//   };
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//   }, dispatch);
-// }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    signIn: signInSagaAC
+  }, dispatch);
+}
 
 class SignIn extends PureComponent {
   static propTypes = {
-    say: Type.string
+    classes: Type.shape({}),
+    signIn: Type.func.isRequired
   };
 
-  // static defaultProps = {
-  //   say: 'Nothing Yet :('
-  // };
+  state = {
+    email: '',
+    password: ''
+  };
+
+  handleChange = name => (event) => {
+    this.setState({
+      [name]: event.target.value
+    });
+  };
+
+  handleSubmit = () => {
+    console.log(4447);
+    this.props.signIn(this.state);
+  };
 
   render() {
-    const { say } = this.props;
+    console.log('state', this.state);
+    const { classes } = this.props;
     return (
-      <div className={ cn() }>
-        <h2>Sign In</h2>
-        <div>{ say }</div>
+      <div className={classes.container }>
+        <form noValidate autoComplete="off">
+          <h2>Sign In</h2>
+          <TextField
+            id="email"
+            label="Email"
+            className={ classes.textField }
+            value={this.state.email}
+            onChange={this.handleChange('email')}
+            margin="normal"
+          />
+          <TextField
+            id="password-input"
+            label="Password"
+            className={ classes.textField }
+            value={this.state.password}
+            type="password"
+            onChange={this.handleChange('password')}
+            margin="normal"
+          />
+          <div className={ classes.buttonBlock }>
+            <Button
+              className={ classes.button }
+              variant="contained"
+              color="primary"
+              onClick={ this.handleSubmit }
+            >
+              Sign In
+            </Button>
+          </div>
+        </form>
       </div>
     );
   }
 }
 
-// const VisibleSignUp = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Home);
+const VisibleSignIn = connect(
+  null,
+  mapDispatchToProps
+)(SignIn);
 
-export default SignIn;
+export default withStyles(styles)(VisibleSignIn);

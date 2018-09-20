@@ -35,7 +35,7 @@ const db = mongoose.connection;
 const init = async () => {
   const server = Hapi.server({
     port: config.server.port,
-    host: config.server.serviceHost
+    host: config.server.host
   });
 
   if (config.useMocks) {

@@ -1,8 +1,10 @@
-import { SERVICES } from './services';
+import { getServices } from './services';
 
 const appId = 'ona-ao-ui';
 const useMocks = process.env.APP_MOCKS === '1';
 const appModeDev = process.env.APP_MODE_DEV === '1';
+const host = process.env.HOST || '0.0.0.0';
+// Service host with port
 const serviceHost = process.env.SERVICE_HOST || '0.0.0.0';
 const mongoDbHost = process.env.MONGODB_HOST || '0.0.0.0';
 const mongoDbUser = process.env.MONGODB_USER;
@@ -39,6 +41,7 @@ export default function getConfig() {
       mongoDbUser,
       mongoDbPass,
       mongoDbName,
+      host,
       port: 8080,
       proxyClientIpHeader: 'wl-proxy-client-ip',
       customerIdHeader: 'customerid',
@@ -66,6 +69,6 @@ export default function getConfig() {
       expiresIn: 86400
     },
 
-    services: SERVICES
+    services: getServices(serviceHost)
   };
 }

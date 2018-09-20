@@ -13,6 +13,7 @@ export default function appReducer(state = initialState, { type, payload }) {
     case APP_TYPES.SAY_BYE: {
       return { ...state, say: 'bye' };
     }
+    case APP_TYPES.SIGN_IN_SUCCESS:
     case APP_TYPES.SIGN_UP_SUCCESS: {
       return {
         ...state,

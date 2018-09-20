@@ -11,8 +11,8 @@
     "build-server": "rimraf .build/ && babel ./src/server --out-dir .build/server/ --copy-files",
     "build-client": "webpack --mode production",
     "build": "npm run build-server && npm run build-client",
-    "start-build": "NODE_ENV=localhost APP_MOCKS=1 node ./.build/server/server",
-    "start-server": "NODE_ENV=localhost APP_MOCKS=1 APP_MODE_DEV=1 nodemon --exec babel-node src/server/server --ignore src/client",
+    "start-build": "NODE_ENV=localhost APP_MOCKS=0 node ./.build/server/server",
+    "start-server": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MOCKS=0 APP_MODE_DEV=1 nodemon --exec babel-node src/server/server --ignore src/client",
     "start-client": "webpack-dev-server --mode development",
     "start": "node start.js",
     "docker-build": "./docker-build.sh $npm_package_name $npm_package_version"

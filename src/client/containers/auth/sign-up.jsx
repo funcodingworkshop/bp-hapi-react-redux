@@ -6,30 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { signUpSagaAC } from '../../redux/actions/app-actions';
-
-const styles = theme => ({
-  container: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
-  },
-  form: {
-    flexDirection: 'column'
-  },
-  textField: {
-    display: 'flex',
-    maxWidth: 400
-  },
-  buttonBlock: {
-    display: 'flex',
-    paddingTop: 20,
-    maxWidth: 400,
-    width: '100%'
-  },
-  button: {
-    margin: 'auto',
-    width: 400
-  }
-});
+import styles from './styles';
 
 // function mapStateToProps(state) {
 //   return {

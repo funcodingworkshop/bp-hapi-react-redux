@@ -8,7 +8,9 @@ export const APP_TYPES = {
   TEST_BUTTON_ERROR: 'TEST_BUTTON_ERROR',
 
   SIGN_UP_SAGA: 'SIGN_UP_SAGA',
-  SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS'
+  SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
+  SIGN_IN_SAGA: 'SIGN_IN_SAGA',
+  SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS'
 };
 
 // ACTION CREATORS
@@ -52,6 +54,25 @@ export function signUpSagaAC(user) {
 export function signUpSuccessAC(user) {
   return {
     type: APP_TYPES.SIGN_UP_SUCCESS,
+    payload: {
+      user
+    }
+  };
+}
+
+// SIGN IN
+export function signInSagaAC(user) {
+  return {
+    type: APP_TYPES.SIGN_IN_SAGA,
+    payload: {
+      user
+    }
+  };
+}
+
+export function signInSuccessAC(user) {
+  return {
+    type: APP_TYPES.SIGN_IN_SUCCESS,
     payload: {
       user
     }
