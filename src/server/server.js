@@ -80,6 +80,15 @@ const init = async () => {
 
   const plugins = getPlugins(config);
   await server.register(plugins);
+
+  // Cookie
+  server.state(config.authCookie.tokenName, {
+    ttl: config.authCookie.expiresIn,
+    isHttpOnly: true,
+    isSecure: config.authCookie.isSecure,
+    path: '/'
+  });
+
   await server.start();
   console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
   // console.log(`Config: ${JSON.stringify(config)}`); // eslint-disable-line

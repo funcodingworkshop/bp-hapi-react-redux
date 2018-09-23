@@ -20,7 +20,7 @@ const getPlugins = (config) => {
   return [
     {
       plugin: signInPlugin,
-      options: { apiConfig: config.services.auth.signIn }
+      options: { apiConfig: config.services.auth.signIn, authCookieConfig: config.authCookie }
     },
     {
       plugin: coursesPlugin,

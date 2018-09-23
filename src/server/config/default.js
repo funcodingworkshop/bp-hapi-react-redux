@@ -64,6 +64,12 @@ export default function getConfig() {
       maskFields: []
     },
 
+    authCookie: {
+      tokenName: 'jwt-token-klisha',
+      expiresIn: 10 * 60 * 1000, // in milliseconds
+      isSecure: false
+    },
+
     jwt: {
       secret: 'NeverShareYourSecret',
       expiresIn: 86400
