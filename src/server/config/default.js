@@ -1,4 +1,5 @@
-import { getServices } from './services';
+import { getServicesConfig } from './services';
+import { authCookieConfig } from './auth-cookie';
 
 const appId = 'ona-ao-ui';
 const useMocks = process.env.APP_MOCKS === '1';
@@ -64,17 +65,13 @@ export default function getConfig() {
       maskFields: []
     },
 
-    authCookie: {
-      tokenName: 'jwt-token-klisha',
-      expiresIn: 10 * 60 * 1000, // in milliseconds
-      isSecure: false
-    },
+    authCookie: authCookieConfig,
 
     jwt: {
       secret: 'NeverShareYourSecret',
       expiresIn: 86400
     },
 
-    services: getServices(serviceHost)
+    services: getServicesConfig(serviceHost)
   };
 }

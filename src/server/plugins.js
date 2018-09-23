@@ -6,7 +6,7 @@ import {
   courseDeletePlugin
 } from './plugins/api/courses-api';
 
-import { signInPlugin } from './plugins/api/auth-api';
+import { signInPlugin, userInfoPlugin } from './plugins/api/auth-api';
 
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars
@@ -21,6 +21,10 @@ const getPlugins = (config) => {
     {
       plugin: signInPlugin,
       options: { apiConfig: config.services.auth.signIn, authCookieConfig: config.authCookie }
+    },
+    {
+      plugin: userInfoPlugin,
+      options: { apiConfig: config.services.userInfo }
     },
     {
       plugin: coursesPlugin,

@@ -75,7 +75,7 @@ const init = async () => {
 
   // Auth
   server.auth.scheme('jwt-auth-scheme', jwtAuthScheme);
-  server.auth.strategy('jwt-auth', 'jwt-auth-scheme', { opt1: 'some options 1 ...' });
+  server.auth.strategy('jwt-auth', 'jwt-auth-scheme', config.services.auth.verifyJwt);
   server.auth.default('jwt-auth');
 
   const plugins = getPlugins(config);

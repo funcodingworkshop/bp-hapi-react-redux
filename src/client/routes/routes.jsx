@@ -25,16 +25,16 @@ const WrappedComponent = (Component, props) => (
 export default (
   <Switch>
     <Route
-      exact path="/"
-      render={ props => WrappedComponent(Home, props) }
-    />
-    <Route
       exact path={ PAGES.signUp.path }
       component={ SignUp }
     />
     <Route
       exact path={ PAGES.signIn.path }
       component={ SignIn }
+    />
+    <Route
+      exact path="/"
+      render={ props => WrappedComponent(Home, props) }
     />
     <Route
       path={ PAGES.students.path }
@@ -65,14 +65,14 @@ export default (
       render={ props => WrappedComponent(CreateLesson, props) }
     />
     <Route
-      exact path={ PAGES.page404.path }
-      component={ Page404 }
-    />
-    <Route
       path = '/'
       render={ () => (
         <Redirect to={ PAGES.page404.path } />
       ) }
+    />
+    <Route
+      exact path={ PAGES.page404.path }
+      component={ Page404 }
     />
   </Switch>
 );

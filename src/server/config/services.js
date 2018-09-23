@@ -1,4 +1,4 @@
-export function getServices(serviceHost = 'localhost') {
+export function getServicesConfig(serviceHost = 'localhost') {
   return {
     indexPage: {
       method: 'GET',
@@ -25,6 +25,10 @@ export function getServices(serviceHost = 'localhost') {
       path: '/api/courses/{courseId}'
     },
     auth: {
+      verifyJwt: {
+        method: 'POST',
+        url: `http://${serviceHost}/api/verify-jwt`
+      },
       signUp: {
         method: 'POST',
         path: '/api/sign-up',
@@ -35,8 +39,13 @@ export function getServices(serviceHost = 'localhost') {
         path: '/api/sign-in',
         url: `http://${serviceHost}/api/sign-in-pass`
       }
+    },
+    userInfo: {
+      method: 'GET',
+      path: '/api/user-info',
+      url: `http://${serviceHost}/api/verify-jwt`
     }
   };
 }
 
-export const SERVICES = getServices();
+export const SERVICES = getServicesConfig();
