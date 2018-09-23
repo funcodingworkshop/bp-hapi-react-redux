@@ -1,5 +1,4 @@
 import { getServicesConfig } from './services';
-import { authJwtCookieConfig } from './auth-jwt-cookie';
 
 const appId = 'ona-ao-ui';
 const useMocks = process.env.APP_MOCKS === '1';

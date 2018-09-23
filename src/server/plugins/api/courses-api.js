@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { HTTP_ERROR_400, createError } from '../../constants';
+import { serverConsoleError } from '../../utils/server-console-error';
 
 const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
 courseSchema.set('timestamps', true);
@@ -10,14 +11,11 @@ const Course = mongoose.model('Course', courseSchema);
 const registerCourses = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
-  const handler = async (request) => {
+  const handler = () => {
     try {
-      console.log('courses index', request.auth);
-      const res = await Course.find();
-      console.log('courses index success'); // eslint-disable-line no-console
-      return res;
+      return Course.find();
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('coursesPlugin', e);
       return HTTP_ERROR_400;
     }
   };
@@ -34,10 +32,9 @@ const registerCoursePost = async (server, options) => {
     try {
       const course = new Course(request.payload);
       const res = await course.save();
-      console.log('create course\n', res); // eslint-disable-line no-console
       return h.response(res).code(201);
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('coursePostPlugin', e);
       return HTTP_ERROR_400;
     }
   };
@@ -55,12 +52,11 @@ const registerCourse = async (server, options) => {
     try {
       const courses = await Course.find({ _id: courseId });
       if (courses.length === 1) {
-        console.log('read course\n', courses); // eslint-disable-line no-console
         return h.response(courses[0]).code(200);
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('coursePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
@@ -84,7 +80,7 @@ const registerCoursePatch = async (server, options) => {
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('coursePatchPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
@@ -107,7 +103,7 @@ const registerCourseDelete = async (server, options) => {
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      console.error('!!! error', e); // eslint-disable-line no-console
+      serverConsoleError('courseDeletePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };

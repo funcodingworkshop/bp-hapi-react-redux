@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { signInSagaAC } from '../../redux/actions/app-actions';
 import styles from './styles';
-import {PAGES} from '../../routes/pages';
+import { PAGES } from '../../routes/pages';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({

@@ -4,11 +4,10 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { sayByeAC, sayHiAC, testButtonAC } from '../../redux/actions/app-actions';
+import { sayByeAC, sayHiAC, testButtonAC, signOutSagaAC } from '../../redux/actions/app-actions';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { selectSay } from '../../redux/selectors/app-selectors';
 import { PAGES } from '../../routes/pages';
-import { signOutSagaAC } from '../../redux/actions/app-actions';
 
 import './home.css';
 import reactImg from './react.png';

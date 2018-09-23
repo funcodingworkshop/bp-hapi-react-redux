@@ -2,18 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Type from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { signUpSagaAC } from '../../redux/actions/app-actions';
 import styles from './styles';
-import {Link} from 'react-router-dom';
-import {PAGES} from '../../routes/pages';
-
-// function mapStateToProps(state) {
-//   return {
-//   };
-// }
+import { PAGES } from '../../routes/pages';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
@@ -26,10 +21,6 @@ class SignUp extends PureComponent {
     classes: Type.shape({}),
     signUp: Type.func.isRequired
   };
-
-  // static defaultProps = {
-  //   say: 'Nothing Yet :('
-  // };
 
   state = {
     email: '',
