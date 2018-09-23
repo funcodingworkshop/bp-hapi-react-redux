@@ -1,7 +1,7 @@
 import Boom from 'boom';
-import { authCookieConfig } from '../config/auth-cookie';
+import { authJwtCookieConfig } from '../config/auth-jwt-cookie';
 import axios from '../config/axios-instance-node';
-import { consoleError } from '../../client/utils/console-error';
+import { serverConsoleError } from '../utils/server-console-error';
 
 const AUTHORIZED_DIR = '/api/';
 const UNAUTHORIZED_PATHS = [
@@ -24,7 +24,7 @@ export function jwtAuthScheme(server, options) {
     }
     console.log('path', request.path);
     try {
-      const authCookieValue = request.state[authCookieConfig.tokenName];
+      const authCookieValue = request.state[authJwtCookieConfig.tokenName];
       console.log('authCookieValue', authCookieValue);
       const { data: authResult } = await axios({ method, url, data: { token: authCookieValue } });
       console.log('authResult', authResult);
@@ -36,7 +36,7 @@ export function jwtAuthScheme(server, options) {
         return h.authenticated({ credentials });
       }
     } catch (e) {
-      consoleError('jwtAuthScheme ERROR:', e);
+      serverConsoleError('jwtAuthScheme ERROR:', e);
     }
     return Boom.unauthorized('Please Sign In');
   };

@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { signUpSagaAC } from '../../redux/actions/app-actions';
 import styles from './styles';
+import {Link} from 'react-router-dom';
+import {PAGES} from '../../routes/pages';
 
 // function mapStateToProps(state) {
 //   return {
@@ -30,7 +32,7 @@ class SignUp extends PureComponent {
   // };
 
   state = {
-    login: '',
+    email: '',
     password: ''
   };
 
@@ -41,23 +43,21 @@ class SignUp extends PureComponent {
   };
 
   handleSubmit = () => {
-    console.log(3337);
     this.props.signUp(this.state);
   };
 
   render() {
-    console.log('state', this.state);
     const { classes } = this.props;
     return (
       <div className={classes.container }>
         <form noValidate autoComplete="off">
           <h2>Sign Up</h2>
           <TextField
-            id="login"
-            label="Login"
+            id="email"
+            label="Email"
             className={ classes.textField }
-            value={this.state.login}
-            onChange={this.handleChange('login')}
+            value={this.state.email}
+            onChange={this.handleChange('email')}
             margin="normal"
           />
           <TextField
@@ -80,6 +80,8 @@ class SignUp extends PureComponent {
             </Button>
           </div>
         </form>
+        <br/>
+        <div>Or <Link to={ PAGES.signIn.path }>Sign In</Link></div>
       </div>
     );
   }

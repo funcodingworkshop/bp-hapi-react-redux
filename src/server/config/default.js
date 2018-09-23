@@ -1,5 +1,5 @@
 import { getServicesConfig } from './services';
-import { authCookieConfig } from './auth-cookie';
+import { authJwtCookieConfig } from './auth-jwt-cookie';
 
 const appId = 'ona-ao-ui';
 const useMocks = process.env.APP_MOCKS === '1';
@@ -64,8 +64,6 @@ export default function getConfig() {
       skipEndpoints: [],
       maskFields: []
     },
-
-    authCookie: authCookieConfig,
 
     jwt: {
       secret: 'NeverShareYourSecret',

@@ -31,11 +31,13 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 
 ### Functionality
 
-1. JWT Authentication [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
-1. Login Page
-1. Main menu, Header, Footer
+1. JWT Authentication (**DONE**)
+1. Login Page (**DONE**)
+1. Main menu, Header, Footer (**DONE**)
 1. CRUD with REST API and MongoDB (**DONE**)
 1. List page, Create/Edit page (**DONE**)
+1. Error notifications
+1. Sign In / Sign Up validations
 
 ### DevOps
 

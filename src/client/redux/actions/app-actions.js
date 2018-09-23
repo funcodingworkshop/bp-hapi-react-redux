@@ -3,14 +3,22 @@
 export const APP_TYPES = {
   SAY_HI: 'SAY_HI',
   SAY_BYE: 'SAY_BYE',
+
   TEST_BUTTON: 'TEST_BUTTON',
   TEST_BUTTON_SUCCESS: 'TEST_BUTTON_SUCCESS',
   TEST_BUTTON_ERROR: 'TEST_BUTTON_ERROR',
 
   SIGN_UP_SAGA: 'SIGN_UP_SAGA',
   SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
+
   SIGN_IN_SAGA: 'SIGN_IN_SAGA',
-  SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS'
+  SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
+
+  FETCH_ACCOUNT_SAGA: 'FETCH_ACCOUNT_SAGA',
+  FETCH_ACCOUNT_SUCCESS: 'FETCH_ACCOUNT_SUCCESS',
+
+  SIGN_OUT_SAGA: 'SIGN_OUT_SAGA',
+  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS'
 };
 
 // ACTION CREATORS
@@ -73,6 +81,35 @@ export function signInSagaAC(user) {
 export function signInSuccessAC(user) {
   return {
     type: APP_TYPES.SIGN_IN_SUCCESS,
+    payload: {
+      user
+    }
+  };
+}
+
+// SIGN OUT
+export function signOutSagaAC() {
+  return {
+    type: APP_TYPES.SIGN_OUT_SAGA
+  };
+}
+
+export function signOutSuccessAC() {
+  return {
+    type: APP_TYPES.SIGN_OUT_SUCCESS
+  };
+}
+
+// FETCH ACCOUNT
+export function fetchAccountSagaAC() {
+  return {
+    type: APP_TYPES.FETCH_ACCOUNT_SAGA
+  };
+}
+
+export function fetchAccountSuccessAC(user) {
+  return {
+    type: APP_TYPES.FETCH_ACCOUNT_SUCCESS,
     payload: {
       user
     }

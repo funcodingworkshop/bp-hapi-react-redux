@@ -2,7 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import { COURSES_TYPES, deleteCourseSuccessAC } from '../actions/courses-actions';
 import { SERVICES } from '../../../server/config/services';
 import axios from '../../axios-instance-browser';
-import { consoleError } from '../../utils/console-error';
+import { apiError } from './api-error';
 import { parseUrlFromTemplate } from '../../utils/path';
 
 function* deleteCourse(action) {
@@ -15,7 +15,7 @@ function* deleteCourse(action) {
     yield call(axios, { method, url });
     yield put(deleteCourseSuccessAC(courseId));
   } catch (error) {
-    consoleError(error);
+    yield* apiError(error);
   }
 }
 

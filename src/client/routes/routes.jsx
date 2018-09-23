@@ -12,7 +12,7 @@ import SignUp from '../containers/auth/sign-up';
 import SignIn from '../containers/auth/sign-in';
 import Page404 from '../containers/page404/page404';
 
-import PAGES from './pages';
+import { PAGES } from './pages';
 
 import CreateLesson from '../containers/lessons/lesson-add';
 
@@ -33,7 +33,7 @@ export default (
       component={ SignIn }
     />
     <Route
-      exact path="/"
+      exact path={ PAGES.home.path }
       render={ props => WrappedComponent(Home, props) }
     />
     <Route
@@ -41,23 +41,23 @@ export default (
       render={ props => WrappedComponent(Students, props) }
     />
     <Route
-      path="/users"
+      path={ PAGES.users.path }
       render={ props => WrappedComponent(Users, props) }
     />
     <Route
-      exact path={ PAGES.courses.path }
+      exact path={ PAGES.COURSES.list.path }
       render={ props => WrappedComponent(Courses, props) }
     />
     <Route
-      exact path="/courses/:id/edit"
+      exact path={ PAGES.COURSES.edit.path }
       render={ props => WrappedComponent(CourseAdd, props)}
     />
      <Route
-      exact path="/courses/add"
+      exact path={ PAGES.COURSES.add.path }
       render={ props => WrappedComponent(CourseAdd, props) }
     />
     <Route
-      exact path="/courses/:id"
+      exact path={ PAGES.COURSES.show.path }
       render={ props => WrappedComponent(CourseSimple, props) }
     />
     <Route

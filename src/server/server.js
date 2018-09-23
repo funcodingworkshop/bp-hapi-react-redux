@@ -10,6 +10,7 @@ import proxyAssetsPlugin from './plugins/pages/proxy-assets';
 import getPlugins from './plugins';
 import getConfig from './config/default';
 import { jwtAuthScheme } from './auth/jwt-auth-scheme';
+import { authJwtCookieConfig } from './config/auth-jwt-cookie';
 
 const config = getConfig();
 const {
@@ -82,10 +83,10 @@ const init = async () => {
   await server.register(plugins);
 
   // Cookie
-  server.state(config.authCookie.tokenName, {
-    ttl: config.authCookie.expiresIn,
+  server.state(authJwtCookieConfig.tokenName, {
+    ttl: authJwtCookieConfig.expiresIn,
     isHttpOnly: true,
-    isSecure: config.authCookie.isSecure,
+    isSecure: authJwtCookieConfig.isSecure,
     path: '/'
   });
 

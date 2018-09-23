@@ -2,7 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import { COURSES_TYPES, fetchCourseSuccessAC } from '../actions/courses-actions';
 import { SERVICES } from '../../../server/config/services';
 import axios from '../../axios-instance-browser';
-import { consoleError } from '../../utils/console-error';
+import { apiError } from './api-error';
 import { parseUrlFromTemplate } from '../../utils/path';
 
 function* fetchCourse(action) {
@@ -17,7 +17,7 @@ function* fetchCourse(action) {
     const { data: courseData } = yield call(axios, { method, url });
     yield put(fetchCourseSuccessAC(courseData));
   } catch (error) {
-    consoleError(error);
+    yield* apiError(error);
   }
 }
 

@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 import { doRouteAC } from '../../redux/actions/router-actions';
+import { fetchAccountSagaAC } from '../../redux/actions/app-actions';
 
 import './app.css';
 
@@ -27,7 +28,8 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    doRoute: doRouteAC
+    doRoute: doRouteAC,
+    fetchAccount: fetchAccountSagaAC
   }, dispatch);
 }
 
@@ -35,7 +37,8 @@ class App extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
-    doRoute: PropTypes.func
+    doRoute: PropTypes.func,
+    fetchAccount: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -73,8 +76,11 @@ class App extends React.Component {
     this.props.doRoute('/users');
   };
 
+  componentDidMount() {
+    this.props.fetchAccount();
+  }
+
   render() {
-    console.log(this.props);
     const { anchorEl } = this.state;
     const { classes } = this.props;
     return (

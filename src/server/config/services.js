@@ -38,11 +38,16 @@ export function getServicesConfig(serviceHost = 'localhost') {
         method: 'POST',
         path: '/api/sign-in',
         url: `http://${serviceHost}/api/sign-in-pass`
+      },
+      signOut: {
+        method: 'POST',
+        path: '/api/sign-out'
       }
     },
-    userInfo: {
+    account: {
       method: 'GET',
-      path: '/api/user-info',
+      path: '/api/account',
+      methodUrl: 'POST',
       url: `http://${serviceHost}/api/verify-jwt`
     }
   };

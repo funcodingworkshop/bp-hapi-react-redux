@@ -6,7 +6,8 @@ import {
   courseDeletePlugin
 } from './plugins/api/courses-api';
 
-import { signInPlugin, userInfoPlugin } from './plugins/api/auth-api';
+import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
+import { fetchAccountPlugin } from './plugins/api/account-api';
 
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars
@@ -20,11 +21,19 @@ const getPlugins = (config) => {
   return [
     {
       plugin: signInPlugin,
-      options: { apiConfig: config.services.auth.signIn, authCookieConfig: config.authCookie }
+      options: { apiConfig: config.services.auth.signIn }
     },
     {
-      plugin: userInfoPlugin,
-      options: { apiConfig: config.services.userInfo }
+      plugin: signUpPlugin,
+      options: { apiConfig: config.services.auth.signUp }
+    },
+    {
+      plugin: signOutPlugin,
+      options: { apiConfig: config.services.auth.signOut }
+    },
+    {
+      plugin: fetchAccountPlugin,
+      options: { apiConfig: config.services.account }
     },
     {
       plugin: coursesPlugin,

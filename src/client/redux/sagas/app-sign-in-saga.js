@@ -2,7 +2,8 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import { APP_TYPES, signInSuccessAC } from '../actions/app-actions';
 import axios from '../../axios-instance-browser';
 import { SERVICES } from '../../../server/config/services';
-import { consoleError } from '../../utils/console-error';
+import { apiError } from './api-error';
+import { afterAuth } from './app-auth';
 
 function* signIn(action) {
   const {
@@ -14,8 +15,9 @@ function* signIn(action) {
   try {
     const { data: userData } = yield call(axios, { method, url, data: user });
     yield put(signInSuccessAC(userData));
+    yield* afterAuth();
   } catch (error) {
-    consoleError(error);
+    yield* apiError(error);
   }
 }
 

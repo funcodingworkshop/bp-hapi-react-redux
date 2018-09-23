@@ -3,7 +3,7 @@ import { COURSES_TYPES, fetchCoursesSuccessAC } from '../actions/courses-actions
 import { SERVICES } from '../../../server/config/services';
 import { selectCourses } from '../selectors/courses-selectors';
 import axios from '../../axios-instance-browser';
-import { consoleError } from '../../utils/console-error';
+import { apiError } from './api-error';
 
 // worker Saga: will be fired on FETCH_COURSES_SAGA actions
 function* fetchCourses() {
@@ -15,7 +15,7 @@ function* fetchCourses() {
       const coursesData = res.data;
       yield put(fetchCoursesSuccessAC(coursesData));
     } catch (error) {
-      consoleError(error);
+      yield* apiError(error);
     }
   }
 }

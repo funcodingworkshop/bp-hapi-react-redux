@@ -1,11 +1,33 @@
-const PAGES = {
+export const PAGES = {
+  home: {
+    name: 'home',
+    path: '/'
+  },
+  users: {
+    name: 'users',
+    path: '/users'
+  },
   page404: {
     name: 'page404',
     path: '/page404'
   },
-  courses: {
-    name: 'courses',
-    path: '/courses'
+  COURSES: {
+    list: {
+      name: 'courses',
+      path: '/courses'
+    },
+    edit: {
+      name: 'edit',
+      path: '/courses/:id/edit'
+    },
+    add: {
+      name: 'add',
+      path: '/courses/add'
+    },
+    show: {
+      name: 'show',
+      path: '/courses/:id'
+    }
   },
   students: {
     name: 'students',
@@ -20,5 +42,3 @@ const PAGES = {
     path: '/sign-up'
   }
 };
-
-export default PAGES;

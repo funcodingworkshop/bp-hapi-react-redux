@@ -2,11 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Type from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { signInSagaAC } from '../../redux/actions/app-actions';
 import styles from './styles';
+import {PAGES} from '../../routes/pages';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
@@ -32,12 +34,10 @@ class SignIn extends PureComponent {
   };
 
   handleSubmit = () => {
-    console.log(4447);
     this.props.signIn(this.state);
   };
 
   render() {
-    console.log('state', this.state);
     const { classes } = this.props;
     return (
       <div className={classes.container }>
@@ -71,6 +71,8 @@ class SignIn extends PureComponent {
             </Button>
           </div>
         </form>
+        <br/>
+        <div>Or <Link to={ PAGES.signUp.path }>Sign Up</Link></div>
       </div>
     );
   }
