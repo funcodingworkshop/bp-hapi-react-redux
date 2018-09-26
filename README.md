@@ -36,6 +36,7 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. Main menu, Header, Footer (**DONE**)
 1. CRUD with REST API and MongoDB (**DONE**)
 1. List page, Create/Edit page (**DONE**)
+1. Loaders
 1. Error notifications
 1. Sign In / Sign Up validations
 
