@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import App from '../containers/app/app';
 import Home from '../containers/home/home';
 import Students from '../containers/students/students';
@@ -8,6 +8,11 @@ import Users from '../containers/users/users';
 import Courses from '../containers/courses/courses/courses';
 import CourseSimple from '../containers/courses/course/course';
 import CourseAdd from '../containers/courses/course-add/course-add';
+import SignUp from '../containers/auth/sign-up';
+import SignIn from '../containers/auth/sign-in';
+import Page404 from '../containers/page404/page404';
+
+import { PAGES } from './pages';
 
 import CreateLesson from '../containers/lessons/lesson-add';
 
@@ -18,40 +23,56 @@ const WrappedComponent = (Component, props) => (
 );
 
 export default (
-  <div>
+  <Switch>
     <Route
-      exact path="/"
+      exact path={ PAGES.signUp.path }
+      component={ SignUp }
+    />
+    <Route
+      exact path={ PAGES.signIn.path }
+      component={ SignIn }
+    />
+    <Route
+      exact path={ PAGES.home.path }
       render={ props => WrappedComponent(Home, props) }
     />
     <Route
-      exact path="/courses"
-      render={ props => WrappedComponent(Courses, props) }
-    />
-    <Route
-      path="/students"
+      path={ PAGES.students.path }
       render={ props => WrappedComponent(Students, props) }
     />
     <Route
-      path="/users"
+      path={ PAGES.users.path }
       render={ props => WrappedComponent(Users, props) }
     />
     <Route
-      path="/courses/:id/edit"
+      exact path={ PAGES.COURSES.list.path }
+      render={ props => WrappedComponent(Courses, props) }
+    />
+    <Route
+      exact path={ PAGES.COURSES.edit.path }
       render={ props => WrappedComponent(CourseAdd, props)}
     />
-    <Switch>
-       <Route
-        exact path="/courses/add"
-        render={ props => WrappedComponent(CourseAdd, props) }
-      />
-      <Route
-        exact path="/courses/:id"
-        render={ props => WrappedComponent(CourseSimple, props) }
-      />
-      <Route
-        exact path="/courses/:id/lessons/new"
-        render={ props => WrappedComponent(CreateLesson, props) }
-      />
-    </Switch>
-  </div>
+     <Route
+      exact path={ PAGES.COURSES.add.path }
+      render={ props => WrappedComponent(CourseAdd, props) }
+    />
+    <Route
+      exact path={ PAGES.COURSES.show.path }
+      render={ props => WrappedComponent(CourseSimple, props) }
+    />
+    <Route
+      exact path="/courses/:id/lessons/new"
+      render={ props => WrappedComponent(CreateLesson, props) }
+    />
+    <Route
+      path = '/'
+      render={ () => (
+        <Redirect to={ PAGES.page404.path } />
+      ) }
+    />
+    <Route
+      exact path={ PAGES.page404.path }
+      component={ Page404 }
+    />
+  </Switch>
 );

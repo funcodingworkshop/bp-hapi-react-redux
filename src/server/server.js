@@ -9,6 +9,8 @@ import staticAssetsPlugin from './plugins/pages/static-assets';
 import proxyAssetsPlugin from './plugins/pages/proxy-assets';
 import getPlugins from './plugins';
 import getConfig from './config/default';
+import { jwtAuthScheme } from './auth/jwt-auth-scheme';
+import { authJwtCookieConfig } from './config/auth-jwt-cookie';
 
 const config = getConfig();
 const {
@@ -34,11 +36,11 @@ const db = mongoose.connection;
 const init = async () => {
   const server = Hapi.server({
     port: config.server.port,
-    host: config.server.serviceHost
+    host: config.server.host
   });
 
   if (config.useMocks) {
-        require('./mock/mock'); // eslint-disable-line
+    require('./mock/mock'); // eslint-disable-line
   }
 
   // Vision is used for adding templating engine
@@ -72,8 +74,22 @@ const init = async () => {
     });
   }
 
+  // Auth
+  server.auth.scheme('jwt-auth-scheme', jwtAuthScheme);
+  server.auth.strategy('jwt-auth', 'jwt-auth-scheme', config.services.auth.verifyJwt);
+  server.auth.default('jwt-auth');
+
   const plugins = getPlugins(config);
   await server.register(plugins);
+
+  // Cookie
+  server.state(authJwtCookieConfig.tokenName, {
+    ttl: authJwtCookieConfig.expiresIn,
+    isHttpOnly: true,
+    isSecure: authJwtCookieConfig.isSecure,
+    path: '/'
+  });
+
   await server.start();
   console.log(`Server running at: ${server.info.uri}`); // eslint-disable-line
   // console.log(`Config: ${JSON.stringify(config)}`); // eslint-disable-line

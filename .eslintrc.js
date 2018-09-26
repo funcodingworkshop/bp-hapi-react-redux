@@ -23,7 +23,8 @@ module.exports = {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "jest/no-identical-title": "error",
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-    "react/prop-types": [2]
+    "react/prop-types": [2],
+    "import/prefer-default-export": [0]
   },
   settings: {
     "import/resolver": {

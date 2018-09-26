@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
-import { normalizeDate } from '../../../functions/visual-functions';
+import { normalizeDate } from '../../../utils/visual-functions';
 import './courses-component.css';
 
 class CoursesComponent extends PureComponent {

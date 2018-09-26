@@ -6,6 +6,9 @@ import {
   courseDeletePlugin
 } from './plugins/api/courses-api';
 
+import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
+import { fetchAccountPlugin } from './plugins/api/account-api';
+
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars
   const loggerConfig = {
@@ -16,6 +19,22 @@ const getPlugins = (config) => {
   };
 
   return [
+    {
+      plugin: signInPlugin,
+      options: { apiConfig: config.services.auth.signIn }
+    },
+    {
+      plugin: signUpPlugin,
+      options: { apiConfig: config.services.auth.signUp }
+    },
+    {
+      plugin: signOutPlugin,
+      options: { apiConfig: config.services.auth.signOut }
+    },
+    {
+      plugin: fetchAccountPlugin,
+      options: { apiConfig: config.services.account }
+    },
     {
       plugin: coursesPlugin,
       options: { apiConfig: config.services.courses }
