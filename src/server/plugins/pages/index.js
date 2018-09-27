@@ -1,3 +1,7 @@
+// import React from 'react';
+// import { renderToString } from 'react-dom/server';
+// import Page404 from '../../../client/components/page404/page404';
+
 const register = async (server, options) => {
   const {
     apiConfig: { method }

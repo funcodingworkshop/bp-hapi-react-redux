@@ -1,11 +1,3 @@
-import {
-  coursesPlugin,
-  coursePostPlugin,
-  coursePlugin,
-  coursePatchPlugin,
-  courseDeletePlugin
-} from './plugins/api/courses-api';
-
 import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
 import { fetchAccountPlugin } from './plugins/api/account-api';
 
@@ -34,26 +26,6 @@ const getPlugins = (config) => {
     {
       plugin: fetchAccountPlugin,
       options: { apiConfig: config.services.account }
-    },
-    {
-      plugin: coursesPlugin,
-      options: { apiConfig: config.services.courses }
-    },
-    {
-      plugin: coursePostPlugin,
-      options: { apiConfig: config.services.coursePost }
-    },
-    {
-      plugin: coursePlugin,
-      options: { apiConfig: config.services.course }
-    },
-    {
-      plugin: coursePatchPlugin,
-      options: { apiConfig: config.services.coursePatch }
-    },
-    {
-      plugin: courseDeletePlugin,
-      options: { apiConfig: config.services.courseDelete }
     }
   ];
 };

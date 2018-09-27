@@ -1,5 +1,4 @@
 import Hapi from 'hapi';
-import mongoose from 'mongoose';
 import visionPlugin from 'vision';
 import Handlebars from 'handlebars';
 import inertPlugin from 'inert';
@@ -13,25 +12,6 @@ import { jwtAuthScheme } from './auth/jwt-auth-scheme';
 import { authJwtCookieConfig } from './config/auth-jwt-cookie';
 
 const config = getConfig();
-const {
-  mongoDbHost,
-  mongoDbUser,
-  mongoDbPass,
-  mongoDbName
-} = config.server;
-if (mongoDbUser && mongoDbPass) {
-  mongoose.connect(
-    `mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`,
-    { useNewUrlParser: true }
-  );
-} else {
-  mongoose.connect(
-    `mongodb://${mongoDbHost}/${mongoDbName}`,
-    { useNewUrlParser: true }
-  );
-}
-
-const db = mongoose.connection;
 
 const init = async () => {
   const server = Hapi.server({
@@ -100,10 +80,4 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-db.on('error', (e) => {
-  console.error('MongoDB connection error:', e); // eslint-disable-line no-console
-});
-db.once('open', () => {
-  console.log(`MongoDB connection success`); // eslint-disable-line
-  init();
-});
+init();

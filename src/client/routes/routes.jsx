@@ -10,7 +10,7 @@ import CourseSimple from '../containers/courses/course/course';
 import CourseAdd from '../containers/courses/course-add/course-add';
 import SignUp from '../containers/auth/sign-up';
 import SignIn from '../containers/auth/sign-in';
-import Page404 from '../containers/page404/page404';
+import Page404 from '../components/page404/page404';
 
 import { PAGES } from './pages';
 
