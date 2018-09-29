@@ -4,6 +4,7 @@ import handlebars from 'handlebars';
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
+import { Provider as ReduxProvider } from 'react-redux';
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import {
@@ -14,10 +15,14 @@ import {
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
+import configureStore from '../../../shared/configure-store';
 import { serverConsoleError } from '../../utils/server-console-error';
 import { HTTP_ERROR_500 } from '../../constants';
 import AppRoutes from '../../../client/containers/app-routes/app-routes';
-// import routes from '../../../client/routes/routes';
+
+const initialState = {
+  test: 'some server state'
+};
 
 const register = async (server, options) => {
   const {
@@ -39,20 +44,26 @@ const register = async (server, options) => {
       });
       const generateClassName = createGenerateClassName();
 
+      const store = configureStore()(initialState);
       const jsx = (
         <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
           <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
-            <StaticRouter context={ {} } location={ request.url.path }>
-              <AppRoutes />
-            </StaticRouter>
+            <ReduxProvider store={ store }>
+              <StaticRouter context={ {} } location={ request.url.path }>
+                <AppRoutes />
+              </StaticRouter>
+            </ReduxProvider>
           </MuiThemeProvider>
         </JssProvider>
       );
       const appCode = renderToString(jsx);
       const appCss = sheetsRegistry.toString();
+      const appState = JSON.stringify(store.getState());
 
       const template = handlebars.compile(fs.readFileSync(path.join(process.cwd(), targetDir, 'index.hbs'), 'utf8'));
-      const context = { title: 'My New React App', appCode, appCss };
+      const context = {
+        title: 'My New React App', appCode, appCss, appState
+      };
       return template(context);
     } catch (e) {
       serverConsoleError(e);

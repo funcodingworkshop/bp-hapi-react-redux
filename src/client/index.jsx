@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider as ReduxProvider } from "react-redux";
 import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -14,6 +15,7 @@ import reducers from './redux/reducers';
 import rootSaga from './redux/sagas';
 import Root from './root';
 import AppRoutes from './containers/app-routes/app-routes';
+import configureStore from '../shared/configure-store';
 
 // const history = createHistory();
 // const middleware = routerMiddleware(history);
@@ -30,6 +32,9 @@ import AppRoutes from './containers/app-routes/app-routes';
 // );
 // sagaMiddleware.run(rootSaga);
 
+const initialState = window.REDUX_DATA;
+const store = configureStore()(initialState);
+
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
@@ -43,20 +48,15 @@ const theme = createMuiTheme({
 const generateClassName = createGenerateClassName();
 
 // ReactDOM.render(<Root store={ store } history={ history } />, document.getElementById('react-app'));
-// ReactDOM.hydrate(
-//   <JssProvider generateClassName={generateClassName}>
-//     <MuiThemeProvider theme={theme}>
-//       <Page404 />
-//     </MuiThemeProvider>
-//   </JssProvider>,
-//   document.getElementById('react-app')
-// );
+
 ReactDOM.hydrate(
   <JssProvider generateClassName={generateClassName}>
     <MuiThemeProvider theme={theme}>
-      <Router>
-        <AppRoutes />
-      </Router>
+      <ReduxProvider store={ store }>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </ReduxProvider>
     </MuiThemeProvider>
   </JssProvider>,
   document.getElementById('react-app')
