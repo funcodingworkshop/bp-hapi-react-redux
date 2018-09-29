@@ -10,7 +10,8 @@ module.exports = {
   entry: './src/server/server.js',
   output: {
     filename: 'server.js',
-    path: path.resolve(__dirname, '.build')
+    path: path.resolve(__dirname, '.build'),
+    publicPath: 'assets/'
   },
   plugins: [
     new CopyWebpackPlugin([
@@ -50,7 +51,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader', // creates style nodes from JS strings
+          // 'style-loader', // creates style nodes from JS strings
           { loader: 'css-loader', options: { importLoaders: 1 } }, // translates CSS into CommonJS
           'postcss-loader' // post CSS transform
         ]

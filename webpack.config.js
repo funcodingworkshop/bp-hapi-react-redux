@@ -39,7 +39,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader', // creates style nodes from JS strings
+          // 'style-loader', // creates style nodes from JS strings
           { loader: 'css-loader', options: { importLoaders: 1 } }, // translates CSS into CommonJS
           'postcss-loader' // post CSS transform
         ]

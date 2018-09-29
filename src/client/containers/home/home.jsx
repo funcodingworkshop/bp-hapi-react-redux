@@ -59,6 +59,10 @@ class Home extends React.Component {
           <Link to={ PAGES.COURSES.list.path }>Courses</Link>
           <br/>
           <Link to={ PAGES.students.path }>Students</Link>
+          <br/>
+          <Link to={ PAGES.page404.path }>Page 404</Link>
+          <br/>
+          <Link to={ PAGES.page405.path }>Page 405</Link>
         </div>
         <br/>
         <div>

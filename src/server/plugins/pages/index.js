@@ -33,7 +33,6 @@ const register = async (server, options) => {
   } = options;
 
   const handler = async (request) => {
-    console.log('request.url', request.url.path);
     try {
       const sheetsRegistry = new SheetsRegistry();
       const sheetsManager = new Map();

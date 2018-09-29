@@ -10,7 +10,6 @@ class Page404 extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { classes } = this.props;
     return (
       <div className={ classes.container }>
