@@ -16,7 +16,6 @@ export default class AppNoAuth extends PureComponent {
   render() {
     return (
       <div>
-        <h2>No Auth Container</h2>
         { this.props.children }
       </div>
     );

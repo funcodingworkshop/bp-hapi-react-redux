@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import Type from 'prop-types';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles';
+import ButtonDefault from '../button-default/button-default';
 
-class Page404 extends Component {
+export default class Page404 extends Component {
   static propTypes = {
     classes: Type.shape({})
   };
 
   render() {
-    const { classes } = this.props;
     return (
-      <div className={ classes.container }>
+      <div>
         <h2>Page 404</h2>
-        <Button variant="outlined" color="primary" className={classes.button}>
-          Click Me
-        </Button>
+        <ButtonDefault name='Click Me' />
       </div>
     );
   }
 }
-
-export default withStyles(styles)(Page404);

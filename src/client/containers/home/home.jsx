@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import ButtonDefalut from '../../components/button-default/button-default';
 import { sayByeAC, sayHiAC, testButtonAC, signOutSagaAC } from '../../redux/actions/app-actions';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { selectSay } from '../../redux/selectors/app-selectors';
@@ -65,23 +65,11 @@ class Home extends React.Component {
           <Link to={ PAGES.page405.path }>Page 405</Link>
         </div>
         <br/>
-        <div>
-          <Button variant="contained" color="primary" onClick={ handleSayBye }>
-            Say Bye
-          </Button>
-        </div>
+        <ButtonDefalut name='Say Bye' onClick={ handleSayBye } />
         <br/>
-        <div>
-          <Button variant="contained" color="primary" onClick={ handleSayHi }>
-            Say Hi
-          </Button>
-        </div>
+        <ButtonDefalut name='Say Hi' onClick={ handleSayHi } />
         <br/>
-        <div>
-          <Button variant="contained" color="primary" onClick={ handleTestButton }>
-            Test Button
-          </Button>
-        </div>
+        <ButtonDefalut name='Test Button' onClick={ handleTestButton } />
         <br/>
         <div className='home__say'><b>{say}</b></div>
         <h3>img tag</h3>
