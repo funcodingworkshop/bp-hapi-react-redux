@@ -11,7 +11,7 @@
     "build-server": "rimraf .build/ && webpack --config webpack.server.config.js --mode production",
     "build-client": "webpack --mode production",
     "build": "npm run build-server && npm run build-client",
-    "start-build": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MOCKS=0 node ./.build/server/server",
+    "start-build": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MOCKS=0 node ./.build/server",
     "start-server": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MOCKS=0 APP_MODE_DEV=1 webpack-dev-server --config webpack.server.config.js --mode development",
     "start-client": "webpack-dev-server --mode development",
     "start": "node start.js",
@@ -55,8 +55,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0",
-    "vision": "^5.3.3"
+    "redux-saga": "^0.16.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.2",

@@ -1,13 +1,32 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   target: 'node',
+  node: {
+    __filename: true,
+    __dirname: true
+  },
   entry: './src/server/server.js',
   output: {
     filename: 'server.js',
-    path: path.resolve(__dirname, '.build/server')
+    path: path.resolve(__dirname, '.build')
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'src/server/plugins/pages/index.hbs',
+        toType: 'file'
+      }
+    ], { debug: 'info' })
+  ],
+  resolve: {
+    alias: {
+      handlebars: 'handlebars/dist/handlebars.min.js'
+    }
   },
   module: {
+    // exprContextCritical: false,
     rules: [
       {
         test: /\.jsx?$/,
