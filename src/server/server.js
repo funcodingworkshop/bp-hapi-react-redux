@@ -1,6 +1,4 @@
 import Hapi from 'hapi';
-// import visionPlugin from 'vision';
-// import Handlebars from 'handlebars';
 import inertPlugin from 'inert';
 import h2o2Plugin from 'h2o2';
 import indexPagePlugin from './plugins/pages/index';
@@ -23,14 +21,6 @@ const init = async () => {
     require('./mock/mock'); // eslint-disable-line
   }
 
-  // // Vision is used for adding templating engine
-  // await server.register(visionPlugin);
-  // server.views({
-  //   engines: { html: Handlebars },
-  //   relativeTo: __dirname,
-  //   path: 'plugins/pages'
-  // });
-  // Serving html file - src/server/plugins/pages/index.hbs
   await server.register({
     plugin: indexPagePlugin,
     options: { apiConfig: config.services.indexPage, buildConfig: config.buildConfig }

@@ -18,7 +18,7 @@ module.exports = {
         from: 'src/server/plugins/pages/index.hbs',
         toType: 'file'
       }
-    ], { debug: 'info' })
+    ])
   ],
   resolve: {
     alias: {
@@ -26,7 +26,6 @@ module.exports = {
     }
   },
   module: {
-    // exprContextCritical: false,
     rules: [
       {
         test: /\.jsx?$/,

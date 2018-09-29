@@ -12,7 +12,7 @@ echo "Docker image version: $appVersion"
 
 image="klishevich/$appName:$appVersion"
 
-tar -cf build.tar .build node_modules
+tar -cf build.tar .build
 
 docker build -f ./Dockerfile -t $image .
 
