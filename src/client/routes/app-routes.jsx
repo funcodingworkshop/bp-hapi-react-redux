@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 // import Type from 'prop-types';
-import { PAGES } from '../../routes/pages';
-import Page404 from '../../components/page404/page404';
-import Page405 from '../../components/page405/page405';
+import { PAGES } from './pages';
+import Page404 from '../components/page404/page404';
+import Page405 from '../components/page405/page405';
 
 export default () => (
   <div>

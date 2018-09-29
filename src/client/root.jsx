@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import routes from './routes/routes';
+import routes from './routes/routes_old';
 
 // eslint-disable-next-line
 const Root = ({ store, history }) => (
