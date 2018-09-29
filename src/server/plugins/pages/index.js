@@ -15,7 +15,7 @@ import {
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
-import configureStore from '../../../shared/configure-store';
+import configureStore from '../../../client/configure-store';
 import { serverConsoleError } from '../../utils/server-console-error';
 import { HTTP_ERROR_500 } from '../../constants';
 import AppRoutes from '../../../client/routes/app-routes';

@@ -9,7 +9,7 @@ import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from '@mate
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 import AppRoutes from './routes/app-routes';
-import configureStore from '../shared/configure-store';
+import configureStore from './configure-store';
 
 const history = createHistory({
   basename: ''

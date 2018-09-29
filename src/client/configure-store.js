@@ -2,8 +2,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import reducers from '../client/redux/reducers';
-import rootSaga from '../client/redux/sagas';
+import reducers from './redux/reducers/index';
+import rootSaga from './redux/sagas/index';
 
 const composeEnhancers = composeWithDevTools({});
 
