@@ -1,12 +1,23 @@
 import path from 'path';
 import fs from 'fs';
 import handlebars from 'handlebars';
+import React from 'react';
+import { StaticRouter } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
+import { SheetsRegistry } from 'react-jss/lib/jss';
+import JssProvider from 'react-jss/lib/JssProvider';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  createGenerateClassName
+} from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
+
 import { serverConsoleError } from '../../utils/server-console-error';
 import { HTTP_ERROR_500 } from '../../constants';
-// import React from 'react';
-// import { renderToString } from 'react-dom/server';
-// import Page404 from '../../../client/components/page404/page404';
-// import source from './index.hbs';
+import AppRoutes from '../../../client/containers/app-routes/app-routes';
+// import routes from '../../../client/routes/routes';
 
 const register = async (server, options) => {
   const {
@@ -14,11 +25,34 @@ const register = async (server, options) => {
     buildConfig: { targetDir }
   } = options;
 
-  const handler = async () => {
+  const handler = async (request) => {
+    console.log('request.url', request.url.path);
     try {
+      const sheetsRegistry = new SheetsRegistry();
+      const sheetsManager = new Map();
+      const theme = createMuiTheme({
+        palette: {
+          primary: green,
+          accent: red,
+          type: 'light'
+        }
+      });
+      const generateClassName = createGenerateClassName();
+
+      const jsx = (
+        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+          <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+            <StaticRouter context={ {} } location={ request.url.path }>
+              <AppRoutes />
+            </StaticRouter>
+          </MuiThemeProvider>
+        </JssProvider>
+      );
+      const appCode = renderToString(jsx);
+      const appCss = sheetsRegistry.toString();
+
       const template = handlebars.compile(fs.readFileSync(path.join(process.cwd(), targetDir, 'index.hbs'), 'utf8'));
-      // const template = handlebars.compile(source);
-      const context = { title: 'My New React App' };
+      const context = { title: 'My New React App', appCode, appCss };
       return template(context);
     } catch (e) {
       serverConsoleError(e);

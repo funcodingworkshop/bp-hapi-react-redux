@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-class Page404 extends Component {
+class Page405 extends Component {
   static propTypes = {
     classes: Type.shape({})
   };
@@ -14,7 +14,7 @@ class Page404 extends Component {
     const { classes } = this.props;
     return (
       <div className={ classes.container }>
-        <h2>Page 404</h2>
+        <h2>Page 405 ... 405 ... 405</h2>
         <Button variant="outlined" color="primary" className={classes.button}>
           Click Me
         </Button>
@@ -23,4 +23,4 @@ class Page404 extends Component {
   }
 }
 
-export default withStyles(styles)(Page404);
+export default withStyles(styles)(Page405);

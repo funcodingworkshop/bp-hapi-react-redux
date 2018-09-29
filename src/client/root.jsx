@@ -12,4 +12,11 @@ const Root = ({ store, history }) => (
   </Provider>
 );
 
+// eslint-disable-next-line
+// const Root = ({ history }) => (
+//     <ConnectedRouter history={history}>
+//       { routes }
+//     </ConnectedRouter>
+// );
+
 export default Root;
