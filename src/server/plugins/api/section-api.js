@@ -40,14 +40,14 @@ const registerCoursePost = async (server, options) => {
       const res = await section.save();
       return h.response(res).code(201);
     } catch (e) {
-      serverConsoleError('coursePostPlugin', e);
+      serverConsoleError('sectionPostPlugin', e);
       return HTTP_ERROR_400;
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePostPlugin = { name: 'coursePostPlugin', register: registerCoursePost };
+export const sectionPostPlugin = { name: 'sectionPostPlugin', register: registerCoursePost };
 
 // read section
 const registerCourse = async (server, options) => {
@@ -62,14 +62,14 @@ const registerCourse = async (server, options) => {
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      serverConsoleError('coursePlugin', e);
+      serverConsoleError('sectionPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePlugin = { name: 'coursePlugin', register: registerCourse };
+export const sectionPlugin = { name: 'sectionPlugin', register: registerCourse };
 
 // update section
 const registerCoursePatch = async (server, options) => {
@@ -86,14 +86,14 @@ const registerCoursePatch = async (server, options) => {
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      serverConsoleError('coursePatchPlugin', e);
+      serverConsoleError('sectionPatchPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePatchPlugin = { name: 'coursePatchPlugin', register: registerCoursePatch };
+export const sectionPatchPlugin = { name: 'sectionPatchPlugin', register: registerCoursePatch };
 
 // delete section
 const registerCourseDelete = async (server, options) => {
@@ -109,7 +109,7 @@ const registerCourseDelete = async (server, options) => {
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
-      serverConsoleError('courseDeletePlugin', e);
+      serverConsoleError('sectionDeletePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
@@ -117,4 +117,4 @@ const registerCourseDelete = async (server, options) => {
   server.route({ method, path, handler });
 };
 
-export const courseDeletePlugin = { name: 'courseDeletePlugin', register: registerCourseDelete };
+export const sectionDeletePlugin = { name: 'sectionDeletePlugin', register: registerCourseDelete };
