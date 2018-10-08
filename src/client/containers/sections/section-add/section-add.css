@@ -1,0 +1,28 @@
+// TODO use post css &
+.section-add__header {
+  text-align: center;
+}
+
+.section-add__input {
+  width: 100%;
+}
+
+.section-add__input__container {
+  padding: 10px 0;
+}
+
+.section-add__message {
+  text-align: center;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 5px 0;
+}
+
+.section-add__message_success {
+  background-color: #66CC33;
+}
+
+.section-add__message_error {
+  background-color: #FF6666;
+  color: #fff;
+}
