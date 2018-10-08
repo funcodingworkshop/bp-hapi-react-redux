@@ -24,6 +24,26 @@ export function getServicesConfig(serviceHost = 'localhost') {
       method: 'DELETE',
       path: '/api/courses/{courseId}'
     },
+    sections: {
+      method: 'GET',
+      path: '/api/sections'
+    },
+    sectionPost: {
+      method: 'POST',
+      path: '/api/sections'
+    },
+    section: {
+      method: 'GET',
+      path: '/api/sections/{sectionId}'
+    },
+    sectionPatch: {
+      method: 'PATCH',
+      path: '/api/sections/{sectionId}/edit'
+    },
+    sectionDelete: {
+      method: 'DELETE',
+      path: '/api/sections/{sectionId}'
+    },
     auth: {
       verifyJwt: {
         method: 'POST',
