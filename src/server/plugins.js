@@ -6,6 +6,14 @@ import {
   courseDeletePlugin
 } from './plugins/api/courses-api';
 
+import {
+  sectionsPlugin,
+  sectionPostPlugin,
+  sectionPlugin,
+  sectionPatchPlugin,
+  sectionDeletePlugin
+} from './plugins/api/sections-api';
+
 import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
 import { fetchAccountPlugin } from './plugins/api/account-api';
 
@@ -54,6 +62,26 @@ const getPlugins = (config) => {
     {
       plugin: courseDeletePlugin,
       options: { apiConfig: config.services.courseDelete }
+    },
+    {
+      plugin: sectionsPlugin,
+      options: { apiConfig: config.services.sections }
+    },
+    {
+      plugin: sectionPostPlugin,
+      options: { apiConfig: config.services.sectionPost }
+    },
+    {
+      plugin: sectionPlugin,
+      options: { apiConfig: config.services.section }
+    },
+    {
+      plugin: sectionPatchPlugin,
+      options: { apiConfig: config.services.sectionPatch }
+    },
+    {
+      plugin: sectionDeletePlugin,
+      options: { apiConfig: config.services.sectionDelete }
     }
   ];
 };
