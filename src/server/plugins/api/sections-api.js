@@ -13,7 +13,7 @@ sectionSchema.set('timestamps', true);
 const Section = mongoose.model('Section', sectionSchema);
 
 
-// courses index
+// sections index
 const registerSections = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
@@ -21,14 +21,14 @@ const registerSections = async (server, options) => {
     try {
       return Section.find();
     } catch (e) {
-      serverConsoleError('sectionPlugin', e);
+      serverConsoleError('sectionsPlugin', e);
       return HTTP_ERROR_400;
     }
   };
 
   server.route({ method, path, handler });
 };
-export const sectionPlugin = { name: 'sectionPlugin', register: registerSections };
+export const sectionsPlugin = { name: 'sectionsPlugin', register: registerSections };
 
 // create section
 const registerCoursePost = async (server, options) => {
@@ -50,15 +50,15 @@ const registerCoursePost = async (server, options) => {
 export const sectionPostPlugin = { name: 'sectionPostPlugin', register: registerCoursePost };
 
 // read section
-const registerCourse = async (server, options) => {
+const registerSection = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
   const handler = async (request, h) => {
     const { params: { courseId } = {} } = request;
     try {
-      const courses = await Section.find({ _id: courseId });
-      if (courses.length === 1) {
-        return h.response(courses[0]).code(200);
+      const sections = await Section.find({ _id: courseId });
+      if (sections.length === 1) {
+        return h.response(sections[0]).code(200);
       }
       return h.response(createError('Document not found')).code(400);
     } catch (e) {
@@ -69,7 +69,7 @@ const registerCourse = async (server, options) => {
 
   server.route({ method, path, handler });
 };
-export const sectionPlugin = { name: 'sectionPlugin', register: registerCourse };
+export const sectionPlugin = { name: 'sectionPlugin', register: registerSection };
 
 // update section
 const registerCoursePatch = async (server, options) => {
@@ -78,9 +78,9 @@ const registerCoursePatch = async (server, options) => {
   const handler = async (request, h) => {
     const { params: { courseId } = {}, payload: { section } } = request;
     try {
-      const courses = await Section.find({ _id: courseId });
-      if (courses.length === 1) {
-        await courses[0].updateOne({ ...section, $inc: { __v: 1 } });
+      const sections = await Section.find({ _id: courseId });
+      if (sections.length === 1) {
+        await sections[0].updateOne({ ...section, $inc: { __v: 1 } });
         const res = await Section.find({ _id: courseId });
         return h.response(res).code(200);
       }
@@ -102,8 +102,8 @@ const registerCourseDelete = async (server, options) => {
   const handler = async (request, h) => {
     const { params: { courseId } = {} } = request;
     try {
-      const courses = await Section.find({ _id: courseId });
-      if (courses.length > 0) {
+      const sections = await Section.find({ _id: courseId });
+      if (sections.length > 0) {
         await Section.find({ _id: courseId }).deleteOne();
         return h.response().code(204);
       }
