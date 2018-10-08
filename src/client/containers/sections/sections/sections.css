@@ -1,15 +1,15 @@
 // TODO use &
-.courses__panel-list {
+.sections__panel-list {
 	margin: 15px 0;
 }
 
-.courses__panel-list__header {
+.sections__panel-list__header {
 	font-size: 16px;
 	padding: 5px 0;
 	font-weight: bold;
 }
 
-.courses-line {
+.sections-line {
 	width: 100%;
 	font-size: 16px;
 	padding: 5px 0;
