@@ -29,6 +29,24 @@ export const PAGES = {
       path: '/courses/:id'
     }
   },
+  SECTIONS: {
+    list: {
+      name: 'sections',
+      path: '/sections'
+    },
+    edit: {
+      name: 'edit',
+      path: '/sections/:id/edit'
+    },
+    add: {
+      name: 'add',
+      path: '/sections/add'
+    },
+    show: {
+      name: 'show',
+      path: '/sections/:id'
+    }
+  },
   students: {
     name: 'students',
     path: '/students'
