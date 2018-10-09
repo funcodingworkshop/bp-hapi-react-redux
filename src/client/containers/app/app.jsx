@@ -66,6 +66,11 @@ class App extends React.Component {
     this.props.doRoute('/courses');
   };
 
+  handleClickMenuSections = () => {
+    this.handleClose();
+    this.props.doRoute('/sections');
+  };
+
   handleClickMenuStudents = () => {
     this.handleClose();
     this.props.doRoute('/students');
@@ -107,6 +112,9 @@ class App extends React.Component {
               </MenuItem>
               <MenuItem key='courses' selected={ false } onClick={this.handleClickMenuCourses}>
                 Courses
+              </MenuItem>
+              <MenuItem key='sections' selected={ false } onClick={this.handleClickMenuSections}>
+                Sections
               </MenuItem>
               <MenuItem key='students' selected={ false } onClick={this.handleClickMenuStudents}>
                 Students
