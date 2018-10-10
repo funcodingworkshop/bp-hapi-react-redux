@@ -1,5 +1,8 @@
 import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
 import { fetchAccountPlugin } from './plugins/api/account-api';
+import {
+  coursesPlugin, coursePlugin, coursePostPlugin, courseDeletePlugin, coursePatchPlugin
+} from './plugins/api/courses-api';
 
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars
@@ -26,6 +29,26 @@ const getPlugins = (config) => {
     {
       plugin: fetchAccountPlugin,
       options: { apiConfig: config.services.account }
+    },
+    {
+      plugin: coursesPlugin,
+      options: { apiConfig: config.services.courses }
+    },
+    {
+      plugin: coursePlugin,
+      options: { apiConfig: config.services.course }
+    },
+    {
+      plugin: coursePostPlugin,
+      options: { apiConfig: config.services.coursePost }
+    },
+    {
+      plugin: courseDeletePlugin,
+      options: { apiConfig: config.services.courseDelete }
+    },
+    {
+      plugin: coursePatchPlugin,
+      options: { apiConfig: config.services.coursePatch }
     }
   ];
 };

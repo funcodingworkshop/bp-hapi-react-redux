@@ -25,7 +25,8 @@ module.exports = {
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "react/prop-types": [2],
     "import/prefer-default-export": [0],
-    "class-methods-use-this": [0]
+    "class-methods-use-this": [0],
+    "object-curly-newline": [0]
   },
   settings: {
     "import/resolver": {

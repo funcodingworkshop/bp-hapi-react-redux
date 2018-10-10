@@ -6,23 +6,28 @@ export function getServicesConfig(serviceHost = 'localhost') {
     },
     courses: {
       method: 'GET',
-      path: '/api/courses'
-    },
-    coursePost: {
-      method: 'POST',
-      path: '/api/courses'
+      path: '/api/courses',
+      url: `http://${serviceHost}/api/courses`
     },
     course: {
       method: 'GET',
-      path: '/api/courses/{courseId}'
+      path: '/api/courses/{courseId}',
+      url: `http://${serviceHost}/api/courses/{courseId}`
     },
-    coursePatch: {
-      method: 'PATCH',
-      path: '/api/courses/{courseId}/edit'
+    coursePost: {
+      method: 'POST',
+      path: '/api/courses',
+      url: `http://${serviceHost}/api/courses`
     },
     courseDelete: {
       method: 'DELETE',
-      path: '/api/courses/{courseId}'
+      path: '/api/courses/{courseId}',
+      url: `http://${serviceHost}/api/courses/{courseId}`
+    },
+    coursePatch: {
+      method: 'PATCH',
+      path: '/api/courses/{courseId}/edit',
+      url: `http://${serviceHost}/api/courses/{courseId}`
     },
     auth: {
       verifyJwt: {
