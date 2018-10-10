@@ -34,8 +34,9 @@ class SectionAddComponent extends Component {
   static propTypes = {
     currentSection: Type.shape({
       name: Type.string,
-      code: Type.string,
-      comment: Type.string
+      duration: Type.string,
+      comment: Type.string,
+      course: Type.string
     }),
     createSectionAC: Type.func.isRequired,
     updateSectionAC: Type.func.isRequired,
@@ -53,18 +54,22 @@ class SectionAddComponent extends Component {
     this.setState({ sectionName: e.target.value });
   };
 
-  setSectionCode = (e) => {
-    this.setState({ sectionCode: e.target.value });
+  setSectionDuration = (e) => {
+    this.setState({ sectionDuration: e.target.value });
   };
 
   setSectionComment = (e) => {
     this.setState({ sectionComment: e.target.value });
   };
 
+  setSectionCourse = (e) => {
+    this.setState({ sectionCourse: e.target.value });
+  };
+
   dataValidation = () => {
     let check = false;
-    if (this.state.sectionCode === '') check = 'Необходимо добавить код курса!';
-    if (this.state.sectionName === '') check = 'Необходимо ввести название курса!';
+    if (this.state.sectionCourse === '') check = 'Необходимо добавить код курса!';
+    if (this.state.sectionName === '') check = 'Необходимо ввести название раздела!';
     return check;
   };
 
@@ -74,19 +79,20 @@ class SectionAddComponent extends Component {
 
     const data = {
       name: this.state.sectionName,
-      code: this.state.sectionCode,
-      comment: this.state.sectionComment
+      duration: this.state.sectionDuration,
+      comment: this.state.sectionComment,
+      course: this.state.sectionCourse
     };
 
     if (!this.dataValidation()) {
       if (!check) {
         this.props.createSectionAC(data);
-        this.setState({ message: 'Курс успешно добавлен' });
+        this.setState({ message: 'Раздел успешно добавлен' });
         // setTimeout(() => this.setState({ message: ""}), 3000);
         setTimeout(() => this.setState({ redirect: true }), 2000);
       } else {
         this.props.updateSectionAC(this.props.match.params.id, data);
-        this.setState({ message: 'Курс успешно обновлён' });
+        this.setState({ message: 'Раздел успешно обновлён' });
         setTimeout(() => this.setState({ redirect: true }), 2000);
       }
 
@@ -102,8 +108,9 @@ class SectionAddComponent extends Component {
     // TODO if not using props, just add class variable state
     this.state = {
       sectionName: '',
-      sectionCode: '',
+      sectionDuration: '',
       sectionComment: '',
+      sectionCourse: '',
       message: '',
       message_type: 'success',
       redirect: false
@@ -120,8 +127,9 @@ class SectionAddComponent extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentSection !== nextProps.currentSection) {
       this.setState({ sectionName: nextProps.currentSection.name });
-      this.setState({ sectionCode: nextProps.currentSection.code });
+      this.setState({ sectionDuration: nextProps.currentSection.duration });
       this.setState({ sectionComment: nextProps.currentSection.comment });
+      this.setState({ sectionCourse: nextProps.currentSection.course });
     }
   }
 
@@ -138,18 +146,21 @@ class SectionAddComponent extends Component {
           </Grid>
         : null }
 
-        <Grid item xs={12}><h1 className="section-add__header">Создание курса</h1></Grid>
+        <Grid item xs={12}><h1 className="section-add__header">Создание раздела курса</h1></Grid>
         <Grid item xs={12} md={6}>
-          <Link to="/sections" className="no-text-decoration"><Button variant="outlined" color="primary">Список курсов</Button></Link>
+          <Link to="/sections" className="no-text-decoration"><Button variant="outlined" color="primary">Список разделов</Button></Link>
         </Grid>
         <Grid item xs={12} className="section-add__input__container">
-          <Input type="text" className="section-add__input" placeholder="Название курса" value={this.state.sectionName} onChange={this.setSectionName} required/>
+          <Input type="text" className="section-add__input" placeholder="Название раздела" value={this.state.sectionName} onChange={this.setSectionName} required/>
         </Grid>
         <Grid item xs={12} className="section-add__input__container">
-          <Input type="text" className="section-add__input" placeholder="Уникальный код курса" value={this.state.sectionCode} onChange={this.setSectionCode} required/>
+          <Input type="text" className="section-add__input" placeholder="Длительность раздела" value={this.state.sectionDuration} onChange={this.setSectionDuration} required/>
         </Grid>
         <Grid item xs={12} className="section-add__input__container">
-          <TextField multiline className="section-add__input" placeholder="Описание курса" value={this.state.sectionComment} onChange={this.setSectionComment} />
+          <TextField multiline className="section-add__input" placeholder="Описание раздела" value={this.state.sectionComment} onChange={this.setSectionComment} />
+        </Grid>
+        <Grid item xs={12} className="section-add__input__container">
+          <TextField multiline className="section-add__input" placeholder="Код курса" value={this.state.sectionCourse} onChange={this.setSectionCourse} />
         </Grid>
         <Grid item xs={12}>
           <div className="custom-btn_center">
