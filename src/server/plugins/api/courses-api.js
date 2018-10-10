@@ -1,4 +1,4 @@
-import { HTTP_ERROR_400, createError } from '../../constants';
+import { HTTP_ERROR_400 } from '../../constants';
 import { serverConsoleError } from '../../utils/server-console-error';
 import axios from '../../config/axios-instance-node';
 import { parseUrlFromTemplate } from '../../../client/utils/path';
