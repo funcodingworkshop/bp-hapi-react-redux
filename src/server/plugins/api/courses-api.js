@@ -1,19 +1,16 @@
-import mongoose from 'mongoose';
-import { HTTP_ERROR_400, createError } from '../../constants';
+import { HTTP_ERROR_400 } from '../../constants';
 import { serverConsoleError } from '../../utils/server-console-error';
-
-const courseSchema = mongoose.Schema({ name: String, code: String, comment: String });
-courseSchema.set('timestamps', true);
-const Course = mongoose.model('Course', courseSchema);
-
+import axios from '../../config/axios-instance-node';
+import { parseUrlFromTemplate } from '../../../client/utils/path';
 
 // courses index
 const registerCourses = async (server, options) => {
-  const { apiConfig: { method, path } } = options;
+  const { apiConfig: { method, path, url } } = options;
 
-  const handler = () => {
+  const handler = async () => {
     try {
-      return Course.find();
+      const { data } = await axios({ method, url });
+      return data;
     } catch (e) {
       serverConsoleError('coursesPlugin', e);
       return HTTP_ERROR_400;
@@ -24,37 +21,17 @@ const registerCourses = async (server, options) => {
 };
 export const coursesPlugin = { name: 'coursesPlugin', register: registerCourses };
 
-// create course
-const registerCoursePost = async (server, options) => {
-  const { apiConfig: { method, path } } = options;
-
-  const handler = async (request, h) => {
-    try {
-      const course = new Course(request.payload);
-      const res = await course.save();
-      return h.response(res).code(201);
-    } catch (e) {
-      serverConsoleError('coursePostPlugin', e);
-      return HTTP_ERROR_400;
-    }
-  };
-
-  server.route({ method, path, handler });
-};
-export const coursePostPlugin = { name: 'coursePostPlugin', register: registerCoursePost };
 
 // read course
 const registerCourse = async (server, options) => {
-  const { apiConfig: { method, path } } = options;
+  const { apiConfig: { method, path, url: urlTemplate } } = options;
 
   const handler = async (request, h) => {
     const { params: { courseId } = {} } = request;
+    const url = parseUrlFromTemplate(urlTemplate, { courseId });
     try {
-      const courses = await Course.find({ _id: courseId });
-      if (courses.length === 1) {
-        return h.response(courses[0]).code(200);
-      }
-      return h.response(createError('Document not found')).code(400);
+      const { data } = await axios({ method, url });
+      return data;
     } catch (e) {
       serverConsoleError('coursePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
@@ -65,43 +42,36 @@ const registerCourse = async (server, options) => {
 };
 export const coursePlugin = { name: 'coursePlugin', register: registerCourse };
 
-// update course
-const registerCoursePatch = async (server, options) => {
-  const { apiConfig: { method, path } } = options;
+
+// create course
+const registerCoursePost = async (server, options) => {
+  const { apiConfig: { method, path, url } } = options;
 
   const handler = async (request, h) => {
-    const { params: { courseId } = {}, payload: { course } } = request;
     try {
-      const courses = await Course.find({ _id: courseId });
-      if (courses.length === 1) {
-        await courses[0].updateOne({ ...course, $inc: { __v: 1 } });
-        const res = await Course.find({ _id: courseId });
-        return h.response(res).code(200);
-      }
-      return h.response(createError('Document not found')).code(400);
+      const { data } = await axios({ method, url, data: request.payload });
+      return h.response(data).code(201);
     } catch (e) {
-      serverConsoleError('coursePatchPlugin', e);
-      return h.response(HTTP_ERROR_400).code(400);
+      serverConsoleError('coursePostPlugin', e);
+      return HTTP_ERROR_400;
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePatchPlugin = { name: 'coursePatchPlugin', register: registerCoursePatch };
+export const coursePostPlugin = { name: 'coursePostPlugin', register: registerCoursePost };
+
 
 // delete course
 const registerCourseDelete = async (server, options) => {
-  const { apiConfig: { method, path } } = options;
+  const { apiConfig: { method, path, url: urlTemplate } } = options;
 
   const handler = async (request, h) => {
     const { params: { courseId } = {} } = request;
+    const url = parseUrlFromTemplate(urlTemplate, { courseId });
     try {
-      const courses = await Course.find({ _id: courseId });
-      if (courses.length > 0) {
-        await Course.find({ _id: courseId }).deleteOne();
-        return h.response().code(204);
-      }
-      return h.response(createError('Document not found')).code(400);
+      await axios({ method, url });
+      return h.response().code(204);
     } catch (e) {
       serverConsoleError('courseDeletePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
@@ -112,3 +82,24 @@ const registerCourseDelete = async (server, options) => {
 };
 
 export const courseDeletePlugin = { name: 'courseDeletePlugin', register: registerCourseDelete };
+
+
+// update course
+const registerCoursePatch = async (server, options) => {
+  const { apiConfig: { method, path, url: urlTemplate } } = options;
+
+  const handler = async (request, h) => {
+    const { params: { courseId } = {}, payload: { course } } = request;
+    try {
+      const url = parseUrlFromTemplate(urlTemplate, { courseId });
+      const { data } = await axios({ method, url, data: course });
+      return h.response(data).code(200);
+    } catch (e) {
+      serverConsoleError('coursePatchPlugin', e);
+      return h.response(HTTP_ERROR_400).code(400);
+    }
+  };
+
+  server.route({ method, path, handler });
+};
+export const coursePatchPlugin = { name: 'coursePatchPlugin', register: registerCoursePatch };

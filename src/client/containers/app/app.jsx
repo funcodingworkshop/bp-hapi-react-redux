@@ -77,6 +77,10 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    const jssStyles = document.getElementById('jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
     this.props.fetchAccount();
   }
 

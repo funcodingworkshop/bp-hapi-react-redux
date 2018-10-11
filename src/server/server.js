@@ -1,7 +1,4 @@
 import Hapi from 'hapi';
-import mongoose from 'mongoose';
-import visionPlugin from 'vision';
-import Handlebars from 'handlebars';
 import inertPlugin from 'inert';
 import h2o2Plugin from 'h2o2';
 import indexPagePlugin from './plugins/pages/index';
@@ -13,25 +10,6 @@ import { jwtAuthScheme } from './auth/jwt-auth-scheme';
 import { authJwtCookieConfig } from './config/auth-jwt-cookie';
 
 const config = getConfig();
-const {
-  mongoDbHost,
-  mongoDbUser,
-  mongoDbPass,
-  mongoDbName
-} = config.server;
-if (mongoDbUser && mongoDbPass) {
-  mongoose.connect(
-    `mongodb://${mongoDbUser}:${mongoDbPass}@${mongoDbHost}/${mongoDbName}`,
-    { useNewUrlParser: true }
-  );
-} else {
-  mongoose.connect(
-    `mongodb://${mongoDbHost}/${mongoDbName}`,
-    { useNewUrlParser: true }
-  );
-}
-
-const db = mongoose.connection;
 
 const init = async () => {
   const server = Hapi.server({
@@ -43,17 +21,9 @@ const init = async () => {
     require('./mock/mock'); // eslint-disable-line
   }
 
-  // Vision is used for adding templating engine
-  await server.register(visionPlugin);
-  server.views({
-    engines: { html: Handlebars },
-    relativeTo: __dirname,
-    path: 'plugins/pages'
-  });
-  // Serving html file - src/server/plugins/pages/index.html
   await server.register({
     plugin: indexPagePlugin,
-    options: { apiConfig: config.services.indexPage }
+    options: { apiConfig: config.services.indexPage, buildConfig: config.buildConfig }
   });
 
   // Proxy Plugin
@@ -100,10 +70,4 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-db.on('error', (e) => {
-  console.error('MongoDB connection error:', e); // eslint-disable-line no-console
-});
-db.once('open', () => {
-  console.log(`MongoDB connection success`); // eslint-disable-line
-  init();
-});
+init();

@@ -2,20 +2,30 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/client/index.jsx',
+  target: 'node',
+  node: {
+    __filename: true,
+    __dirname: true
+  },
+  entry: './src/server/server.js',
   output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, '.build/client'),
+    filename: 'server.js',
+    path: path.resolve(__dirname, '.build'),
     publicPath: 'assets/'
   },
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: 'src/client/public',
-        to: 'public'
+        from: 'src/server/plugins/pages/index.hbs',
+        toType: 'file'
       }
-    ], { debug: 'warning' })
+    ])
   ],
+  resolve: {
+    alias: {
+      handlebars: 'handlebars/dist/handlebars.min.js'
+    }
+  },
   module: {
     rules: [
       {
@@ -31,7 +41,9 @@ module.exports = {
             presets: ['env', 'react'],
             plugins: [
               'transform-object-rest-spread',
-              'transform-class-properties'
+              'transform-class-properties',
+              'transform-runtime',
+              'transform-async-to-generator'
             ]
           }
         }
@@ -56,6 +68,6 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 9090
+    port: 8080
   }
 };

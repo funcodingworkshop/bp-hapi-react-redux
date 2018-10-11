@@ -1,13 +1,8 @@
-import {
-  coursesPlugin,
-  coursePostPlugin,
-  coursePlugin,
-  coursePatchPlugin,
-  courseDeletePlugin
-} from './plugins/api/courses-api';
-
 import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
 import { fetchAccountPlugin } from './plugins/api/account-api';
+import {
+  coursesPlugin, coursePlugin, coursePostPlugin, courseDeletePlugin, coursePatchPlugin
+} from './plugins/api/courses-api';
 
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars
@@ -40,20 +35,20 @@ const getPlugins = (config) => {
       options: { apiConfig: config.services.courses }
     },
     {
-      plugin: coursePostPlugin,
-      options: { apiConfig: config.services.coursePost }
-    },
-    {
       plugin: coursePlugin,
       options: { apiConfig: config.services.course }
     },
     {
-      plugin: coursePatchPlugin,
-      options: { apiConfig: config.services.coursePatch }
+      plugin: coursePostPlugin,
+      options: { apiConfig: config.services.coursePost }
     },
     {
       plugin: courseDeletePlugin,
       options: { apiConfig: config.services.courseDelete }
+    },
+    {
+      plugin: coursePatchPlugin,
+      options: { apiConfig: config.services.coursePatch }
     }
   ];
 };

@@ -22,10 +22,10 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. React Router (**DONE**)
 1. [Material UI](https://www.material-ui.com/) components (**DONE**)
 1. Saga middleware (**DONE**)
-1. Server Side Rendering (SSR)
+1. Server Side Rendering (**DONE**)
 1. Formik or Redux Form - for form creation
 1. Async data loading and validation
-1. [CSS Modules](https://github.com/css-modules/css-modules)
+1. ~~CSS Modules~~
 1. Testing with [Jest](https://facebook.github.io/jest/docs/en/tutorial-react.html) (**DONE**)
 1. Hot Reload
 
@@ -46,19 +46,23 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 1. Servers (**DONE**)
 1. Docker Swarm (**DONE**)
 
-### Способы запуска проекта
-1. - npm start
-2. - npm run build
-   - npm run start-build
-3. - npm run build
-   - npm run docker-build
-   - docker run -e MONGODB_HOST=host.docker.internal -p 8080:8080 -d 972e05ca5a29
-4. - npm run docker-build
-   - клонируем проект https://github.com/codingbootcampru/bp-devops
-   - Stop local mongoDB (на макбуке brew services stop mongodb)
-   - создать папку на диске, например: /Users/{$user}/data
-   - указать в файле docker-compose.yml по пути services -> mongo -> volumes свой путь на папку из пункта выше, например: " volumes: - "/Users/{$user}/data/mongo:/data/db" "
-   - docker swarm init
-   - docker stack deploy -c docker-compose.yml mystack
-   - docker node ls
-   - docker service ls   
+### Ways to start project
+1. Start Dev Mode
+    - `npm start`
+2. Start Build
+    - `npm run build`
+    - `npm run start-build`
+3. Start Build in Docker (for MacOS)
+    - `npm run build`
+    - `npm run docker-build`
+    - `docker run -e MONGODB_HOST=host.docker.internal -e SERVICE_HOST=host.docker.internal:3001 -p 8080:8080 -d 972e05ca5a29`
+4. Start Build in Docker Swarm (for MacOS)
+    - `npm run docker-build`
+    - clone project https://github.com/codingbootcampru/bp-devops
+    - Stop local mongoDB (for MacOS: `brew services stop mongodb`)
+    - create local folder, for example: /Users/{$user}/data
+    - edit docker-compose.yml set services->mongo->volumes your local folder path, for example: " volumes: - "/Users/{$user}/data/mongo:/data/db" "
+    - `docker swarm init`
+    - `docker stack deploy -c docker-compose.yml mystack`
+    - `docker node ls`
+    - `docker service ls`

@@ -63,7 +63,7 @@ class SignIn extends PureComponent {
           <div className={ classes.buttonBlock }>
             <Button
               className={ classes.button }
-              variant="contained"
+              variant="outlined"
               color="primary"
               onClick={ this.handleSubmit }
             >
