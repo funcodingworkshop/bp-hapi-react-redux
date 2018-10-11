@@ -1,5 +1,5 @@
 export const authJwtCookieConfig = {
   tokenName: 'jwt-token',
-  expiresIn: 10 * 60 * 1000, // in milliseconds
+  expiresIn: 86400 * 1000, // in milliseconds
   isSecure: false
 };

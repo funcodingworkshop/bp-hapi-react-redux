@@ -26,9 +26,9 @@ export default function coursesReducer(state = initialState, { type, payload }) 
       };
     }
     case COURSES_TYPES.UPDATE_COURSE_SUCCESS: {
-      const buffer = state.list;
+      const buffer = [...state.list];
       buffer.forEach((course, index) => {
-        if (course._id === payload[0]._id) { buffer.splice(index, 1, payload[0]); }
+        if (course._id === payload._id) { buffer.splice(index, 1, payload); }
       });
       return {
         ...state,

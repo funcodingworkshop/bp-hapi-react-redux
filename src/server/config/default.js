@@ -30,6 +30,11 @@ export default function getConfig() {
     basePath: '',
     devtools: true,
 
+    buildConfig: {
+      targetDir: '.build',
+      assetsDir: 'assets'
+    },
+
     proxyAssets: {
       host: 'localhost',
       port: 9090

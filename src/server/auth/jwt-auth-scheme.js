@@ -22,12 +22,10 @@ export function jwtAuthScheme(server, options) {
     if (allowUnauthorized(request.path)) {
       return h.continue;
     }
-    console.log('path', request.path);
     try {
       const authCookieValue = request.state[authJwtCookieConfig.tokenName];
-      console.log('authCookieValue', authCookieValue);
       const { data: authResult } = await axios({ method, url, data: { token: authCookieValue } });
-      console.log('authResult', authResult);
+      // console.log('authResult', authResult);
       if (authResult.payload) {
         const credentials = {
           uid: authResult.payload.uid,
@@ -43,7 +41,6 @@ export function jwtAuthScheme(server, options) {
   // if authenticate return h.continue response is skipped
   const response = (request, h) => {
     console.log('request.auth', request.auth);
-    // h.header('Server-Authorization', 'some_header');
     return h.continue;
   };
   return {
