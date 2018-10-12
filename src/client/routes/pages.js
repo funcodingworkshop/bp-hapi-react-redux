@@ -3,6 +3,10 @@ export const PAGES = {
     name: 'home',
     path: '/'
   },
+  admin: {
+    name: 'admin',
+    path: '/admin'
+  },
   users: {
     name: 'users',
     path: '/users'

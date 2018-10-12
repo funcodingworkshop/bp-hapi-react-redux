@@ -9,6 +9,7 @@ import SignUp from '../containers/auth/sign-up';
 import SignIn from '../containers/auth/sign-in';
 import App from '../containers/app/app';
 import Home from '../containers/home/home';
+import HomeAdmin from '../containers/home-admin/home-admin';
 import Students from '../containers/students/students';
 import Users from '../containers/users/users';
 import Courses from '../containers/courses/courses/courses';
@@ -41,6 +42,10 @@ export default () => (
     <Route
       exact path={ PAGES.home.path }
       render={ props => WrappedApp(Home, props) }
+    />
+    <Route
+      exact path={ PAGES.admin.path }
+      render={ props => WrappedApp(HomeAdmin, props) }
     />
     <Route
       path={ PAGES.students.path }

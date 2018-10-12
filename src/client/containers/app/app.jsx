@@ -1,26 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+import Type from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import StarIcon from '@material-ui/icons/Star';
+import SendIcon from '@material-ui/icons/Send';
+import MailIcon from '@material-ui/icons/Mail';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ReportIcon from '@material-ui/icons/Report';
+import ListItem from '@material-ui/core/ListItem/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import { doRouteAC } from '../../redux/actions/router-actions';
-import { fetchAccountSagaAC } from '../../redux/actions/app-actions';
-
-import './app.css';
-
-const styles = {
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
+import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actions';
+import AppMenu from '../../components/app-menu/app-menu';
+import { PAGES } from '../../routes/pages';
+import styles from './styles';
+import { SITE_TITLE } from '../../constants/names';
 
 function mapStateToProps() {
   return {};
@@ -29,51 +32,69 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     doRoute: doRouteAC,
-    fetchAccount: fetchAccountSagaAC
+    fetchAccount: fetchAccountSagaAC,
+    signOut: signOutSagaAC
   }, dispatch);
 }
 
 class App extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    doRoute: PropTypes.func,
-    fetchAccount: PropTypes.func.isRequired
+    classes: Type.object.isRequired,
+    children: Type.node.isRequired,
+    doRoute: Type.func,
+    fetchAccount: Type.func.isRequired,
+    signOut: Type.func.isRequired
   };
 
   static defaultProps = {
   };
 
   state = {
-    anchorEl: null
+    isAppMenuOpened: false
   };
 
-  handleClickMenu = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClickMenu = () => {
+    this.setState({ isAppMenuOpened: true });
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  handleCloseMenu = () => {
+    this.setState({ isAppMenuOpened: false });
   };
 
-  handleClickMenuHome = () => {
-    this.handleClose();
-    this.props.doRoute('/');
+  handleClickAdmin = () => {
+    this.props.doRoute(PAGES.admin.path);
   };
 
-  handleClickMenuCourses = () => {
-    this.handleClose();
-    this.props.doRoute('/courses');
+  handleClickHome = () => {
+    this.props.doRoute(PAGES.home.path);
   };
 
-  handleClickMenuStudents = () => {
-    this.handleClose();
-    this.props.doRoute('/students');
+  handleClickCourses = () => {
+    this.props.doRoute(PAGES.COURSES.list.path);
   };
 
-  handleClickMenuUsers = () => {
-    this.handleClose();
-    this.props.doRoute('/users');
+  handleClickStudents = () => {
+    this.props.doRoute(PAGES.students.path);
+  };
+
+  handleClickUsers = () => {
+    this.props.doRoute(PAGES.users.path);
+  };
+
+  handleClickSignUp = () => {
+    this.props.doRoute(PAGES.signUp.path);
+  };
+
+  handleClickSignIn = () => {
+    this.props.doRoute(PAGES.signIn.path);
+  };
+
+  handleClickPage404 = () => {
+    this.props.doRoute(PAGES.page404.path);
+  };
+
+  handleClickPage405 = () => {
+    this.props.doRoute(PAGES.page405.path);
   };
 
   componentDidMount() {
@@ -86,45 +107,98 @@ class App extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, signOut } = this.props;
     return (
-      <div className='app'>
+      <div className={ classes.app }>
         <AppBar position="static" color="default">
           <Toolbar>
             <IconButton
-              className={classes.menuButton}
+              className={ classes.menuButton }
               aria-label="More"
-              aria-owns={anchorEl ? 'long-menu' : null}
+              aria-owns={ anchorEl ? 'long-app-menu' : null }
               aria-haspopup="true"
-              onClick={this.handleClickMenu}
+              onClick={ this.handleClickMenu }
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="long-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose}
-            >
-              <MenuItem key='home' selected={ false } onClick={this.handleClickMenuHome}>
-                Home
-              </MenuItem>
-              <MenuItem key='courses' selected={ false } onClick={this.handleClickMenuCourses}>
-                Courses
-              </MenuItem>
-              <MenuItem key='students' selected={ false } onClick={this.handleClickMenuStudents}>
-                Students
-              </MenuItem>
-              <MenuItem key='users' selected={ false } onClick={this.handleClickMenuUsers}>
-                Users
-              </MenuItem>
-            </Menu>
+            <AppMenu
+              isOpened={ this.state.isAppMenuOpened }
+              onClose={ this.handleCloseMenu }
+              mainListItems={
+                <div>
+                  <ListItem button onClick={this.handleClickHome}>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickSignUp}>
+                    <ListItemIcon>
+                      <SendIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign Up" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickSignIn}>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign In" />
+                  </ListItem>
+                  <ListItem button onClick={signOut}>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign Out" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickPage404}>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Page 404" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickPage405}>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Page 405" />
+                  </ListItem>
+                </div>
+              }
+              otherListItems={
+                <div>
+                  <ListItem button onClick={ this.handleClickAdmin }>
+                    <ListItemIcon>
+                      <StarIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Admin" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickCourses}>
+                    <ListItemIcon>
+                      <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Courses" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickStudents}>
+                    <ListItemIcon>
+                      <DeleteIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Students" />
+                  </ListItem>
+                  <ListItem button onClick={this.handleClickUsers}>
+                    <ListItemIcon>
+                      <ReportIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Users" />
+                  </ListItem>
+                </div>
+              }
+            />
             <Typography variant="title" color="inherit">
-              Hapi React Redux Boilerplate
+              { SITE_TITLE }
             </Typography>
           </Toolbar>
         </AppBar>
-        <div className="app__children">
+        <div className={ classes.appChildren }>
           { this.props.children }
         </div>
       </div>
