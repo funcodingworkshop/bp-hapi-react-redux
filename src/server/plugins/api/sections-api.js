@@ -5,9 +5,11 @@ import { serverConsoleError } from '../../utils/server-console-error';
 const sectionSchema = mongoose.Schema({
   name: String,
   duration: String,
-  course: [
-    { type: mongoose.Schema.ObjectId, ref: 'Course' }
-  ]
+  comment: String,
+  course: String
+  // [
+  //   { type: mongoose.Schema.ObjectId, ref: 'Course' }
+  // ]
 });
 sectionSchema.set('timestamps', true);
 const Section = mongoose.model('Section', sectionSchema);
