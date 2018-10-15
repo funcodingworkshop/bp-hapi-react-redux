@@ -45,17 +45,18 @@ class Sections extends React.Component {
         <h2>Sections Page</h2>
         <div className="sections__panel">
 
-          <Link to="/sections/add"><Button variant="contained" color="primary">Создать курс</Button></Link>
+          <Link to="/sections/add"><Button variant="contained" color="primary">Создать раздел</Button></Link>
 
           <div className="sections__panel-list">
 
             <Grid container spacing={8} className="sections__panel-list__header">
               <Grid item xs={1}></Grid>
               <Grid item xs={1}>id</Grid>
-              <Grid item xs={2}>Название курса</Grid>
-              <Grid item xs={1}>Код</Grid>
+              <Grid item xs={2}>Название раздела</Grid>
+              <Grid item xs={1}>Длительность раздела</Grid>
               <Grid item xs={2}>Дата создания</Grid>
               <Grid item xs={4}>Описание</Grid>
+              <Grid item xs={4}>ID курса</Grid>
               <Grid item xs={1}></Grid>
             </Grid>
 
