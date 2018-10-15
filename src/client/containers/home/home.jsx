@@ -58,6 +58,8 @@ class Home extends React.Component {
           <br/>
           <Link to={ PAGES.COURSES.list.path }>Courses</Link>
           <br/>
+          <Link to={ PAGES.SECTIONS.list.path }>Sections</Link>
+          <br/>
           <Link to={ PAGES.students.path }>Students</Link>
         </div>
         <br/>
