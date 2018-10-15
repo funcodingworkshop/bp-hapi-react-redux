@@ -17,9 +17,10 @@ class SectionsComponent extends PureComponent {
     const {
       _id,
       name,
-      code,
+      duration,
       createdAt,
-      comment
+      comment,
+      course
     } = this.props.section;
 
     return (
@@ -27,9 +28,10 @@ class SectionsComponent extends PureComponent {
         <Grid item xs={1} />
         <Grid item xs={1}>{this.props.viewId}</Grid>
         <Grid item xs={2} className="section-line__link"><Link to={`/sections/${_id}`}>{name}</Link></Grid>
-        <Grid item xs={1}>{code}</Grid>
+        <Grid item xs={1}>{duration}</Grid>
         <Grid item xs={2}>{normalizeDate(createdAt)}</Grid>
         <Grid item xs={4}>{comment}</Grid>
+        <Grid item xs={4}>{course}</Grid>
         <Grid item xs={1}/>
       </Grid>
     );
