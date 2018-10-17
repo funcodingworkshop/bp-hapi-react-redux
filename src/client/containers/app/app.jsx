@@ -8,13 +8,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import HomeIcon from '@material-ui/icons/Home';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import SubdirectoryArrowLeft from '@material-ui/icons/SubdirectoryArrowLeft';
+import CloseIcon from '@material-ui/icons/Close';
+import WarningIcon from '@material-ui/icons/Warning';
 import StarIcon from '@material-ui/icons/Star';
-import SendIcon from '@material-ui/icons/Send';
-import MailIcon from '@material-ui/icons/Mail';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
+import SchoolIcon from '@material-ui/icons/School';
+import GroupIcon from '@material-ui/icons/Group';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
@@ -22,11 +24,15 @@ import { doRouteAC } from '../../redux/actions/router-actions';
 import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actions';
 import AppMenu from '../../components/app-menu/app-menu';
 import { PAGES } from '../../routes/pages';
-import styles from './styles';
 import { SITE_TITLE } from '../../constants/names';
+import { selectUser } from '../../redux/selectors/app-selectors';
 
-function mapStateToProps() {
-  return {};
+import styles from './styles';
+
+function mapStateToProps(state) {
+  return {
+    user: selectUser(state)
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -43,10 +49,13 @@ class App extends React.Component {
     children: Type.node.isRequired,
     doRoute: Type.func,
     fetchAccount: Type.func.isRequired,
-    signOut: Type.func.isRequired
+    signOut: Type.func.isRequired,
+    noAuth: Type.bool,
+    user: Type.object
   };
 
   static defaultProps = {
+    noAuth: false
   };
 
   state = {
@@ -97,12 +106,23 @@ class App extends React.Component {
     this.props.doRoute(PAGES.page405.path);
   };
 
+  handleFetchAccount = () => {
+    const { fetchAccount, noAuth, user } = this.props;
+    if (!noAuth && !user) {
+      fetchAccount();
+    }
+  };
+
   componentDidMount() {
     const jssStyles = document.getElementById('jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    this.props.fetchAccount();
+    this.handleFetchAccount();
+  }
+
+  componentDidUpdate() {
+    this.handleFetchAccount();
   }
 
   render() {
@@ -128,37 +148,37 @@ class App extends React.Component {
                 <div>
                   <ListItem button onClick={this.handleClickHome}>
                     <ListItemIcon>
-                      <InboxIcon />
+                      <HomeIcon />
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                   </ListItem>
                   <ListItem button onClick={this.handleClickSignUp}>
                     <ListItemIcon>
-                      <SendIcon />
+                      <ArrowUpward />
                     </ListItemIcon>
                     <ListItemText primary="Sign Up" />
                   </ListItem>
                   <ListItem button onClick={this.handleClickSignIn}>
                     <ListItemIcon>
-                      <DraftsIcon />
+                      <SubdirectoryArrowLeft />
                     </ListItemIcon>
                     <ListItemText primary="Sign In" />
                   </ListItem>
                   <ListItem button onClick={signOut}>
                     <ListItemIcon>
-                      <DraftsIcon />
+                      <CloseIcon />
                     </ListItemIcon>
                     <ListItemText primary="Sign Out" />
                   </ListItem>
                   <ListItem button onClick={this.handleClickPage404}>
                     <ListItemIcon>
-                      <DraftsIcon />
+                      <WarningIcon />
                     </ListItemIcon>
                     <ListItemText primary="Page 404" />
                   </ListItem>
                   <ListItem button onClick={this.handleClickPage405}>
                     <ListItemIcon>
-                      <DraftsIcon />
+                      <WarningIcon />
                     </ListItemIcon>
                     <ListItemText primary="Page 405" />
                   </ListItem>
@@ -174,19 +194,19 @@ class App extends React.Component {
                   </ListItem>
                   <ListItem button onClick={this.handleClickCourses}>
                     <ListItemIcon>
-                      <MailIcon />
+                      <SchoolIcon />
                     </ListItemIcon>
                     <ListItemText primary="Courses" />
                   </ListItem>
                   <ListItem button onClick={this.handleClickStudents}>
                     <ListItemIcon>
-                      <DeleteIcon />
+                      <GroupIcon />
                     </ListItemIcon>
                     <ListItemText primary="Students" />
                   </ListItem>
                   <ListItem button onClick={this.handleClickUsers}>
                     <ListItemIcon>
-                      <ReportIcon />
+                      <PeopleOutlineIcon />
                     </ListItemIcon>
                     <ListItemText primary="Users" />
                   </ListItem>

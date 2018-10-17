@@ -2,7 +2,7 @@ import { APP_TYPES } from '../actions/app-actions';
 
 const initialState = {
   say: 'nothing to say yet ... meaw...',
-  user: {}
+  user: undefined
 };
 
 export default function appReducer(state = initialState, { type, payload }) {
@@ -24,7 +24,7 @@ export default function appReducer(state = initialState, { type, payload }) {
     case APP_TYPES.SIGN_OUT_SUCCESS: {
       return {
         ...state,
-        user: {}
+        user: undefined
       };
     }
     default:

@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import { createCourseAC, updateCourseAC, fetchCourseSagaAC } from '../../../redux/actions/courses-actions';
 import { selectCurrentCourse } from '../../../redux/selectors/courses-selectors';
 
-import '../../../css/global.css';
+// import '../../../css/global.css';
 import './course-add.css';
 
 function mapStateToProps(state) {
