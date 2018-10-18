@@ -9,29 +9,28 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import SubdirectoryArrowLeft from '@material-ui/icons/SubdirectoryArrowLeft';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft';
 import CloseIcon from '@material-ui/icons/Close';
 import WarningIcon from '@material-ui/icons/Warning';
 import StarIcon from '@material-ui/icons/Star';
 import SchoolIcon from '@material-ui/icons/School';
 import GroupIcon from '@material-ui/icons/Group';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import ListItem from '@material-ui/core/ListItem/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actions';
 import AppMenu from '../../components/app-menu/app-menu';
 import { PAGES } from '../../routes/pages';
 import { SITE_TITLE } from '../../constants/names';
-import { selectUser } from '../../redux/selectors/app-selectors';
+import { selectAccount, selectIsAccountLoading } from '../../redux/selectors/app-selectors';
+import { VISIBLE } from './constants';
 
 import styles from './styles';
 
 function mapStateToProps(state) {
   return {
-    user: selectUser(state)
+    account: selectAccount(state),
+    isAccountLoading: selectIsAccountLoading(state)
   };
 }
 
@@ -50,12 +49,13 @@ class App extends React.Component {
     doRoute: Type.func,
     fetchAccount: Type.func.isRequired,
     signOut: Type.func.isRequired,
-    noAuth: Type.bool,
-    user: Type.object
+    needAuth: Type.bool,
+    account: Type.shape({}),
+    isAccountLoading: Type.bool
   };
 
   static defaultProps = {
-    noAuth: false
+    needAuth: true
   };
 
   state = {
@@ -70,47 +70,73 @@ class App extends React.Component {
     this.setState({ isAppMenuOpened: false });
   };
 
-  handleClickAdmin = () => {
-    this.props.doRoute(PAGES.admin.path);
-  };
-
-  handleClickHome = () => {
-    this.props.doRoute(PAGES.home.path);
-  };
-
-  handleClickCourses = () => {
-    this.props.doRoute(PAGES.COURSES.list.path);
-  };
-
-  handleClickStudents = () => {
-    this.props.doRoute(PAGES.students.path);
-  };
-
-  handleClickUsers = () => {
-    this.props.doRoute(PAGES.users.path);
-  };
-
-  handleClickSignUp = () => {
-    this.props.doRoute(PAGES.signUp.path);
-  };
-
-  handleClickSignIn = () => {
-    this.props.doRoute(PAGES.signIn.path);
-  };
-
-  handleClickPage404 = () => {
-    this.props.doRoute(PAGES.page404.path);
-  };
-
-  handleClickPage405 = () => {
-    this.props.doRoute(PAGES.page405.path);
+  handleClickPage = page => () => {
+    this.props.doRoute(page);
   };
 
   handleFetchAccount = () => {
-    const { fetchAccount, noAuth, user } = this.props;
-    if (!noAuth && !user) {
-      fetchAccount();
+    const { fetchAccount } = this.props;
+    fetchAccount();
+  };
+
+  mainListItems = () => {
+    const { signOut, account } = this.props;
+    const allItems = [
+      { iconComponent: HomeIcon,
+        onClick: this.handleClickPage(PAGES.home.path),
+        text: 'Home',
+        visible: VISIBLE.ALWAYS },
+      { iconComponent: ArrowUpwardIcon,
+        onClick: this.handleClickPage(PAGES.signUp.path),
+        text: 'Sign Up',
+        visible: VISIBLE.NOT_AUTHENTICATED },
+      { iconComponent: SubdirectoryArrowLeftIcon,
+        onClick: this.handleClickPage(PAGES.signIn.path),
+        text: 'Sign In',
+        visible: VISIBLE.NOT_AUTHENTICATED },
+      { iconComponent: CloseIcon,
+        onClick: signOut,
+        text: 'Sign Out',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: WarningIcon,
+        onClick: this.handleClickPage(PAGES.page404.path),
+        text: 'Page 404',
+        visible: VISIBLE.ALWAYS },
+      { iconComponent: WarningIcon,
+        onClick: this.handleClickPage(PAGES.page405.path),
+        text: 'Page 405',
+        visible: VISIBLE.ALWAYS }
+    ];
+    if (account) {
+      return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible)));
     }
+    return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible)));
+  };
+
+  otherListItems = () => {
+    const { account } = this.props;
+    const allItems = [
+      { iconComponent: StarIcon,
+        onClick: this.handleClickPage(PAGES.admin.path),
+        text: 'Admin',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: SchoolIcon,
+        onClick: this.handleClickPage(PAGES.COURSES.list.path),
+        text: 'Courses',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: GroupIcon,
+        onClick: this.handleClickPage(PAGES.students.path),
+        text: 'Students',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: PeopleOutlineIcon,
+        onClick: this.handleClickPage(PAGES.users.path),
+        text: 'Users',
+        visible: VISIBLE.AUTHENTICATED }
+    ];
+    if (account) {
+      return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible)));
+    }
+    return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible)));
   };
 
   componentDidMount() {
@@ -121,13 +147,11 @@ class App extends React.Component {
     this.handleFetchAccount();
   }
 
-  componentDidUpdate() {
-    this.handleFetchAccount();
-  }
-
   render() {
+    console.log('isAccountLoading', this.props.isAccountLoading);
+    console.log('account', this.props.account);
     const { anchorEl } = this.state;
-    const { classes, signOut } = this.props;
+    const { classes } = this.props;
     return (
       <div className={ classes.app }>
         <AppBar position="static" color="default">
@@ -144,74 +168,8 @@ class App extends React.Component {
             <AppMenu
               isOpened={ this.state.isAppMenuOpened }
               onClose={ this.handleCloseMenu }
-              mainListItems={
-                <div>
-                  <ListItem button onClick={this.handleClickHome}>
-                    <ListItemIcon>
-                      <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Home" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickSignUp}>
-                    <ListItemIcon>
-                      <ArrowUpward />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign Up" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickSignIn}>
-                    <ListItemIcon>
-                      <SubdirectoryArrowLeft />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign In" />
-                  </ListItem>
-                  <ListItem button onClick={signOut}>
-                    <ListItemIcon>
-                      <CloseIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign Out" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickPage404}>
-                    <ListItemIcon>
-                      <WarningIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Page 404" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickPage405}>
-                    <ListItemIcon>
-                      <WarningIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Page 405" />
-                  </ListItem>
-                </div>
-              }
-              otherListItems={
-                <div>
-                  <ListItem button onClick={ this.handleClickAdmin }>
-                    <ListItemIcon>
-                      <StarIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Admin" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickCourses}>
-                    <ListItemIcon>
-                      <SchoolIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Courses" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickStudents}>
-                    <ListItemIcon>
-                      <GroupIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Students" />
-                  </ListItem>
-                  <ListItem button onClick={this.handleClickUsers}>
-                    <ListItemIcon>
-                      <PeopleOutlineIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Users" />
-                  </ListItem>
-                </div>
-              }
+              mainListItems={ this.mainListItems() }
+              otherListItems={ this.otherListItems() }
             />
             <Typography variant="title" color="inherit">
               { SITE_TITLE }

@@ -5,15 +5,24 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
+import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText/ListItemText';
+import ListItem from '@material-ui/core/ListItem/ListItem';
 import styles from './styles';
+
+const listItem = Type.shape({
+  iconComponent: Type.func.isRequired,
+  onClick: Type.func.isRequired,
+  text: Type.string.isRequired
+});
 
 class AppMenu extends PureComponent {
   static propTypes = {
     classes: Type.shape({}).isRequired,
     isOpened: Type.bool,
     onClose: Type.func.isRequired,
-    mainListItems: Type.node,
-    otherListItems: Type.node
+    mainListItems: Type.arrayOf(listItem),
+    otherListItems: Type.arrayOf(listItem)
   };
 
   static defaultProps = {
@@ -25,9 +34,27 @@ class AppMenu extends PureComponent {
 
     const sideList = (
       <div className={classes.list}>
-        <List>{mainListItems}</List>
+        <List>
+          { mainListItems.map(el => (
+            <ListItem button onClick={ el.onClick } key={ el.text }>
+              <ListItemIcon>
+                <el.iconComponent/>
+              </ListItemIcon>
+              <ListItemText primary={ el.text } />
+            </ListItem>
+          )) }
+        </List>
         <Divider />
-        <List>{otherListItems}</List>
+        <List>
+          { otherListItems.map(el => (
+            <ListItem button onClick={ el.onClick } key={ el.text }>
+              <ListItemIcon>
+                <el.iconComponent/>
+              </ListItemIcon>
+              <ListItemText primary={ el.text } />
+            </ListItem>
+          )) }
+        </List>
       </div>
     );
 

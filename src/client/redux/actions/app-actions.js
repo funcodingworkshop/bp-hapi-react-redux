@@ -15,7 +15,9 @@ export const APP_TYPES = {
   SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
 
   FETCH_ACCOUNT_SAGA: 'FETCH_ACCOUNT_SAGA',
+  FETCH_ACCOUNT_START: 'FETCH_ACCOUNT_START',
   FETCH_ACCOUNT_SUCCESS: 'FETCH_ACCOUNT_SUCCESS',
+  FETCH_ACCOUNT_ERROR: 'FETCH_ACCOUNT_ERROR',
 
   SIGN_OUT_SAGA: 'SIGN_OUT_SAGA',
   SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS'
@@ -107,11 +109,23 @@ export function fetchAccountSagaAC() {
   };
 }
 
-export function fetchAccountSuccessAC(user) {
+export function fetchAccountStartAC() {
+  return {
+    type: APP_TYPES.FETCH_ACCOUNT_START
+  };
+}
+
+export function fetchAccountSuccessAC(account) {
   return {
     type: APP_TYPES.FETCH_ACCOUNT_SUCCESS,
     payload: {
-      user
+      account
     }
+  };
+}
+
+export function fetchAccountErrorAC() {
+  return {
+    type: APP_TYPES.FETCH_ACCOUNT_ERROR
   };
 }

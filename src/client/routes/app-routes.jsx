@@ -16,8 +16,8 @@ import CourseAdd from '../containers/courses/course-add/course-add';
 import CourseSimple from '../containers/courses/course/course';
 import CreateLesson from '../containers/lessons/lesson-add';
 
-const WrappedApp = (Component, props, noAuth = false) => (
-  <App noAuth={ noAuth }>
+const WrappedApp = (Component, props, needAuth = true) => (
+  <App needAuth={ needAuth }>
     <Component { ...props } />
   </App>
 );
@@ -26,15 +26,15 @@ export default () => (
   <Switch>
     <Route
       exact path={ PAGES.signUp.path }
-      render={ props => WrappedApp(SignUp, props, true) }
+      render={ props => WrappedApp(SignUp, props, false) }
     />
     <Route
       exact path={ PAGES.signIn.path }
-      render={ props => WrappedApp(SignIn, props, true) }
+      render={ props => WrappedApp(SignIn, props, false) }
     />
     <Route
       exact path={ PAGES.home.path }
-      render={ props => WrappedApp(Home, props, true) }
+      render={ props => WrappedApp(Home, props, false) }
     />
     <Route
       exact path={ PAGES.admin.path }
@@ -70,11 +70,11 @@ export default () => (
     />
     <Route
       exact path={ PAGES.page405.path }
-      render={ props => WrappedApp(Page405, props, true) }
+      render={ props => WrappedApp(Page405, props, false) }
     />
     <Route
       exact path={ PAGES.page404.path }
-      render={ props => WrappedApp(Page404, props, true) }
+      render={ props => WrappedApp(Page404, props, false) }
     />
     <Route
       path = '/'

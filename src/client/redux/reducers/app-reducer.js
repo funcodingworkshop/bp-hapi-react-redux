@@ -2,7 +2,8 @@ import { APP_TYPES } from '../actions/app-actions';
 
 const initialState = {
   say: 'nothing to say yet ... meaw...',
-  user: undefined
+  account: undefined,
+  isAccountLoading: false
 };
 
 export default function appReducer(state = initialState, { type, payload }) {
@@ -13,18 +14,27 @@ export default function appReducer(state = initialState, { type, payload }) {
     case APP_TYPES.SAY_BYE: {
       return { ...state, say: 'bye' };
     }
-    case APP_TYPES.FETCH_ACCOUNT_SUCCESS:
-    case APP_TYPES.SIGN_IN_SUCCESS:
-    case APP_TYPES.SIGN_UP_SUCCESS: {
+    case APP_TYPES.FETCH_ACCOUNT_START: {
+      return {
+        ...state, isAccountLoading: true
+      };
+    }
+    case APP_TYPES.FETCH_ACCOUNT_SUCCESS: {
       return {
         ...state,
-        user: payload.user
+        account: payload.account,
+        isAccountLoading: false
+      };
+    }
+    case APP_TYPES.FETCH_ACCOUNT_ERROR: {
+      return {
+        ...state, isAccountLoading: false
       };
     }
     case APP_TYPES.SIGN_OUT_SUCCESS: {
       return {
         ...state,
-        user: undefined
+        account: undefined
       };
     }
     default:

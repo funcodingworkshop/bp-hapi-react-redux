@@ -2,6 +2,10 @@ export function selectSay(state) {
   return state.app.say;
 }
 
-export function selectUser(state) {
-  return state.app.user;
+export function selectAccount(state) {
+  return state.app.account;
+}
+
+export function selectIsAccountLoading(state) {
+  return state.app.isAccountLoading;
 }
