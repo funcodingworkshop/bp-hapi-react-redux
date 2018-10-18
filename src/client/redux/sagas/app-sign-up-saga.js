@@ -3,7 +3,7 @@ import { APP_TYPES, signUpSuccessAC } from '../actions/app-actions';
 import axios from '../../axios-instance-browser';
 import { SERVICES } from '../../../server/config/services';
 import { apiError } from './api-error';
-import { afterAuth } from './app-auth';
+import { afterAuth } from './app-after-auth';
 
 function* signUp(action) {
   const {

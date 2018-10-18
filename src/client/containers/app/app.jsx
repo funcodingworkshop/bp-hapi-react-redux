@@ -1,79 +1,142 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+import Type from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft';
+import CloseIcon from '@material-ui/icons/Close';
+import WarningIcon from '@material-ui/icons/Warning';
+import StarIcon from '@material-ui/icons/Star';
+import SchoolIcon from '@material-ui/icons/School';
+import GroupIcon from '@material-ui/icons/Group';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import { doRouteAC } from '../../redux/actions/router-actions';
-import { fetchAccountSagaAC } from '../../redux/actions/app-actions';
+import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actions';
+import AppMenu from '../../components/app-menu/app-menu';
+import { PAGES } from '../../routes/pages';
+import { SITE_TITLE } from '../../constants/names';
+import { selectAccount, selectIsAccountLoading } from '../../redux/selectors/app-selectors';
+import { VISIBLE } from './constants';
 
-import './app.css';
+import styles from './styles';
 
-const styles = {
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
-
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    account: selectAccount(state),
+    isAccountLoading: selectIsAccountLoading(state)
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     doRoute: doRouteAC,
-    fetchAccount: fetchAccountSagaAC
+    fetchAccount: fetchAccountSagaAC,
+    signOut: signOutSagaAC
   }, dispatch);
 }
 
 class App extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    doRoute: PropTypes.func,
-    fetchAccount: PropTypes.func.isRequired
+    classes: Type.object.isRequired,
+    children: Type.node.isRequired,
+    doRoute: Type.func,
+    fetchAccount: Type.func.isRequired,
+    signOut: Type.func.isRequired,
+    needAuth: Type.bool,
+    account: Type.shape({}),
+    isAccountLoading: Type.bool
   };
 
   static defaultProps = {
+    needAuth: true
   };
 
   state = {
-    anchorEl: null
+    isAppMenuOpened: false
   };
 
-  handleClickMenu = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClickMenu = () => {
+    this.setState({ isAppMenuOpened: true });
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  handleCloseMenu = () => {
+    this.setState({ isAppMenuOpened: false });
   };
 
-  handleClickMenuHome = () => {
-    this.handleClose();
-    this.props.doRoute('/');
+  handleClickPage = page => () => {
+    this.props.doRoute(page);
   };
 
-  handleClickMenuCourses = () => {
-    this.handleClose();
-    this.props.doRoute('/courses');
+  handleFetchAccount = () => {
+    const { fetchAccount } = this.props;
+    fetchAccount();
   };
 
-  handleClickMenuStudents = () => {
-    this.handleClose();
-    this.props.doRoute('/students');
+  mainListItems = () => {
+    const { signOut, account } = this.props;
+    const allItems = [
+      { iconComponent: HomeIcon,
+        onClick: this.handleClickPage(PAGES.home.path),
+        text: 'Home',
+        visible: VISIBLE.ALWAYS },
+      { iconComponent: ArrowUpwardIcon,
+        onClick: this.handleClickPage(PAGES.signUp.path),
+        text: 'Sign Up',
+        visible: VISIBLE.NOT_AUTHENTICATED },
+      { iconComponent: SubdirectoryArrowLeftIcon,
+        onClick: this.handleClickPage(PAGES.signIn.path),
+        text: 'Sign In',
+        visible: VISIBLE.NOT_AUTHENTICATED },
+      { iconComponent: CloseIcon,
+        onClick: signOut,
+        text: 'Sign Out',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: WarningIcon,
+        onClick: this.handleClickPage(PAGES.page404.path),
+        text: 'Page 404',
+        visible: VISIBLE.ALWAYS },
+      { iconComponent: WarningIcon,
+        onClick: this.handleClickPage(PAGES.page405.path),
+        text: 'Page 405',
+        visible: VISIBLE.ALWAYS }
+    ];
+    if (account) {
+      return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible)));
+    }
+    return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible)));
   };
 
-  handleClickMenuUsers = () => {
-    this.handleClose();
-    this.props.doRoute('/users');
+  otherListItems = () => {
+    const { account } = this.props;
+    const allItems = [
+      { iconComponent: StarIcon,
+        onClick: this.handleClickPage(PAGES.admin.path),
+        text: 'Admin',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: SchoolIcon,
+        onClick: this.handleClickPage(PAGES.COURSES.list.path),
+        text: 'Courses',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: GroupIcon,
+        onClick: this.handleClickPage(PAGES.students.path),
+        text: 'Students',
+        visible: VISIBLE.AUTHENTICATED },
+      { iconComponent: PeopleOutlineIcon,
+        onClick: this.handleClickPage(PAGES.users.path),
+        text: 'Users',
+        visible: VISIBLE.AUTHENTICATED }
+    ];
+    if (account) {
+      return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible)));
+    }
+    return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible)));
   };
 
   componentDidMount() {
@@ -81,50 +144,39 @@ class App extends React.Component {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    this.props.fetchAccount();
+    this.handleFetchAccount();
   }
 
   render() {
+    console.log('isAccountLoading', this.props.isAccountLoading);
+    console.log('account', this.props.account);
     const { anchorEl } = this.state;
     const { classes } = this.props;
     return (
-      <div className='app'>
+      <div className={ classes.app }>
         <AppBar position="static" color="default">
           <Toolbar>
             <IconButton
-              className={classes.menuButton}
+              className={ classes.menuButton }
               aria-label="More"
-              aria-owns={anchorEl ? 'long-menu' : null}
+              aria-owns={ anchorEl ? 'long-app-menu' : null }
               aria-haspopup="true"
-              onClick={this.handleClickMenu}
+              onClick={ this.handleClickMenu }
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="long-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose}
-            >
-              <MenuItem key='home' selected={ false } onClick={this.handleClickMenuHome}>
-                Home
-              </MenuItem>
-              <MenuItem key='courses' selected={ false } onClick={this.handleClickMenuCourses}>
-                Courses
-              </MenuItem>
-              <MenuItem key='students' selected={ false } onClick={this.handleClickMenuStudents}>
-                Students
-              </MenuItem>
-              <MenuItem key='users' selected={ false } onClick={this.handleClickMenuUsers}>
-                Users
-              </MenuItem>
-            </Menu>
+            <AppMenu
+              isOpened={ this.state.isAppMenuOpened }
+              onClose={ this.handleCloseMenu }
+              mainListItems={ this.mainListItems() }
+              otherListItems={ this.otherListItems() }
+            />
             <Typography variant="title" color="inherit">
-              Hapi React Redux Boilerplate
+              { SITE_TITLE }
             </Typography>
           </Toolbar>
         </AppBar>
-        <div className="app__children">
+        <div className={ classes.appChildren }>
           { this.props.children }
         </div>
       </div>

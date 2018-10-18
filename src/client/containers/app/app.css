@@ -1,9 +1,0 @@
-body {
-}
-
-.app {
-
-  &__children {
-    padding: 20px;
-  }
-}
