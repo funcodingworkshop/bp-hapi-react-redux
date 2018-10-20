@@ -8,6 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import ListItem from '@material-ui/core/ListItem/ListItem';
+import { SITE_TITLE } from '../../constants/names';
+
 import styles from './styles';
 
 const listItem = Type.shape({
@@ -35,6 +37,10 @@ class AppMenu extends PureComponent {
     const sideList = (
       <div className={classes.list}>
         <List>
+          <ListItem>
+            <ListItemText primary={ SITE_TITLE } />
+          </ListItem>
+          <Divider />
           { mainListItems.map(el => (
             <ListItem button onClick={ el.onClick } key={ el.text }>
               <ListItemIcon>

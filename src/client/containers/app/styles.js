@@ -1,4 +1,8 @@
 const styles = {
+  root: {},
+  grow: {
+    flexGrow: 1
+  },
   appChildren: {
     padding: '8px',
     minHeight: '100%'

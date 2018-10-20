@@ -6,7 +6,7 @@ const styles = {
     textAlign: 'center'
   },
   img: {
-    maxWidth: 345
+    maxWidth: 310
   }
 };
 

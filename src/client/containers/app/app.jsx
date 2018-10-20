@@ -5,8 +5,8 @@ import Type from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
@@ -17,11 +17,12 @@ import StarIcon from '@material-ui/icons/Star';
 import SchoolIcon from '@material-ui/icons/School';
 import GroupIcon from '@material-ui/icons/Group';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actions';
 import AppMenu from '../../components/app-menu/app-menu';
 import { PAGES } from '../../routes/pages';
-import { SITE_TITLE } from '../../constants/names';
 import { selectAccount, selectIsAccountLoading } from '../../redux/selectors/app-selectors';
 import { VISIBLE } from './constants';
 
@@ -149,31 +150,48 @@ class App extends React.Component {
 
   render() {
     console.log('isAccountLoading', this.props.isAccountLoading);
-    console.log('account', this.props.account);
     const { anchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, account } = this.props;
+    const hasAuth = Boolean(account);
     return (
-      <div className={ classes.app }>
-        <AppBar position="static" color="default">
+      <div className={ classes.root }>
+        <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={ classes.menuButton }
-              aria-label="More"
-              aria-owns={ anchorEl ? 'long-app-menu' : null }
-              aria-haspopup="true"
-              onClick={ this.handleClickMenu }
-            >
-              <MenuIcon />
-            </IconButton>
-            <AppMenu
-              isOpened={ this.state.isAppMenuOpened }
-              onClose={ this.handleCloseMenu }
-              mainListItems={ this.mainListItems() }
-              otherListItems={ this.otherListItems() }
-            />
-            <Typography variant="title" color="inherit">
-              { SITE_TITLE }
-            </Typography>
+            <div className={ classes.grow }>
+              <IconButton
+                className={ classes.menuButton }
+                aria-label="More"
+                aria-owns={ anchorEl ? 'long-app-menu' : null }
+                aria-haspopup="true"
+                onClick={ this.handleClickMenu }
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <AppMenu
+                isOpened={ this.state.isAppMenuOpened }
+                onClose={ this.handleCloseMenu }
+                mainListItems={ this.mainListItems() }
+                otherListItems={ this.otherListItems() }
+              />
+            </div>
+            { hasAuth &&
+              <div>
+                <IconButton color="inherit">
+                  <Badge badgeContent={4} color="secondary">
+                    <MailIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  aria-owns={'menu-appbar'}
+                  aria-haspopup="true"
+                  onClick={() => {}}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            }
           </Toolbar>
         </AppBar>
         <div className={ classes.appChildren }>

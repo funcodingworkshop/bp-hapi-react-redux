@@ -12,8 +12,7 @@ import {
   createMuiTheme,
   createGenerateClassName
 } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
+import purple from '@material-ui/core/colors/purple';
 
 import configureStore from '../../../client/configure-store';
 import { serverConsoleError } from '../../utils/server-console-error';
@@ -38,8 +37,7 @@ const register = async (server, options) => {
       const sheetsManager = new Map();
       const theme = createMuiTheme({
         palette: {
-          primary: green,
-          accent: red,
+          primary: purple,
           type: 'light'
         }
       });
