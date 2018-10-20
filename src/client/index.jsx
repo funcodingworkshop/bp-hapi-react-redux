@@ -6,8 +6,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
+import purple from '@material-ui/core/colors/purple';
 import AppRoutes from './routes/app-routes';
 import configureStore from './configure-store';
 
@@ -21,11 +20,25 @@ const store = configureStore()(initialState, history);
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
-    primary: green,
-    accent: red,
+    primary: purple,
     type: 'light'
   }
 });
+
+// const theme = createMuiTheme({
+//   primary: {
+//     // light: will be calculated from palette.primary.main,
+//     main: '#AD56D1'
+//     // dark: will be calculated from palette.primary.main,
+//     // contrastText: will be calculated to contrast with palette.primary.main
+//   },
+//   secondary: {
+//     light: '#0066ff',
+//     main: '#0044ff',
+//     // dark: will be calculated from palette.secondary.main,
+//     contrastText: '#ffcc00'
+//   }
+// });
 
 // Create a new class name generator.
 const generateClassName = createGenerateClassName();

@@ -37,6 +37,16 @@ class Home extends React.Component {
           <img className={ classes.img } src={ logoImg } alt='Coding Bootcamp Ru' />
         </div>
         <div>Learn web-development, Node.js, React in 6 months with { SITE_TITLE }</div>
+        <br/>
+        <div>We are announcing a new course <b>Full-Stack Web Developer from scratch</b>.
+          Get a well-paid and interesting job of a web-developer in not more than 6 months!
+        </div>
+        <br/>
+        <div>The training group will consist of 10 people.
+          The course program is based on the bootcamp experience from Boston, USA.
+          You will learn server and client programming languages (Node.js, React).
+          At the end of the course a graduate will have enough knowledge to work as a web developer.
+        </div>
       </div>
     );
   }
