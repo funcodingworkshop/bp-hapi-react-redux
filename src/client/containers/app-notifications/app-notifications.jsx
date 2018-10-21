@@ -1,12 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import Type from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationWrapper from '../../components/notification-wrapper/notification-wrapper';
-import { NOTIFICATION_TYPES } from './constants';
+import { NOTIFICATION_TYPES } from '../../constants/notification-types';
+import { selectSay, selectCurrentNotification, selectIsNotificationOpen } from '../../redux/selectors/app-selectors';
+import {
+  enqueueErrorNotificationAC,
+  enqueueSuccessNotificationAC,
+  closeNotificationAC,
+  processNotificationAC
+} from '../../redux/actions/app-actions';
 
 const styles = theme => ({
   close: {
@@ -14,36 +23,49 @@ const styles = theme => ({
   }
 });
 
-class ConsecutiveSnackbars extends React.Component {
-  queue = [];
+function mapStateToProps(state) {
+  return {
+    say: selectSay(state),
+    currentNotification: selectCurrentNotification(state),
+    isNotificationOpen: selectIsNotificationOpen(state)
+  };
+}
 
-  state = {
-    open: false,
-    messageInfo: {}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    enqueueErrorNotificationAC,
+    enqueueSuccessNotificationAC,
+    closeNotificationAC,
+    processNotificationAC
+  }, dispatch);
+}
+
+class AppNotifications extends PureComponent {
+  static propTypes = {
+    classes: Type.object.isRequired,
+    currentNotification: Type.shape({
+      notificationType: Type.string,
+      message: Type.string,
+      key: Type.number
+    }),
+    enqueueErrorNotificationAC: Type.func,
+    enqueueSuccessNotificationAC: Type.func,
+    closeNotificationAC: Type.func,
+    processNotificationAC: Type.func,
+    isNotificationOpen: Type.bool
   };
 
   handleClick = (message, notificationType = NOTIFICATION_TYPES.info) => () => {
-    this.queue.push({
-      message,
-      notificationType,
-      key: new Date().getTime()
-    });
-
-    if (this.state.open) {
-      // immediately begin dismissing current message
-      // to start showing new one
-      this.setState({ open: false });
-    } else {
-      this.processQueue();
+    if (notificationType === NOTIFICATION_TYPES.error) {
+      this.props.enqueueErrorNotificationAC(message);
+    } else if (notificationType === NOTIFICATION_TYPES.success) {
+      this.props.enqueueSuccessNotificationAC(message);
     }
-  };
 
-  processQueue = () => {
-    if (this.queue.length > 0) {
-      this.setState({
-        messageInfo: this.queue.shift(),
-        open: true
-      });
+    if (this.props.isNotificationOpen) {
+      this.props.closeNotificationAC();
+    } else {
+      this.props.processNotificationAC();
     }
   };
 
@@ -51,16 +73,19 @@ class ConsecutiveSnackbars extends React.Component {
     if (reason === 'clickaway') {
       return;
     }
-    this.setState({ open: false });
+    this.props.closeNotificationAC();
   };
 
   handleExited = () => {
-    this.processQueue();
+    this.props.processNotificationAC();
   };
 
   render() {
     const { classes } = this.props;
-    const { message, key, notificationType } = this.state.messageInfo;
+    const {
+      currentNotification: { message, key, notificationType },
+      isNotificationOpen
+    } = this.props;
     return (
       <div>
         <Button onClick={this.handleClick('success message', NOTIFICATION_TYPES.success) }>Show success message</Button>
@@ -71,7 +96,7 @@ class ConsecutiveSnackbars extends React.Component {
             vertical: 'bottom',
             horizontal: 'left'
           }}
-          open={this.state.open}
+          open={ isNotificationOpen }
           autoHideDuration={6000}
           onClose={this.handleClose}
           onExited={this.handleExited}
@@ -104,8 +129,5 @@ class ConsecutiveSnackbars extends React.Component {
   }
 }
 
-ConsecutiveSnackbars.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(ConsecutiveSnackbars);
+const WithStylesAppNotifications = withStyles(styles)(AppNotifications);
+export default connect(mapStateToProps, mapDispatchToProps)(WithStylesAppNotifications);

@@ -4,7 +4,7 @@ const styles = {
     flexGrow: 1
   },
   appChildren: {
-    padding: '60px 8px 8px',
+    padding: '60px 8px 60px',
     minHeight: '100%'
   },
   menuButton: {

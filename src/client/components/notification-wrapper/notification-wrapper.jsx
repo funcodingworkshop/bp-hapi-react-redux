@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Type from 'prop-types';
 import classNames from 'classnames';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -11,15 +11,16 @@ import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/core/styles';
+import { NOTIFICATION_TYPES } from '../../constants/notification-types';
 
 const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon
+  [NOTIFICATION_TYPES.success]: CheckCircleIcon,
+  [NOTIFICATION_TYPES.warning]: WarningIcon,
+  [NOTIFICATION_TYPES.error]: ErrorIcon,
+  [NOTIFICATION_TYPES.info]: InfoIcon
 };
 
-const styles1 = theme => ({
+const styles = theme => ({
   success: {
     backgroundColor: green[600]
   },
@@ -45,7 +46,7 @@ const styles1 = theme => ({
   }
 });
 
-function MySnackbarContent(props) {
+function NotificationWrapper(props) {
   const { classes, className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
 
@@ -75,12 +76,12 @@ function MySnackbarContent(props) {
   );
 }
 
-MySnackbarContent.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  message: PropTypes.node,
-  onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired
+NotificationWrapper.propTypes = {
+  classes: Type.object.isRequired,
+  className: Type.string,
+  message: Type.node,
+  onClose: Type.func,
+  variant: Type.oneOf(Object.keys(NOTIFICATION_TYPES)).isRequired
 };
 
-export default withStyles(styles1)(MySnackbarContent);
+export default withStyles(styles)(NotificationWrapper);

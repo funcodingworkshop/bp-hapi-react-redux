@@ -1,9 +1,9 @@
-// TODO delete test actions
+import { NOTIFICATION_TYPES } from '../../constants/notification-types';
 
 export const APP_TYPES = {
+  // TODO delete test actions
   SAY_HI: 'SAY_HI',
   SAY_BYE: 'SAY_BYE',
-
   TEST_BUTTON: 'TEST_BUTTON',
   TEST_BUTTON_SUCCESS: 'TEST_BUTTON_SUCCESS',
   TEST_BUTTON_ERROR: 'TEST_BUTTON_ERROR',
@@ -20,7 +20,14 @@ export const APP_TYPES = {
   FETCH_ACCOUNT_ERROR: 'FETCH_ACCOUNT_ERROR',
 
   SIGN_OUT_SAGA: 'SIGN_OUT_SAGA',
-  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS'
+  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
+
+  ENQUEUE_SUCCESS_NOTIFICATION: 'ENQUEUE_SUCCESS_NOTIFICATION',
+  ENQUEUE_WARNING_NOTIFICATION: 'ENQUEUE_WARNING_NOTIFICATION',
+  ENQUEUE_ERROR_NOTIFICATION: 'ENQUEUE_ERROR_NOTIFICATION',
+  ENQUEUE_INFO_NOTIFICATION: 'ENQUEUE_INFO_NOTIFICATION',
+  PROCESS_NOTIFICATION: 'PROCESS_NOTIFICATION',
+  CLOSE_NOTIFICATION: 'CLOSE_NOTIFICATION'
 };
 
 // ACTION CREATORS
@@ -127,5 +134,62 @@ export function fetchAccountSuccessAC(account) {
 export function fetchAccountErrorAC() {
   return {
     type: APP_TYPES.FETCH_ACCOUNT_ERROR
+  };
+}
+
+// NOTIFICATIONS
+export function enqueueSuccessNotificationAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_SUCCESS_NOTIFICATION,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.success,
+      key: new Date().getTime()
+    }
+  };
+}
+
+export function enqueueErrorNotificationAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_ERROR_NOTIFICATION,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.error,
+      key: new Date().getTime()
+    }
+  };
+}
+
+export function enqueueWarningNotificationAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_WARNING_NOTIFICATION,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.warning,
+      key: new Date().getTime()
+    }
+  };
+}
+
+export function enqueueInfoNotificationAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_INFO_NOTIFICATION,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.info,
+      key: new Date().getTime()
+    }
+  };
+}
+
+export function processNotificationAC() {
+  return {
+    type: APP_TYPES.PROCESS_NOTIFICATION
+  };
+}
+
+export function closeNotificationAC() {
+  return {
+    type: APP_TYPES.CLOSE_NOTIFICATION
   };
 }
