@@ -155,7 +155,7 @@ class App extends React.Component {
     const hasAuth = Boolean(account);
     return (
       <div className={ classes.root }>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <div className={ classes.grow }>
               <IconButton
