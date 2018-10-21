@@ -1,5 +1,6 @@
+import Boom from 'boom';
 import { serverConsoleError } from '../../utils/server-console-error';
-import { HTTP_ERROR_400 } from '../../constants';
+import { ERR_MSG_HTTP_ERROR_400 } from '../../constants';
 import axios from '../../config/axios-instance-node';
 import { authJwtCookieConfig } from '../../config/auth-jwt-cookie';
 
@@ -15,11 +16,10 @@ const registerSignIn = async (server, options) => {
       return h.response(jwtToken).state(jwtTokenName, jwtToken);
     } catch (e) {
       serverConsoleError('signInPlugin', e);
-      // TODO use Boom
-      if (e.response.data) {
-        return h.response(e.response.data).code(400);
+      if (e.response.data && e.response.data.statusCode) {
+        return h.response(e.response.data).code(e.response.data.statusCode);
       }
-      return h.response(HTTP_ERROR_400).code(400);
+      return Boom.badRequest(ERR_MSG_HTTP_ERROR_400);
     }
   };
 
@@ -38,10 +38,10 @@ const registerSignUp = async (server, options) => {
       return h.response(jwtToken).state(jwtTokenName, jwtToken);
     } catch (e) {
       serverConsoleError('signUpPlugin', e);
-      if (e.response.data) {
-        return h.response(e.response.data).code(400);
+      if (e.response.data && e.response.data.statusCode) {
+        return h.response(e.response.data).code(e.response.data.statusCode);
       }
-      return h.response(HTTP_ERROR_400).code(400);
+      return Boom.badRequest(ERR_MSG_HTTP_ERROR_400);
     }
   };
 
@@ -54,14 +54,7 @@ export const signUpPlugin = { name: 'signUpPlugin', register: registerSignUp };
 const registerSignOut = async (server, options) => {
   const { apiConfig: { method, path } } = options;
 
-  const handler = async (request, h) => {
-    try {
-      return h.response({}).state(jwtTokenName, '');
-    } catch (e) {
-      serverConsoleError('signOutPlugin', e);
-      return h.response(HTTP_ERROR_400).code(400);
-    }
-  };
+  const handler = (request, h) => h.response({}).state(jwtTokenName, '');
 
   server.route({ method, path, handler });
 };
