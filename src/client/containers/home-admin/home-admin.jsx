@@ -4,7 +4,13 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ButtonDefalut from '../../components/button-default/button-default';
-import { sayByeAC, sayHiAC, testButtonAC, signOutSagaAC } from '../../redux/actions/app-actions';
+import { sayByeAC,
+  sayHiAC,
+  testButtonAC,
+  signOutSagaAC,
+  enqueueSuccessNotificationSagaAC,
+  enqueueErrorNotificationSagaAC
+} from '../../redux/actions/app-actions';
 import { doRouteAC } from '../../redux/actions/router-actions';
 import { selectSay } from '../../redux/selectors/app-selectors';
 import { PAGES } from '../../routes/pages';
@@ -24,7 +30,9 @@ function mapDispatchToProps(dispatch) {
     handleSayHi: sayHiAC,
     handleTestButton: testButtonAC,
     doRoute: doRouteAC,
-    signOut: signOutSagaAC
+    signOut: signOutSagaAC,
+    enqueueSuccessNotification: enqueueSuccessNotificationSagaAC,
+    enqueueErrorNotification: enqueueErrorNotificationSagaAC
   }, dispatch);
 }
 
@@ -34,7 +42,9 @@ class HomeAdmin extends React.Component {
     handleSayBye: PropTypes.func.isRequired,
     handleSayHi: PropTypes.func.isRequired,
     handleTestButton: PropTypes.func,
-    signOut: PropTypes.func.isRequired
+    signOut: PropTypes.func.isRequired,
+    enqueueSuccessNotification: PropTypes.func,
+    enqueueErrorNotification: PropTypes.func
   };
 
   static defaultProps = {
@@ -43,7 +53,13 @@ class HomeAdmin extends React.Component {
 
   render() {
     const {
-      say, handleSayBye, handleSayHi, handleTestButton, signOut
+      say,
+      handleSayBye,
+      handleSayHi,
+      handleTestButton,
+      signOut,
+      enqueueSuccessNotification,
+      enqueueErrorNotification
     } = this.props;
     return (
       <div className='home'>
@@ -63,6 +79,10 @@ class HomeAdmin extends React.Component {
           <br/>
           <Link to={ PAGES.page405.path }>Page 405</Link>
         </div>
+        <br/>
+        <ButtonDefalut name='Show success message' onClick={ () => enqueueSuccessNotification('success message') } />
+        <br/>
+        <ButtonDefalut name='Show error message' onClick={ () => enqueueErrorNotification('error message') } />
         <br/>
         <ButtonDefalut name='Say Bye' onClick={ handleSayBye } />
         <br/>

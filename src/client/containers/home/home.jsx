@@ -53,10 +53,4 @@ class Home extends React.Component {
 }
 
 const WithStylesHome = withStyles(styles)(Home);
-
-const VisibleHome = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WithStylesHome);
-
-export default VisibleHome;
+export default connect(mapStateToProps, mapDispatchToProps)(WithStylesHome);

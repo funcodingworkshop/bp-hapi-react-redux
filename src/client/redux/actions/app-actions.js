@@ -1,9 +1,9 @@
-// TODO delete test actions
+import { NOTIFICATION_TYPES } from '../../constants/notification-types';
 
 export const APP_TYPES = {
+  // TODO delete test actions
   SAY_HI: 'SAY_HI',
   SAY_BYE: 'SAY_BYE',
-
   TEST_BUTTON: 'TEST_BUTTON',
   TEST_BUTTON_SUCCESS: 'TEST_BUTTON_SUCCESS',
   TEST_BUTTON_ERROR: 'TEST_BUTTON_ERROR',
@@ -20,7 +20,15 @@ export const APP_TYPES = {
   FETCH_ACCOUNT_ERROR: 'FETCH_ACCOUNT_ERROR',
 
   SIGN_OUT_SAGA: 'SIGN_OUT_SAGA',
-  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS'
+  SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
+
+  ENQUEUE_SUCCESS_NOTIFICATION_SAGA: 'ENQUEUE_SUCCESS_NOTIFICATION_SAGA',
+  ENQUEUE_WARNING_NOTIFICATION_SAGA: 'ENQUEUE_WARNING_NOTIFICATION_SAGA',
+  ENQUEUE_ERROR_NOTIFICATION_SAGA: 'ENQUEUE_ERROR_NOTIFICATION_SAGA',
+  ENQUEUE_INFO_NOTIFICATION_SAGA: 'ENQUEUE_INFO_NOTIFICATION_SAGA',
+  ENQUEUE_NOTIFICATION: 'ENQUEUE_NOTIFICATION',
+  PROCESS_NOTIFICATION: 'PROCESS_NOTIFICATION',
+  CLOSE_NOTIFICATION: 'CLOSE_NOTIFICATION'
 };
 
 // ACTION CREATORS
@@ -127,5 +135,69 @@ export function fetchAccountSuccessAC(account) {
 export function fetchAccountErrorAC() {
   return {
     type: APP_TYPES.FETCH_ACCOUNT_ERROR
+  };
+}
+
+// NOTIFICATIONS
+export function enqueueSuccessNotificationSagaAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_SUCCESS_NOTIFICATION_SAGA,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.success
+    }
+  };
+}
+
+export function enqueueErrorNotificationSagaAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_ERROR_NOTIFICATION_SAGA,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.error
+    }
+  };
+}
+
+export function enqueueWarningNotificationSagaAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_WARNING_NOTIFICATION_SAGA,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.warning
+    }
+  };
+}
+
+export function enqueueInfoNotificationSagaAC(message) {
+  return {
+    type: APP_TYPES.ENQUEUE_INFO_NOTIFICATION_SAGA,
+    payload: {
+      message,
+      notificationType: NOTIFICATION_TYPES.info
+    }
+  };
+}
+
+export function enqueueNotificationAC(message, notificationType) {
+  return {
+    type: APP_TYPES.ENQUEUE_NOTIFICATION,
+    payload: {
+      message,
+      notificationType,
+      key: new Date().getTime()
+    }
+  };
+}
+
+export function processNotificationAC() {
+  return {
+    type: APP_TYPES.PROCESS_NOTIFICATION
+  };
+}
+
+export function closeNotificationAC() {
+  return {
+    type: APP_TYPES.CLOSE_NOTIFICATION
   };
 }

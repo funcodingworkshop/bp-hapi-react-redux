@@ -1,6 +1,7 @@
+import Boom from 'boom';
 import axios from '../../config/axios-instance-node';
 import { serverConsoleError } from '../../utils/server-console-error';
-import { HTTP_ERROR_400 } from '../../constants';
+import { ERR_MSG_HTTP_ERROR_400 } from '../../constants';
 import { authJwtCookieConfig } from '../../config/auth-jwt-cookie';
 
 const { tokenName: jwtTokenName } = authJwtCookieConfig;
@@ -25,7 +26,7 @@ const registerFetchAccount = async (server, options) => {
       });
     } catch (e) {
       serverConsoleError(e);
-      return h.response(HTTP_ERROR_400).code(400);
+      return Boom.badRequest(ERR_MSG_HTTP_ERROR_400);
     }
   };
 

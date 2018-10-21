@@ -9,6 +9,12 @@ import { watchSignUp } from './app-sign-up-saga';
 import { watchSignIn } from './app-sign-in-saga';
 import { watchFetchAccount } from './app-fetch-account-saga';
 import { watchSignOut } from './app-sign-out-saga';
+import {
+  watchEnqueueErrorNotification,
+  watchEnqueueInfoNotification,
+  watchEnqueueSuccessNotification,
+  watchEnqueueWarningNotification
+} from './app-notifications-saga';
 
 export default function* rootSaga() {
   yield all([
@@ -21,6 +27,10 @@ export default function* rootSaga() {
     watchSignUp(),
     watchSignIn(),
     watchFetchAccount(),
-    watchSignOut()
+    watchSignOut(),
+    watchEnqueueErrorNotification(),
+    watchEnqueueInfoNotification(),
+    watchEnqueueSuccessNotification(),
+    watchEnqueueWarningNotification()
   ]);
 }

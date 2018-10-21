@@ -9,3 +9,11 @@ export function selectAccount(state) {
 export function selectIsAccountLoading(state) {
   return state.app.isAccountLoading;
 }
+
+export function selectCurrentNotification(state) {
+  return state.app.currentNotification;
+}
+
+export function selectIsNotificationOpen(state) {
+  return state.app.isNotificationOpen;
+}
