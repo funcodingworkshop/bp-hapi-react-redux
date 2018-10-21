@@ -24,6 +24,7 @@ import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actio
 import AppMenu from '../../components/app-menu/app-menu';
 import { PAGES } from '../../routes/pages';
 import { selectAccount, selectIsAccountLoading } from '../../redux/selectors/app-selectors';
+import AppNotifications from '../../containers/app-notifications/app-notifications';
 import { VISIBLE } from './constants';
 
 import styles from './styles';
@@ -195,6 +196,7 @@ class App extends React.Component {
           </Toolbar>
         </AppBar>
         <div className={ classes.appChildren }>
+          <AppNotifications/>
           { this.props.children }
         </div>
       </div>
