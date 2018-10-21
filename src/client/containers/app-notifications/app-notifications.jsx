@@ -8,11 +8,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationWrapper from '../../components/notification-wrapper/notification-wrapper';
-import { NOTIFICATION_TYPES } from '../../constants/notification-types';
 import { selectSay, selectCurrentNotification, selectIsNotificationOpen } from '../../redux/selectors/app-selectors';
 import {
-  enqueueErrorNotificationAC,
-  enqueueSuccessNotificationAC,
+  enqueueErrorNotificationSagaAC,
+  enqueueSuccessNotificationSagaAC,
   closeNotificationAC,
   processNotificationAC
 } from '../../redux/actions/app-actions';
@@ -33,10 +32,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    enqueueErrorNotificationAC,
-    enqueueSuccessNotificationAC,
-    closeNotificationAC,
-    processNotificationAC
+    enqueueErrorNotification: enqueueErrorNotificationSagaAC,
+    enqueueSuccessNotification: enqueueSuccessNotificationSagaAC,
+    closeNotification: closeNotificationAC,
+    processNotification: processNotificationAC
   }, dispatch);
 }
 
@@ -48,36 +47,22 @@ class AppNotifications extends PureComponent {
       message: Type.string,
       key: Type.number
     }),
-    enqueueErrorNotificationAC: Type.func,
-    enqueueSuccessNotificationAC: Type.func,
-    closeNotificationAC: Type.func,
-    processNotificationAC: Type.func,
+    enqueueErrorNotification: Type.func,
+    enqueueSuccessNotification: Type.func,
+    closeNotification: Type.func,
+    processNotification: Type.func,
     isNotificationOpen: Type.bool
-  };
-
-  handleClick = (message, notificationType = NOTIFICATION_TYPES.info) => () => {
-    if (notificationType === NOTIFICATION_TYPES.error) {
-      this.props.enqueueErrorNotificationAC(message);
-    } else if (notificationType === NOTIFICATION_TYPES.success) {
-      this.props.enqueueSuccessNotificationAC(message);
-    }
-
-    if (this.props.isNotificationOpen) {
-      this.props.closeNotificationAC();
-    } else {
-      this.props.processNotificationAC();
-    }
   };
 
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    this.props.closeNotificationAC();
+    this.props.closeNotification();
   };
 
   handleExited = () => {
-    this.props.processNotificationAC();
+    this.props.processNotification();
   };
 
   render() {
@@ -88,8 +73,6 @@ class AppNotifications extends PureComponent {
     } = this.props;
     return (
       <div>
-        <Button onClick={this.handleClick('success message', NOTIFICATION_TYPES.success) }>Show success message</Button>
-        <Button onClick={this.handleClick('error message', NOTIFICATION_TYPES.error) }>Show error message</Button>
         <Snackbar
           key={key}
           anchorOrigin={{

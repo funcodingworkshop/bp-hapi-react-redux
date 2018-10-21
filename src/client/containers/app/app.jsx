@@ -150,7 +150,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('isAccountLoading', this.props.isAccountLoading);
     const { anchorEl } = this.state;
     const { classes, account } = this.props;
     const hasAuth = Boolean(account);

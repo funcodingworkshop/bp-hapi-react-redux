@@ -22,10 +22,11 @@ export const APP_TYPES = {
   SIGN_OUT_SAGA: 'SIGN_OUT_SAGA',
   SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
 
-  ENQUEUE_SUCCESS_NOTIFICATION: 'ENQUEUE_SUCCESS_NOTIFICATION',
-  ENQUEUE_WARNING_NOTIFICATION: 'ENQUEUE_WARNING_NOTIFICATION',
-  ENQUEUE_ERROR_NOTIFICATION: 'ENQUEUE_ERROR_NOTIFICATION',
-  ENQUEUE_INFO_NOTIFICATION: 'ENQUEUE_INFO_NOTIFICATION',
+  ENQUEUE_SUCCESS_NOTIFICATION_SAGA: 'ENQUEUE_SUCCESS_NOTIFICATION_SAGA',
+  ENQUEUE_WARNING_NOTIFICATION_SAGA: 'ENQUEUE_WARNING_NOTIFICATION_SAGA',
+  ENQUEUE_ERROR_NOTIFICATION_SAGA: 'ENQUEUE_ERROR_NOTIFICATION_SAGA',
+  ENQUEUE_INFO_NOTIFICATION_SAGA: 'ENQUEUE_INFO_NOTIFICATION_SAGA',
+  ENQUEUE_NOTIFICATION: 'ENQUEUE_NOTIFICATION',
   PROCESS_NOTIFICATION: 'PROCESS_NOTIFICATION',
   CLOSE_NOTIFICATION: 'CLOSE_NOTIFICATION'
 };
@@ -138,45 +139,52 @@ export function fetchAccountErrorAC() {
 }
 
 // NOTIFICATIONS
-export function enqueueSuccessNotificationAC(message) {
+export function enqueueSuccessNotificationSagaAC(message) {
   return {
-    type: APP_TYPES.ENQUEUE_SUCCESS_NOTIFICATION,
+    type: APP_TYPES.ENQUEUE_SUCCESS_NOTIFICATION_SAGA,
     payload: {
       message,
-      notificationType: NOTIFICATION_TYPES.success,
-      key: new Date().getTime()
+      notificationType: NOTIFICATION_TYPES.success
     }
   };
 }
 
-export function enqueueErrorNotificationAC(message) {
+export function enqueueErrorNotificationSagaAC(message) {
   return {
-    type: APP_TYPES.ENQUEUE_ERROR_NOTIFICATION,
+    type: APP_TYPES.ENQUEUE_ERROR_NOTIFICATION_SAGA,
     payload: {
       message,
-      notificationType: NOTIFICATION_TYPES.error,
-      key: new Date().getTime()
+      notificationType: NOTIFICATION_TYPES.error
     }
   };
 }
 
-export function enqueueWarningNotificationAC(message) {
+export function enqueueWarningNotificationSagaAC(message) {
   return {
-    type: APP_TYPES.ENQUEUE_WARNING_NOTIFICATION,
+    type: APP_TYPES.ENQUEUE_WARNING_NOTIFICATION_SAGA,
     payload: {
       message,
-      notificationType: NOTIFICATION_TYPES.warning,
-      key: new Date().getTime()
+      notificationType: NOTIFICATION_TYPES.warning
     }
   };
 }
 
-export function enqueueInfoNotificationAC(message) {
+export function enqueueInfoNotificationSagaAC(message) {
   return {
-    type: APP_TYPES.ENQUEUE_INFO_NOTIFICATION,
+    type: APP_TYPES.ENQUEUE_INFO_NOTIFICATION_SAGA,
     payload: {
       message,
-      notificationType: NOTIFICATION_TYPES.info,
+      notificationType: NOTIFICATION_TYPES.info
+    }
+  };
+}
+
+export function enqueueNotificationAC(message, notificationType) {
+  return {
+    type: APP_TYPES.ENQUEUE_NOTIFICATION,
+    payload: {
+      message,
+      notificationType,
       key: new Date().getTime()
     }
   };

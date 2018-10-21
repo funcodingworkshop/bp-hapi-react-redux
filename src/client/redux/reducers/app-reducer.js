@@ -40,10 +40,7 @@ export default function appReducer(state = initialState, { type, payload }) {
         account: undefined
       };
     }
-    case APP_TYPES.ENQUEUE_SUCCESS_NOTIFICATION:
-    case APP_TYPES.ENQUEUE_WARNING_NOTIFICATION:
-    case APP_TYPES.ENQUEUE_ERROR_NOTIFICATION:
-    case APP_TYPES.ENQUEUE_INFO_NOTIFICATION: {
+    case APP_TYPES.ENQUEUE_NOTIFICATION: {
       const notificationsQueue = [...state.notificationsQueue];
       notificationsQueue.push(payload);
       return {
