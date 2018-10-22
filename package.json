@@ -13,7 +13,7 @@
     "build-client": "webpack --mode production",
     "start-build": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MOCKS=0 node ./.build/server",
     "start": "node start.js",
-    "start-server": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MOCKS=0 APP_MODE_DEV=1 node ./start-server",
+    "start-server": "SERVICE_HOST=0.0.0.0:3001 NODE_ENV=localhost APP_MODE_DEV=1 node ./start-server",
     "start-client": "webpack-dev-server --mode development",
     "docker-build": "./docker-build.sh $npm_package_name $npm_package_version"
   },

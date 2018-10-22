@@ -4,6 +4,10 @@ Boilerplate Project for fast start with React, Redux, Hapi and Material UI
 
 ## TODO
 
+### Hints
+
+* Start project with mocks `APP_MOCKS=1 npm start`
+
 ### Server
 
 1. Babel config for Backend (**DONE**)

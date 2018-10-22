@@ -25,7 +25,7 @@ export function jwtAuthScheme(server, options) {
     try {
       const authCookieValue = request.state[authJwtCookieConfig.tokenName];
       const { data: authResult } = await axios({ method, url, data: { token: authCookieValue } });
-      // console.log('authResult', authResult);
+      console.log('authResult', authResult);
       if (authResult.payload) {
         const credentials = {
           uid: authResult.payload.uid,
