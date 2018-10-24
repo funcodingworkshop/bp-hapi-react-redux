@@ -50,14 +50,12 @@ class Sections extends React.Component {
           <div className="sections__panel-list">
 
             <Grid container spacing={8} className="sections__panel-list__header">
-              <Grid item xs={1}></Grid>
               <Grid item xs={1}>id</Grid>
               <Grid item xs={2}>Название раздела</Grid>
               <Grid item xs={1}>Длительность раздела</Grid>
               <Grid item xs={2}>Дата создания</Grid>
-              <Grid item xs={4}>Описание</Grid>
-              <Grid item xs={4}>ID курса</Grid>
-              <Grid item xs={1}></Grid>
+              <Grid item xs={3}>Описание</Grid>
+              <Grid item xs={3}>ID курса</Grid>
             </Grid>
 
            {this.props.sectionsList.map((section, index) =>
