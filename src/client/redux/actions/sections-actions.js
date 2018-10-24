@@ -60,7 +60,6 @@ export function fetchSectionSuccessAC(section) {
 
 // CREATE SECTION
 export function createSectionAC(data) {
-  console.log(data);
   return {
     type: SECTIONS_TYPES.CREATE_SECTION_SAGA,
     payload: {
