@@ -29,6 +29,24 @@ export const PAGES = {
       path: '/courses/:id'
     }
   },
+  COURSES_NEW: {
+    list: {
+      name: 'courses',
+      path: '/courses_new'
+    },
+    edit: {
+      name: 'edit',
+      path: '/courses_new/:id/edit'
+    },
+    add: {
+      name: 'add',
+      path: '/courses_new/add'
+    },
+    show: {
+      name: 'show',
+      path: '/courses_new/:id'
+    }
+  },
   SECTIONS: {
     list: {
       name: 'sections',

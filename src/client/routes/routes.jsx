@@ -8,6 +8,9 @@ import Users from '../containers/users/users';
 import Courses from '../containers/courses/courses/courses';
 import CourseSimple from '../containers/courses/course/course';
 import CourseAdd from '../containers/courses/course-add/course-add';
+import CoursesNew from '../containers/courses_new/courses/courses';
+import CourseSimpleNew from '../containers/courses_new/course/course';
+import CourseAddNew from '../containers/courses_new/course-add/course-add';
 import Sections from '../containers/sections/sections/sections';
 import SectionSimple from '../containers/sections/section/section';
 import SectionAdd from '../containers/sections/section-add/section-add';
@@ -67,6 +70,28 @@ export default (
       exact path="/courses/:id/lessons/new"
       render={ props => WrappedComponent(CreateLesson, props) }
     />
+
+    <Route
+      exact path={ PAGES.COURSES_NEW.list.path }
+      render={ props => WrappedComponent(CoursesNew, props) }
+    />
+    <Route
+      exact path={ PAGES.COURSES_NEW.edit.path }
+      render={ props => WrappedComponent(CourseAddNew, props)}
+    />
+     <Route
+      exact path={ PAGES.COURSES_NEW.add.path }
+      render={ props => WrappedComponent(CourseAddNew, props) }
+    />
+    <Route
+      exact path={ PAGES.COURSES_NEW.show.path }
+      render={ props => WrappedComponent(CourseSimpleNew, props) }
+    />
+    <Route
+      exact path="/courses_new/:id/lessons/new"
+      render={ props => WrappedComponent(CreateLesson, props) }
+    />
+
     <Route
       exact path={ PAGES.SECTIONS.list.path }
       render={ props => WrappedComponent(Sections, props) }
