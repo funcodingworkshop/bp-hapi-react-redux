@@ -3,6 +3,7 @@ import { fetchAccountPlugin } from './plugins/api/account-api';
 import {
   coursesPlugin, coursePlugin, coursePostPlugin, courseDeletePlugin, coursePatchPlugin
 } from './plugins/api/courses-api';
+import { elasticsearchPlugin } from './plugins/api/elasticsearch-api';
 
 const getPlugins = (config) => {
   // eslint-disable-next-line no-unused-vars
@@ -49,6 +50,10 @@ const getPlugins = (config) => {
     {
       plugin: coursePatchPlugin,
       options: { apiConfig: config.services.coursePatch }
+    },
+    {
+      plugin: elasticsearchPlugin,
+      options: { apiConfig: config.services.elasticsearch }
     }
   ];
 };

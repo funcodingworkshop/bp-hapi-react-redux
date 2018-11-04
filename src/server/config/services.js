@@ -1,4 +1,4 @@
-export function getServicesConfig(serviceHost = 'localhost') {
+export function getServicesConfig(serviceHost = 'localhost', mongoDbName = 'testDb') {
   return {
     indexPage: {
       method: 'GET',
@@ -54,6 +54,11 @@ export function getServicesConfig(serviceHost = 'localhost') {
       path: '/api/account',
       methodUrl: 'POST',
       url: `http://${serviceHost}/api/verify-jwt`
+    },
+    elasticsearch: {
+      method: 'POST',
+      path: '/api/search',
+      url: 'http://localhost:9200/bp_auth_otp/_search'
     }
   };
 }

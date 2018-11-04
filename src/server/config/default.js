@@ -74,6 +74,6 @@ export default function getConfig() {
       expiresIn: 86400
     },
 
-    services: getServicesConfig(serviceHost)
+    services: getServicesConfig(serviceHost, mongoDbName)
   };
 }
