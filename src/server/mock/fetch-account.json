@@ -1,0 +1,8 @@
+{
+  "payload": {
+    "uid": "openaccount_ona",
+    "permissions": [
+      "user"
+    ]
+  }
+}

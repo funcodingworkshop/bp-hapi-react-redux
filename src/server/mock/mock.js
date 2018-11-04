@@ -1,13 +1,20 @@
-// import nock from 'nock';
-// import getConfig from '../config/config';
+import nock from 'nock';
+import getConfig from '../config/default';
+
+const config = getConfig();
+const longDelay = 1000;
+
+nock(config.services.account.url)
+  .persist()
+  .post('')
+  .delay(longDelay)
+  .reply(200, require('./fetch-account.json'));
+
 //
-// const config = getConfig();
-// const shortDelay = 200;
-//
-// nock(config.services.sendCode.url)
+// nock(config.services.account.url)
 //   .persist()
 //   .post('')
-//   .delay(shortDelay)
+//   .delay(longDelay)
 //   .reply((uri, request, cb) => {
 //     const parsedRequest = JSON.parse(request);
 //     console.log('mocks request', parsedRequest); // eslint-disable-line no-console
@@ -16,7 +23,6 @@
 //     }
 //     cb(null, [400, 'error']);
 //   });
-//
 // nock(config.services.verifyCode.url)
 //   .persist()
 //   .post('')
