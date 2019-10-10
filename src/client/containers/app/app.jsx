@@ -24,7 +24,7 @@ import { fetchAccountSagaAC, signOutSagaAC } from '../../redux/actions/app-actio
 import AppMenu from '../../components/app-menu/app-menu';
 import { PAGES } from '../../routes/pages';
 import { selectAccount, selectIsAccountLoading } from '../../redux/selectors/app-selectors';
-import AppNotifications from '../../containers/app-notifications/app-notifications';
+import AppNotifications from '../app-notifications/app-notifications';
 import { VISIBLE } from './constants';
 
 import styles from './styles';
@@ -37,11 +37,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    doRoute: doRouteAC,
-    fetchAccount: fetchAccountSagaAC,
-    signOut: signOutSagaAC
-  }, dispatch);
+  return bindActionCreators(
+    {
+      doRoute: doRouteAC,
+      fetchAccount: fetchAccountSagaAC,
+      signOut: signOutSagaAC
+    },
+    dispatch
+  );
 }
 
 class App extends React.Component {
@@ -84,61 +87,81 @@ class App extends React.Component {
   mainListItems = () => {
     const { signOut, account } = this.props;
     const allItems = [
-      { iconComponent: HomeIcon,
+      {
+        iconComponent: HomeIcon,
         onClick: this.handleClickPage(PAGES.home.path),
         text: 'Home',
-        visible: VISIBLE.ALWAYS },
-      { iconComponent: ArrowUpwardIcon,
+        visible: VISIBLE.ALWAYS
+      },
+      {
+        iconComponent: ArrowUpwardIcon,
         onClick: this.handleClickPage(PAGES.signUp.path),
         text: 'Sign Up',
-        visible: VISIBLE.NOT_AUTHENTICATED },
-      { iconComponent: SubdirectoryArrowLeftIcon,
+        visible: VISIBLE.NOT_AUTHENTICATED
+      },
+      {
+        iconComponent: SubdirectoryArrowLeftIcon,
         onClick: this.handleClickPage(PAGES.signIn.path),
         text: 'Sign In',
-        visible: VISIBLE.NOT_AUTHENTICATED },
-      { iconComponent: CloseIcon,
+        visible: VISIBLE.NOT_AUTHENTICATED
+      },
+      {
+        iconComponent: CloseIcon,
         onClick: signOut,
         text: 'Sign Out',
-        visible: VISIBLE.AUTHENTICATED },
-      { iconComponent: WarningIcon,
+        visible: VISIBLE.AUTHENTICATED
+      },
+      {
+        iconComponent: WarningIcon,
         onClick: this.handleClickPage(PAGES.page404.path),
         text: 'Page 404',
-        visible: VISIBLE.ALWAYS },
-      { iconComponent: WarningIcon,
+        visible: VISIBLE.ALWAYS
+      },
+      {
+        iconComponent: WarningIcon,
         onClick: this.handleClickPage(PAGES.page405.path),
         text: 'Page 405',
-        visible: VISIBLE.ALWAYS }
+        visible: VISIBLE.ALWAYS
+      }
     ];
     if (account) {
-      return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible)));
+      return allItems.filter(e => [VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible));
     }
-    return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible)));
+    return allItems.filter(e => [VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible));
   };
 
   otherListItems = () => {
     const { account } = this.props;
     const allItems = [
-      { iconComponent: StarIcon,
+      {
+        iconComponent: StarIcon,
         onClick: this.handleClickPage(PAGES.admin.path),
         text: 'Admin',
-        visible: VISIBLE.AUTHENTICATED },
-      { iconComponent: SchoolIcon,
+        visible: VISIBLE.AUTHENTICATED
+      },
+      {
+        iconComponent: SchoolIcon,
         onClick: this.handleClickPage(PAGES.COURSES.list.path),
         text: 'Courses',
-        visible: VISIBLE.AUTHENTICATED },
-      { iconComponent: GroupIcon,
+        visible: VISIBLE.AUTHENTICATED
+      },
+      {
+        iconComponent: GroupIcon,
         onClick: this.handleClickPage(PAGES.students.path),
         text: 'Students',
-        visible: VISIBLE.AUTHENTICATED },
-      { iconComponent: PeopleOutlineIcon,
+        visible: VISIBLE.AUTHENTICATED
+      },
+      {
+        iconComponent: PeopleOutlineIcon,
         onClick: this.handleClickPage(PAGES.users.path),
         text: 'Users',
-        visible: VISIBLE.AUTHENTICATED }
+        visible: VISIBLE.AUTHENTICATED
+      }
     ];
     if (account) {
-      return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible)));
+      return allItems.filter(e => [VISIBLE.ALWAYS, VISIBLE.AUTHENTICATED].includes(e.visible));
     }
-    return allItems.filter(e => ([VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible)));
+    return allItems.filter(e => [VISIBLE.ALWAYS, VISIBLE.NOT_AUTHENTICATED].includes(e.visible));
   };
 
   componentDidMount() {
@@ -154,49 +177,49 @@ class App extends React.Component {
     const { classes, account } = this.props;
     const hasAuth = Boolean(account);
     return (
-      <div className={ classes.root }>
-        <AppBar position="fixed">
+      <div className={classes.root}>
+        <AppBar position='fixed'>
           <Toolbar>
-            <div className={ classes.grow }>
+            <div className={classes.grow}>
               <IconButton
-                className={ classes.menuButton }
-                aria-label="More"
-                aria-owns={ anchorEl ? 'long-app-menu' : null }
-                aria-haspopup="true"
-                onClick={ this.handleClickMenu }
-                color="inherit"
+                className={classes.menuButton}
+                aria-label='More'
+                aria-owns={anchorEl ? 'long-app-menu' : null}
+                aria-haspopup='true'
+                onClick={this.handleClickMenu}
+                color='inherit'
               >
                 <MenuIcon />
               </IconButton>
               <AppMenu
-                isOpened={ this.state.isAppMenuOpened }
-                onClose={ this.handleCloseMenu }
-                mainListItems={ this.mainListItems() }
-                otherListItems={ this.otherListItems() }
+                isOpened={this.state.isAppMenuOpened}
+                onClose={this.handleCloseMenu}
+                mainListItems={this.mainListItems()}
+                otherListItems={this.otherListItems()}
               />
             </div>
-            { hasAuth &&
+            {hasAuth && (
               <div>
-                <IconButton color="inherit">
-                  <Badge badgeContent={4} color="secondary">
+                <IconButton color='inherit'>
+                  <Badge badgeContent={4} color='secondary'>
                     <MailIcon />
                   </Badge>
                 </IconButton>
                 <IconButton
                   aria-owns={'menu-appbar'}
-                  aria-haspopup="true"
+                  aria-haspopup='true'
                   onClick={() => {}}
-                  color="inherit"
+                  color='inherit'
                 >
                   <AccountCircle />
                 </IconButton>
               </div>
-            }
+            )}
           </Toolbar>
         </AppBar>
-        <div className={ classes.appChildren }>
-          <AppNotifications/>
-          { this.props.children }
+        <div className={classes.appChildren}>
+          <AppNotifications />
+          {this.props.children}
         </div>
       </div>
     );

@@ -10,7 +10,11 @@ import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { createCourseAC, updateCourseAC, fetchCourseSagaAC } from '../../../redux/actions/courses-actions';
+import {
+  createCourseAC,
+  updateCourseAC,
+  fetchCourseSagaAC
+} from '../../../redux/actions/courses-actions';
 import { selectCurrentCourse } from '../../../redux/selectors/courses-selectors';
 
 // import '../../../css/global.css';
@@ -23,11 +27,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    createCourseAC,
-    updateCourseAC,
-    fetchCourseSagaAC
-  }, dispatch);
+  return bindActionCreators(
+    {
+      createCourseAC,
+      updateCourseAC,
+      fetchCourseSagaAC
+    },
+    dispatch
+  );
 }
 
 class CourseAddComponent extends Component {
@@ -46,18 +53,18 @@ class CourseAddComponent extends Component {
       path: Type.string
     }),
     fetchCourseSagaAC: Type.func
-  }
+  };
 
   // TODO order of methods in class, SET eslint for methods ordering
-  setCourseName = (e) => {
+  setCourseName = e => {
     this.setState({ courseName: e.target.value });
   };
 
-  setCourseCode = (e) => {
+  setCourseCode = e => {
     this.setState({ courseCode: e.target.value });
   };
 
-  setCourseComment = (e) => {
+  setCourseComment = e => {
     this.setState({ courseComment: e.target.value });
   };
 
@@ -95,7 +102,7 @@ class CourseAddComponent extends Component {
       this.setState({ message: this.dataValidation() });
       this.setState({ message_type: 'error ' });
     }
-  }
+  };
 
   constructor() {
     super();
@@ -129,40 +136,67 @@ class CourseAddComponent extends Component {
     const regExpRule = /edit$/;
     return (
       <Grid container>
-
-        { this.state.message !== '' ?
+        {this.state.message !== '' ? (
           <Grid item xs={12}>
             <div className={`course-add__message course-add__message_${this.state.message_type}`}>
               {this.state.message}
             </div>
           </Grid>
-        : null }
+        ) : null}
 
-        <Grid item xs={12}><h1 className="course-add__header">Создание курса</h1></Grid>
+        <Grid item xs={12}>
+          <h1 className='course-add__header'>Создание курса</h1>
+        </Grid>
         <Grid item xs={12} md={6}>
-          <Link to="/courses" className="no-text-decoration"><Button variant="outlined" color="primary">Список курсов</Button></Link>
+          <Link to='/courses' className='no-text-decoration'>
+            <Button variant='outlined' color='primary'>
+              Список курсов
+            </Button>
+          </Link>
         </Grid>
-        <Grid item xs={12} className="course-add__input__container">
-          <Input type="text" className="course-add__input" placeholder="Название курса" value={this.state.courseName} onChange={this.setCourseName} required/>
+        <Grid item xs={12} className='course-add__input__container'>
+          <Input
+            type='text'
+            className='course-add__input'
+            placeholder='Название курса'
+            value={this.state.courseName}
+            onChange={this.setCourseName}
+            required
+          />
         </Grid>
-        <Grid item xs={12} className="course-add__input__container">
-          <Input type="text" className="course-add__input" placeholder="Уникальный код курса" value={this.state.courseCode} onChange={this.setCourseCode} required/>
+        <Grid item xs={12} className='course-add__input__container'>
+          <Input
+            type='text'
+            className='course-add__input'
+            placeholder='Уникальный код курса'
+            value={this.state.courseCode}
+            onChange={this.setCourseCode}
+            required
+          />
         </Grid>
-        <Grid item xs={12} className="course-add__input__container">
-          <TextField multiline className="course-add__input" placeholder="Описание курса" value={this.state.courseComment} onChange={this.setCourseComment} />
+        <Grid item xs={12} className='course-add__input__container'>
+          <TextField
+            multiline
+            className='course-add__input'
+            placeholder='Описание курса'
+            value={this.state.courseComment}
+            onChange={this.setCourseComment}
+          />
         </Grid>
         <Grid item xs={12}>
-          <div className="custom-btn_center">
-            {!regExpRule.test(this.props.match.path) ?
-              <Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить</Button>
-            :
-              <Button variant="contained" color="primary" size="large" onClick={this.addCourse}>Сохранить изменения</Button>
-            }
+          <div className='custom-btn_center'>
+            {!regExpRule.test(this.props.match.path) ? (
+              <Button variant='contained' color='primary' size='large' onClick={this.addCourse}>
+                Сохранить
+              </Button>
+            ) : (
+              <Button variant='contained' color='primary' size='large' onClick={this.addCourse}>
+                Сохранить изменения
+              </Button>
+            )}
           </div>
         </Grid>
-        {this.state.redirect ?
-          <Redirect to="/courses" />
-        : null }
+        {this.state.redirect ? <Redirect to='/courses' /> : null}
       </Grid>
     );
   }
