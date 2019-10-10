@@ -3,14 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import AppRoutes from './routes/app-routes';
 import configureStore from './configure-store';
 
-const history = createHistory({
+const history = createBrowserHistory({
   basename: ''
 });
 
