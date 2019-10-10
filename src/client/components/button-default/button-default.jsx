@@ -6,7 +6,7 @@ import styles from './styles';
 
 class ButtonDefault extends Component {
   static propTypes = {
-    classes: Type.shape({}),
+    classes: Type.object,
     name: Type.string.isRequired,
     onClick: Type.func
   };

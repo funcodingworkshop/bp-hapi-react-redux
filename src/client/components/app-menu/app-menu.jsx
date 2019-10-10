@@ -20,7 +20,7 @@ const listItem = Type.shape({
 
 class AppMenu extends PureComponent {
   static propTypes = {
-    classes: Type.shape({}).isRequired,
+    classes: Type.object,
     isOpened: Type.bool,
     onClose: Type.func.isRequired,
     mainListItems: Type.arrayOf(listItem),

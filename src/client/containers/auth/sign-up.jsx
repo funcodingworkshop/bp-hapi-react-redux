@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
 
 class SignUp extends PureComponent {
   static propTypes = {
-    classes: Type.shape({}),
+    classes: Type.object,
     signUp: Type.func.isRequired
   };
 

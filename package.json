@@ -82,6 +82,7 @@
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.5",
     "postcss-nested": "^3.0.0",
+    "prettier": "^1.18.2",
     "redux-devtools": "^3.5.0",
     "respawn": "^2.6.0",
     "rimraf": "^2.7.1",

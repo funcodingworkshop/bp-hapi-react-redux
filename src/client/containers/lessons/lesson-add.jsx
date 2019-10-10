@@ -16,7 +16,7 @@ class CreateLesson extends Component {
       }),
       path: Type.string
     })
-  }
+  };
 
   constructor() {
     super();
@@ -30,28 +30,28 @@ class CreateLesson extends Component {
   }
 
   shouldComponentUpdate(nextState) {
-    return (this.state.checked !== nextState.checked);
+    return this.state.checked !== nextState.checked;
   }
 
-  setName = (e) => {
+  setName = e => {
     this.setState({ name: e.target.value });
-  }
+  };
 
-  setVideoLink = (e) => {
+  setVideoLink = e => {
     this.setState({ video: e.target.value });
-  }
+  };
 
-  setTask = (e) => {
+  setTask = e => {
     this.setState({ task: e.target.value });
-  }
+  };
 
-  setComment = (e) => {
+  setComment = e => {
     this.setState({ comment: e.target.value });
-  }
+  };
 
   checkEmail = () => {
     this.setState({ checked: !this.state.checked });
-  }
+  };
 
   saveData = () => {
     const data = {
@@ -62,36 +62,45 @@ class CreateLesson extends Component {
       checked: this.state.checked
     };
     console.log(data);
-  }
+  };
 
   render() {
     return (
       <div>
-        <div>
-          Добавление урока
-        </div>
+        <div>Добавление урока</div>
 
         <Link to={`/courses/${this.props.match.params.id}`}>
-          <Button variant="contained">
-            Просмотр курса
-          </Button>
+          <Button variant='contained'>Просмотр курса</Button>
         </Link>
 
         <div>
-          <Input placeholder="Название урока" defaultValue={this.state.name} onChange={this.setName} />
-          <Input placeholder="Видео (ссылка на Youtube видео)" defaultValue={this.state.video} onChange={this.setVideoLink} />
-          <TextField placeholder="Задание к уроку" multiline defaultValue={this.state.task} onChange={this.setTask} />
-          <TextField placeholder="Комментарий к уроку" multiline defaultValue={this.state.comment} onChange={this.setComment} />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.checked}
-                onChange={this.checkEmail}
-              />
-            }
-            label="Отправить email уведомление при открытии урока"
+          <Input
+            placeholder='Название урока'
+            defaultValue={this.state.name}
+            onChange={this.setName}
           />
-          <Button variant="contained" color="primary" onClick={this.saveData}>
+          <Input
+            placeholder='Видео (ссылка на Youtube видео)'
+            defaultValue={this.state.video}
+            onChange={this.setVideoLink}
+          />
+          <TextField
+            placeholder='Задание к уроку'
+            multiline
+            defaultValue={this.state.task}
+            onChange={this.setTask}
+          />
+          <TextField
+            placeholder='Комментарий к уроку'
+            multiline
+            defaultValue={this.state.comment}
+            onChange={this.setComment}
+          />
+          <FormControlLabel
+            control={<Checkbox checked={this.state.checked} onChange={this.checkEmail} />}
+            label='Отправить email уведомление при открытии урока'
+          />
+          <Button variant='contained' color='primary' onClick={this.saveData}>
             Сохранить
           </Button>
         </div>

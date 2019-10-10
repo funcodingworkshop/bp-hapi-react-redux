@@ -26,7 +26,8 @@ module.exports = {
     "react/prop-types": [2],
     "import/prefer-default-export": [0],
     "class-methods-use-this": [0],
-    "object-curly-newline": [0]
+    "object-curly-newline": [0],
+    "arrow-parens": [0]
   },
   settings: {
     "import/resolver": {
