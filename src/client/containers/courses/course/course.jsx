@@ -7,15 +7,11 @@ import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchCourseSagaAC, deleteCourseAC } from '../../../redux/actions/courses-actions';
 import { selectCurrentCourse } from '../../../redux/selectors/courses-selectors';
 
 import './course.css';
-
-library.add(faTrashAlt, faPencilAlt);
 
 // TODO use decorators
 function mapStateToProps(state) {

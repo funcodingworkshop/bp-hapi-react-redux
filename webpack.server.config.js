@@ -1,5 +1,6 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   target: 'node',
@@ -14,10 +15,10 @@ module.exports = {
     publicPath: 'assets/'
   },
   plugins: [
-    new CopyWebpackPlugin([
+    new CopyPlugin([
       {
         from: 'src/server/plugins/pages/index.hbs',
-        toType: 'file'
+        to: ''
       }
     ])
   ],
