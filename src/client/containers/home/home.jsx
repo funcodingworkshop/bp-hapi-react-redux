@@ -16,8 +16,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-  }, dispatch);
+  return bindActionCreators({}, dispatch);
 }
 
 class Home extends React.Component {
@@ -25,17 +24,16 @@ class Home extends React.Component {
     classes: Type.object.isRequired
   };
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   render() {
     const { classes } = this.props;
     return (
-      <div className={ classes.home }>
+      <div className={classes.home}>
         <h1>{SITE_TITLE}</h1>
         <div>Just 3 seconds and your message is delivered to your customer!</div>
-        <div className={ classes.imgContainer }>
-          <img className={ classes.img } src={ logoImg } alt='Coding Bootcamp Ru' />
+        <div className={classes.imgContainer}>
+          <img className={classes.img} src={logoImg} alt='Coding Bootcamp Ru' />
         </div>
       </div>
     );
@@ -43,4 +41,7 @@ class Home extends React.Component {
 }
 
 const WithStylesHome = withStyles(styles)(Home);
-export default connect(mapStateToProps, mapDispatchToProps)(WithStylesHome);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WithStylesHome);

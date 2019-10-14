@@ -27,9 +27,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            babelrc: false,
-            presets: ['env', 'react'],
-            plugins: ['transform-object-rest-spread', 'transform-class-properties']
+            babelrc: true
           }
         }
       },

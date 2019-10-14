@@ -39,12 +39,12 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            presets: ['env', 'react'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
-              'transform-object-rest-spread',
-              'transform-class-properties',
-              'transform-runtime',
-              'transform-async-to-generator'
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-transform-runtime',
+              '@babel/plugin-transform-async-to-generator'
             ]
           }
         }
