@@ -29,10 +29,7 @@ module.exports = {
           options: {
             babelrc: false,
             presets: ['env', 'react'],
-            plugins: [
-              'transform-object-rest-spread',
-              'transform-class-properties'
-            ]
+            plugins: ['transform-object-rest-spread', 'transform-class-properties']
           }
         }
       },
@@ -40,8 +37,16 @@ module.exports = {
         test: /\.css$/,
         use: [
           // 'style-loader', // creates style nodes from JS strings
-          { loader: 'css-loader', options: { importLoaders: 1 } }, // translates CSS into CommonJS
-          'postcss-loader' // post CSS transform
+          'css-loader', // translates CSS into CommonJS
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              config: {
+                path: 'postcss.config.js'
+              }
+            }
+          } // post CSS transform
         ]
       },
       {
