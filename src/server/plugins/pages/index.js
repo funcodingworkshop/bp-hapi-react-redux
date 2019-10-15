@@ -61,7 +61,7 @@ const register = async (server, options) => {
 
       const template = handlebars.compile(fs.readFileSync(path.join(process.cwd(), targetDir, 'index.hbs'), 'utf8'));
       const context = {
-        title: 'My New React App', appCode, appCss, appState
+        title: 'J123 - Messaging Platform', appCode, appCss, appState
       };
       return template(context);
     } catch (e) {
