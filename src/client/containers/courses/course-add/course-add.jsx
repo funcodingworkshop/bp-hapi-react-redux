@@ -42,7 +42,8 @@ class CourseAddComponent extends Component {
     currentCourse: Type.shape({
       name: Type.string,
       code: Type.string,
-      comment: Type.string
+      comment: Type.string,
+      feedback: Type.string
     }),
     createCourseAC: Type.func.isRequired,
     updateCourseAC: Type.func.isRequired,
@@ -68,6 +69,10 @@ class CourseAddComponent extends Component {
     this.setState({ courseComment: e.target.value });
   };
 
+  setCourseFeedback = e => {
+    this.setState({ courseFeedback: e.target.value });
+  }
+
   dataValidation = () => {
     let check = false;
     if (this.state.courseCode === '') check = 'Необходимо добавить код курса!';
@@ -82,7 +87,8 @@ class CourseAddComponent extends Component {
     const data = {
       name: this.state.courseName,
       code: this.state.courseCode,
-      comment: this.state.courseComment
+      comment: this.state.courseComment,
+      feedback: this.state.courseFeedback
     };
 
     if (!this.dataValidation()) {
@@ -111,6 +117,7 @@ class CourseAddComponent extends Component {
       courseName: '',
       courseCode: '',
       courseComment: '',
+      courseFeedback: '',
       message: '',
       message_type: 'success',
       redirect: false
@@ -129,6 +136,7 @@ class CourseAddComponent extends Component {
       this.setState({ courseName: nextProps.currentCourse.name });
       this.setState({ courseCode: nextProps.currentCourse.code });
       this.setState({ courseComment: nextProps.currentCourse.comment });
+      this.setState({ courseFeedback: nextProps.currentCourse.feedback });
     }
   }
 
@@ -181,6 +189,15 @@ class CourseAddComponent extends Component {
             placeholder='Описание курса'
             value={this.state.courseComment}
             onChange={this.setCourseComment}
+          />
+        </Grid>
+        <Grid item xs={12} className='course-add__input__container'>
+          <TextField
+            multiline
+            className='course-add__input'
+            placeholder='Отзыв о курсу'
+            value={this.state.courseFeedback}
+            onChange={this.setCourseFeedback}
           />
         </Grid>
         <Grid item xs={12}>

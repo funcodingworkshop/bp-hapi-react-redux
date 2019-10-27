@@ -67,8 +67,11 @@ class Courses extends React.Component {
               <Grid item xs={2}>
                 Дата создания
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={2}>
                 Описание
+              </Grid>
+              <Grid item xs={1}>
+                Отзыв
               </Grid>
               <Grid item xs={1}/>
             </Grid>
