@@ -19,7 +19,8 @@ class CoursesComponent extends PureComponent {
       name,
       code,
       createdAt,
-      comment
+      comment,
+      feedback
     } = this.props.course;
 
     return (
@@ -29,7 +30,8 @@ class CoursesComponent extends PureComponent {
         <Grid item xs={2} className="course-line__link"><Link to={`/courses/${_id}`}>{name}</Link></Grid>
         <Grid item xs={1}>{code}</Grid>
         <Grid item xs={2}>{normalizeDate(createdAt)}</Grid>
-        <Grid item xs={4}>{comment}</Grid>
+        <Grid item xs={2}>{comment}</Grid>
+        <Grid item xs={1}>{feedback}</Grid>
         <Grid item xs={1}/>
       </Grid>
     );

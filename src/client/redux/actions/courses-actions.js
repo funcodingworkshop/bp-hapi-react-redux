@@ -65,7 +65,8 @@ export function createCourseAC(data) {
     payload: {
       name: data.name,
       code: data.code,
-      comment: data.comment
+      comment: data.comment,
+      feedback: data.feedback
     }
   };
 }

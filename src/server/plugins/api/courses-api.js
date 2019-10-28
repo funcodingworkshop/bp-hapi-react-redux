@@ -90,6 +90,7 @@ const registerCoursePatch = async (server, options) => {
 
   const handler = async (request, h) => {
     const { params: { courseId } = {}, payload: { course } } = request;
+    console.log('message from boris', course);
     try {
       const url = parseUrlFromTemplate(urlTemplate, { courseId });
       const { data } = await axios({ method, url, data: course });
