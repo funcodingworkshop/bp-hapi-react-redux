@@ -8,7 +8,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import NotificationWrapper from '../../components/notification-wrapper/notification-wrapper';
-import { selectSay, selectCurrentNotification, selectIsNotificationOpen } from '../../redux/selectors/app-selectors';
+import {
+  selectSay,
+  selectCurrentNotification,
+  selectIsNotificationOpen
+} from '../../redux/selectors/app-selectors';
 import {
   enqueueErrorNotificationSagaAC,
   enqueueSuccessNotificationSagaAC,
@@ -18,7 +22,7 @@ import {
 
 const styles = theme => ({
   close: {
-    padding:  theme.spacing(1)
+    padding: theme.spacing(1)
   }
 });
 
@@ -31,12 +35,15 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    enqueueErrorNotification: enqueueErrorNotificationSagaAC,
-    enqueueSuccessNotification: enqueueSuccessNotificationSagaAC,
-    closeNotification: closeNotificationAC,
-    processNotification: processNotificationAC
-  }, dispatch);
+  return bindActionCreators(
+    {
+      enqueueErrorNotification: enqueueErrorNotificationSagaAC,
+      enqueueSuccessNotification: enqueueSuccessNotificationSagaAC,
+      closeNotification: closeNotificationAC,
+      processNotification: processNotificationAC
+    },
+    dispatch
+  );
 }
 
 class AppNotifications extends PureComponent {
@@ -79,7 +86,7 @@ class AppNotifications extends PureComponent {
             vertical: 'bottom',
             horizontal: 'left'
           }}
-          open={ isNotificationOpen }
+          open={isNotificationOpen}
           autoHideDuration={6000}
           onClose={this.handleClose}
           onExited={this.handleExited}
@@ -87,13 +94,13 @@ class AppNotifications extends PureComponent {
             'aria-describedby': 'message-id'
           }}
           action={[
-            <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
+            <Button key='undo' color='secondary' size='small' onClick={this.handleClose}>
               UNDO
             </Button>,
             <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
+              key='close'
+              aria-label='Close'
+              color='inherit'
               className={classes.close}
               onClick={this.handleClose}
             >
@@ -103,8 +110,8 @@ class AppNotifications extends PureComponent {
         >
           <NotificationWrapper
             onClose={this.handleClose}
-            variant={ notificationType }
-            message={ message }
+            variant={notificationType}
+            message={message}
           />
         </Snackbar>
       </div>
@@ -113,4 +120,7 @@ class AppNotifications extends PureComponent {
 }
 
 const WithStylesAppNotifications = withStyles(styles)(AppNotifications);
-export default connect(mapStateToProps, mapDispatchToProps)(WithStylesAppNotifications);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WithStylesAppNotifications);
