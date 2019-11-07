@@ -1,5 +1,5 @@
 export default theme => ({
   container: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing(2)
   }
 });

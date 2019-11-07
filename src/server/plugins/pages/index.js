@@ -5,13 +5,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import { Provider as ReduxProvider } from 'react-redux';
-import { SheetsRegistry } from 'react-jss/lib/jss';
-import JssProvider from 'react-jss/lib/JssProvider';
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  createGenerateClassName
-} from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme, ServerStyleSheets } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 
 import configureStore from '../../../client/configure-store';
@@ -31,37 +25,38 @@ const register = async (server, options) => {
     buildConfig: { targetDir }
   } = options;
 
-  const handler = async (request) => {
+  const handler = async request => {
     try {
-      const sheetsRegistry = new SheetsRegistry();
-      const sheetsManager = new Map();
+      const sheets = new ServerStyleSheets();
       const theme = createMuiTheme({
         palette: {
           primary: purple,
           type: 'light'
         }
       });
-      const generateClassName = createGenerateClassName();
 
       const store = configureStore()(initialState);
-      const jsx = (
-        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-          <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
-            <ReduxProvider store={ store }>
-              <StaticRouter context={ {} } location={ request.url.path }>
-                <AppRoutes />
-              </StaticRouter>
-            </ReduxProvider>
-          </MuiThemeProvider>
-        </JssProvider>
+      const jsx = sheets.collect(
+        <ThemeProvider theme={theme}>
+          <ReduxProvider store={store}>
+            <StaticRouter context={{}} location={request.url.path}>
+              <AppRoutes />
+            </StaticRouter>
+          </ReduxProvider>
+        </ThemeProvider>
       );
       const appCode = renderToString(jsx);
-      const appCss = sheetsRegistry.toString();
+      const appCss = sheets.toString();
       const appState = JSON.stringify(store.getState());
 
-      const template = handlebars.compile(fs.readFileSync(path.join(process.cwd(), targetDir, 'index.hbs'), 'utf8'));
+      const template = handlebars.compile(
+        fs.readFileSync(path.join(process.cwd(), targetDir, 'index.hbs'), 'utf8')
+      );
       const context = {
-        title: 'J123 - Messaging Platform', appCode, appCss, appState
+        title: 'J123 - Messaging Platform',
+        appCode,
+        appCss,
+        appState
       };
       return template(context);
     } catch (e) {

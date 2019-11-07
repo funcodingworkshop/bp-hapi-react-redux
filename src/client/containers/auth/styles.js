@@ -1,8 +1,8 @@
-export default function (theme) {
+export default function styles(theme) {
   return {
     container: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2)
     },
     form: {
       flexDirection: 'column'

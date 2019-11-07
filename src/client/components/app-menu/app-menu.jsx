@@ -13,7 +13,7 @@ import { SITE_TITLE } from '../../constants/names';
 import styles from './styles';
 
 const listItem = Type.shape({
-  iconComponent: Type.func.isRequired,
+  iconComponent: Type.object.isRequired,
   onClick: Type.func.isRequired,
   text: Type.string.isRequired
 });
@@ -41,7 +41,7 @@ class AppMenu extends PureComponent {
             <ListItemText primary={ SITE_TITLE } />
           </ListItem>
           <Divider />
-          { mainListItems.map(el => (
+          { mainListItems && mainListItems.map(el => (
             <ListItem button onClick={ el.onClick } key={ el.text }>
               <ListItemIcon>
                 <el.iconComponent/>
@@ -52,7 +52,7 @@ class AppMenu extends PureComponent {
         </List>
         <Divider />
         <List>
-          { otherListItems.map(el => (
+          { otherListItems && otherListItems.map(el => (
             <ListItem button onClick={ el.onClick } key={ el.text }>
               <ListItemIcon>
                 <el.iconComponent/>

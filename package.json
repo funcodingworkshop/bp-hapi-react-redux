@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/klishevich/bp-hapi-react-redux#readme",
   "dependencies": {
-    "@material-ui/core": "^1.4.0",
+    "@material-ui/core": "^4.6.0",
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
@@ -47,7 +47,6 @@
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-jss": "^8.6.1",
     "react-redux": "^5.1.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
