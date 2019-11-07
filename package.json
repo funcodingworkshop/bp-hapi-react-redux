@@ -29,7 +29,7 @@
   "homepage": "https://github.com/klishevich/bp-hapi-react-redux#readme",
   "dependencies": {
     "@material-ui/core": "^1.4.0",
-    "@material-ui/icons": "^1.1.0",
+    "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "boom": "^7.3.0",
