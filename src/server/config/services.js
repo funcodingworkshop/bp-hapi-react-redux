@@ -29,6 +29,31 @@ export function getServicesConfig(serviceHost = 'localhost') {
       path: '/api/courses/{courseId}/edit',
       url: `http://${serviceHost}/api/courses/{courseId}`
     },
+    clients: {
+      method: 'GET',
+      path: '/api/clients',
+      url: `http://${serviceHost}/api/clients`
+    },
+    client: {
+      method: 'GET',
+      path: '/api/clients/{clientId}',
+      url: `http://${serviceHost}/api/clients/{clientId}`
+    },
+    clientPost: {
+      method: 'POST',
+      path: '/api/clients',
+      url: `http://${serviceHost}/api/clients`
+    },
+    clientDelete: {
+      method: 'DELETE',
+      path: '/api/clients/{clientId}',
+      url: `http://${serviceHost}/api/clients/{clientId}`
+    },
+    clientPatch: {
+      method: 'PATCH',
+      path: '/api/clients/{clientId}/edit',
+      url: `http://${serviceHost}/api/clients/{clientId}`
+    },
     auth: {
       verifyJwt: {
         method: 'POST',

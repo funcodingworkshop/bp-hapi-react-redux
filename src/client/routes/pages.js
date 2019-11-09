@@ -37,6 +37,10 @@ export const PAGES = {
       path: '/courses/:id'
     }
   },
+  clients: {
+    name: 'clients',
+    path: '/clients'
+  },
   students: {
     name: 'students',
     path: '/students'

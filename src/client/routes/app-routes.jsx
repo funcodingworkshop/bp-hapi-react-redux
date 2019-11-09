@@ -15,6 +15,7 @@ import Courses from '../containers/courses/courses/courses';
 import CourseAdd from '../containers/courses/course-add/course-add';
 import CourseSimple from '../containers/courses/course/course';
 import CreateLesson from '../containers/lessons/lesson-add';
+import Clients from '../containers/clients/clients';
 
 const WrappedApp = (Component, props, needAuth = true) => (
   <App needAuth={ needAuth }>
@@ -67,6 +68,10 @@ export default () => (
     <Route
       exact path="/courses/:id/lessons/new"
       render={ props => WrappedApp(CreateLesson, props) }
+    />
+    <Route
+      exact path={PAGES.clients.path}
+      render={ props => WrappedApp(Clients, props) }
     />
     <Route
       exact path={ PAGES.page405.path }
