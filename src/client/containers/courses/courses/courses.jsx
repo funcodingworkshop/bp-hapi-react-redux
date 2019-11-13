@@ -54,7 +54,7 @@ class Courses extends React.Component {
 
           <div className='courses__panel-list'>
             <Grid container spacing={8} className='courses__panel-list__header'>
-              <Grid item xs={1}/>
+              <Grid item xs={1} />
               <Grid item xs={1}>
                 id
               </Grid>
@@ -73,7 +73,7 @@ class Courses extends React.Component {
               <Grid item xs={1}>
                 Отзыв
               </Grid>
-              <Grid item xs={1}/>
+              <Grid item xs={1} />
             </Grid>
 
             {this.props.coursesList.map((course, index) => (
