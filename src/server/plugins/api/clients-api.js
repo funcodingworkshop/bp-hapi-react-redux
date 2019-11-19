@@ -96,7 +96,7 @@ const registerClientPatch = async (server, options) => {
 
   const handler = async (request, h) => {
     const {
-      params: { clientId } = {},
+      params: { clinetId } = {},
       payload: { client }
     } = request;
     console.log('message from boris', client);

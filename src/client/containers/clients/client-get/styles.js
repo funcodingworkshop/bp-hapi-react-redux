@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export let useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),

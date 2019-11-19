@@ -9,11 +9,12 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { SERVICES } from '../../../server/config/services';
-import axios from '../../axios-instance-browser';
-import { fetchClientsSuccessAC } from '../../redux/actions/clients-actions';
-import { selectClients } from '../../redux/selectors/clients-selectors';
+import { SERVICES } from '../../../../server/config/services';
+import axios from '../../../axios-instance-browser';
+import { fetchClientsSuccessAC } from '../../../redux/actions/clients-actions';
+import { selectClients } from '../../../redux/selectors/clients-selectors';
 import { useStyles } from './styles';
+import InputField from '../../../components/field-component/field-component';
 
 function mapStateToProps(state) {
   return {
@@ -31,6 +32,7 @@ function mapDispatchToProps(dispatch) {
 }
 function Clients(props) {
   const classes = useStyles();
+
   const callGetClients = async () => {
     const { method, path: url } = SERVICES.clients;
     const { data } = await axios({ method, url });
@@ -72,11 +74,13 @@ function Clients(props) {
           </TableBody>
         </Table>
       </Paper>
+      <InputField />
     </div>
   );
 }
 Clients.propTypes = {
-  fetchClients: PropTypes.func.isRequired
+  fetchClients: PropTypes.func.isRequired,
+  clientsList: PropTypes.array.isRequired
 };
 
 const VisibleClients = connect(
