@@ -12,6 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft';
 import CloseIcon from '@material-ui/icons/Close';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import WarningIcon from '@material-ui/icons/Warning';
 import StarIcon from '@material-ui/icons/Star';
 import SchoolIcon from '@material-ui/icons/School';
@@ -143,6 +144,12 @@ class App extends React.Component {
         iconComponent: SchoolIcon,
         onClick: this.handleClickPage(PAGES.COURSES.list.path),
         text: 'Courses',
+        visible: VISIBLE.AUTHENTICATED
+      },
+      {
+        iconComponent: AccessibilityIcon,
+        onClick: this.handleClickPage(PAGES.clients.path),
+        text: 'Clients',
         visible: VISIBLE.AUTHENTICATED
       },
       {

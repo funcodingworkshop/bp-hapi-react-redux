@@ -1,10 +1,22 @@
 import { signInPlugin, signUpPlugin, signOutPlugin } from './plugins/api/auth-api';
 import { fetchAccountPlugin } from './plugins/api/account-api';
 import {
-  coursesPlugin, coursePlugin, coursePostPlugin, courseDeletePlugin, coursePatchPlugin
+  coursesPlugin,
+  coursePlugin,
+  coursePostPlugin,
+  courseDeletePlugin,
+  coursePatchPlugin
 } from './plugins/api/courses-api';
 
-const getPlugins = (config) => {
+import {
+  clientsPlugin,
+  clientPlugin,
+  clientPostPlugin,
+  clientDeletePlugin,
+  clientPatchPlugin
+} from './plugins/api/clients-api';
+
+const getPlugins = config => {
   // eslint-disable-next-line no-unused-vars
   const loggerConfig = {
     appId: config.appId,
@@ -49,6 +61,26 @@ const getPlugins = (config) => {
     {
       plugin: coursePatchPlugin,
       options: { apiConfig: config.services.coursePatch }
+    },
+    {
+      plugin: clientsPlugin,
+      options: { apiConfig: config.services.clients }
+    },
+    {
+      plugin: clientPlugin,
+      options: { apiConfig: config.services.client }
+    },
+    {
+      plugin: clientPostPlugin,
+      options: { apiConfig: config.services.clientPost }
+    },
+    {
+      plugin: clientDeletePlugin,
+      options: { apiConfig: config.services.clientDelete }
+    },
+    {
+      plugin: clientPatchPlugin,
+      options: { apiConfig: config.services.clientPatch }
     }
   ];
 };

@@ -3,8 +3,8 @@ import { serverConsoleError } from '../../utils/server-console-error';
 import axios from '../../config/axios-instance-node';
 import { parseUrlFromTemplate } from '../../../client/utils/path';
 
-// courses index
-const registerCourses = async (server, options) => {
+// clients index
+const registerClients = async (server, options) => {
   const {
     apiConfig: { method, path, url }
   } = options;
@@ -14,39 +14,39 @@ const registerCourses = async (server, options) => {
       const { data } = await axios({ method, url });
       return data;
     } catch (e) {
-      serverConsoleError('coursesPlugin', e);
+      serverConsoleError('clientsPlugin', e);
       return HTTP_ERROR_400;
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursesPlugin = { name: 'coursesPlugin', register: registerCourses };
+export const clientsPlugin = { name: 'clientsPlugin', register: registerClients };
 
-// read course
-const registerCourse = async (server, options) => {
+// read client
+const registerClient = async (server, options) => {
   const {
     apiConfig: { method, path, url: urlTemplate }
   } = options;
 
   const handler = async (request, h) => {
-    const { params: { courseId } = {} } = request;
-    const url = parseUrlFromTemplate(urlTemplate, { courseId });
+    const { params: { clientId } = {} } = request;
+    const url = parseUrlFromTemplate(urlTemplate, { clientId });
     try {
       const { data } = await axios({ method, url });
       return data;
     } catch (e) {
-      serverConsoleError('coursePlugin', e);
+      serverConsoleError('clientPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePlugin = { name: 'coursePlugin', register: registerCourse };
+export const clientPlugin = { name: 'clientPlugin', register: registerClient };
 
-// create course
-const registerCoursePost = async (server, options) => {
+// create client
+const registerClientPost = async (server, options) => {
   const {
     apiConfig: { method, path, url }
   } = options;
@@ -56,29 +56,29 @@ const registerCoursePost = async (server, options) => {
       const { data } = await axios({ method, url, data: request.payload });
       return h.response(data).code(201);
     } catch (e) {
-      serverConsoleError('coursePostPlugin', e);
+      serverConsoleError('clientPostPlugin', e);
       return HTTP_ERROR_400;
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePostPlugin = { name: 'coursePostPlugin', register: registerCoursePost };
+export const clientPostPlugin = { name: 'clientPostPlugin', register: registerClientPost };
 
-// delete course
-const registerCourseDelete = async (server, options) => {
+// delete client
+const registerClientDelete = async (server, options) => {
   const {
     apiConfig: { method, path, url: urlTemplate }
   } = options;
 
   const handler = async (request, h) => {
-    const { params: { courseId } = {} } = request;
-    const url = parseUrlFromTemplate(urlTemplate, { courseId });
+    const { params: { clientId } = {} } = request;
+    const url = parseUrlFromTemplate(urlTemplate, { clientId });
     try {
       await axios({ method, url });
       return h.response().code(204);
     } catch (e) {
-      serverConsoleError('courseDeletePlugin', e);
+      serverConsoleError('clientDeletePlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
@@ -86,30 +86,30 @@ const registerCourseDelete = async (server, options) => {
   server.route({ method, path, handler });
 };
 
-export const courseDeletePlugin = { name: 'courseDeletePlugin', register: registerCourseDelete };
+export const clientDeletePlugin = { name: 'clientDeletePlugin', register: registerClientDelete };
 
-// update course
-const registerCoursePatch = async (server, options) => {
+// update client
+const registerClientPatch = async (server, options) => {
   const {
     apiConfig: { method, path, url: urlTemplate }
   } = options;
 
   const handler = async (request, h) => {
     const {
-      params: { courseId } = {},
-      payload: { course }
+      params: { clinetId } = {},
+      payload: { client }
     } = request;
-    console.log('message from boris', course);
+    console.log('message from boris', client);
     try {
-      const url = parseUrlFromTemplate(urlTemplate, { courseId });
-      const { data } = await axios({ method, url, data: course });
+      const url = parseUrlFromTemplate(urlTemplate, { clinetId });
+      const { data } = await axios({ method, url, data: client });
       return h.response(data).code(200);
     } catch (e) {
-      serverConsoleError('coursePatchPlugin', e);
+      serverConsoleError('clientPatchPlugin', e);
       return h.response(HTTP_ERROR_400).code(400);
     }
   };
 
   server.route({ method, path, handler });
 };
-export const coursePatchPlugin = { name: 'coursePatchPlugin', register: registerCoursePatch };
+export const clientPatchPlugin = { name: 'clientPatchPlugin', register: registerClientPatch };
