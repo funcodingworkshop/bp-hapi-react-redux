@@ -19,6 +19,10 @@ export const PAGES = {
     name: 'page405',
     path: '/page405'
   },
+  contactForm: {
+    name: 'contactForm',
+    path: '/contact-form'
+  },
   COURSES: {
     list: {
       name: 'courses',

@@ -14,6 +14,7 @@ import Users from '../containers/users/users';
 import Courses from '../containers/courses/courses/courses';
 import CourseAdd from '../containers/courses/course-add/course-add';
 import CourseSimple from '../containers/courses/course/course';
+import ContactForm from '../containers/contact-form/contact-form';
 import CreateLesson from '../containers/lessons/lesson-add';
 import Clients from '../containers/clients/client-get/client';
 
@@ -80,6 +81,10 @@ export default () => (
     <Route
       exact path={PAGES.page404.path}
       render={props => WrappedApp(Page404, props, false)}
+    />
+    <Route
+      exact path={PAGES.contactForm.path}
+      render={props => WrappedApp(ContactForm, props, false)}
     />
     <Route
       path='/'
