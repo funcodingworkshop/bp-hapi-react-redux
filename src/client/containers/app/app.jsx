@@ -14,6 +14,7 @@ import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft'
 import CloseIcon from '@material-ui/icons/Close';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import WarningIcon from '@material-ui/icons/Warning';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 import StarIcon from '@material-ui/icons/Star';
 import SchoolIcon from '@material-ui/icons/School';
 import GroupIcon from '@material-ui/icons/Group';
@@ -122,6 +123,12 @@ class App extends React.Component {
         iconComponent: WarningIcon,
         onClick: this.handleClickPage(PAGES.page405.path),
         text: 'Page 405',
+        visible: VISIBLE.ALWAYS
+      },
+      {
+        iconComponent: ContactMailIcon,
+        onClick: this.handleClickPage(PAGES.contactForm.path),
+        text: 'Contact form',
         visible: VISIBLE.ALWAYS
       }
     ];
